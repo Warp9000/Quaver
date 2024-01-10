@@ -1,11 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Quaver.Server.Client.Handlers;
+// using Quaver.Server.Client.Handlers;
 using Quaver.Shared.Graphics.Menu.Border;
-using Quaver.Shared.Graphics.Overlays.Chatting;
+// using Quaver.Shared.Graphics.Overlays.Chatting;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens;
 using Quaver.Shared.Screens.Gameplay;
@@ -27,7 +27,7 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
 
         /// <summary>
         /// </summary>
-        private OnlineChat Chat { get; }
+        // private OnlineChat Chat { get; }
 
         /// <summary>
         /// </summary>
@@ -43,10 +43,10 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
         {
             var game = (QuaverGame) GameBase.Game;
             Hub = game.OnlineHub;
-            Chat = game.OnlineChat;
+            // Chat = game.OnlineChat;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnGameStarted += OnMultiplayerGameStarted;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnGameStarted += OnMultiplayerGameStarted;
 
             AutoResizeForResolutions = false;
 
@@ -96,10 +96,10 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
         public override void Destroy()
         {
             Hub.Parent = null;
-            Chat.Parent = null;
+            // Chat.Parent = null;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnGameStarted -= OnMultiplayerGameStarted;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnGameStarted -= OnMultiplayerGameStarted;
 
             base.Destroy();
         }
@@ -118,10 +118,10 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
             Hub.ClearAnimations();
             Hub.X = Hub.Width + 10;
 
-            Chat.Parent = this;
-            Chat.Alignment = Alignment.BotLeft;
-            Chat.ClearAnimations();
-            Chat.Y = Chat.Height + 10;
+            // Chat.Parent = this;
+            // Chat.Alignment = Alignment.BotLeft;
+            // Chat.ClearAnimations();
+            // Chat.Y = Chat.Height + 10;
 
             // TODO: The hub should automatically change it's container size rather than doing this
             GapFill = new Sprite()
@@ -146,7 +146,7 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
             if (KeyboardManager.IsUniqueKeyPress(Keys.Escape))
                 Close();
 
-            if (MouseManager.IsUniqueClick(MouseButton.Left) && !Hub.IsHovered() && !Chat.IsHovered() && !Chat.IsResizing)
+            if (MouseManager.IsUniqueClick(MouseButton.Left) && !Hub.IsHovered())// && !Chat.IsHovered() && !Chat.IsResizing)
                 Close();
         }
 
@@ -155,7 +155,7 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
         public void Open()
         {
             Hub.Open();
-            Chat.Open();
+            // Chat.Open();
             FadeTo(0.75f, Easing.Linear, 200);
         }
 
@@ -169,12 +169,12 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
             FadeTo(0, Easing.Linear, 200);
 
             Hub.Close();
-            Chat.Close();
+            // Chat.Close();
 
             if (GameBase.Game is QuaverGame game && game.CurrentScreen.Type == QuaverScreenType.Gameplay)
             {
                 if (game.CurrentScreen is GameplayScreen gameplay)
-                    game.GlobalUserInterface.Cursor.Alpha = gameplay.InReplayMode && gameplay.SpectatorClient == null ? 1 : 0;
+                    game.GlobalUserInterface.Cursor.Alpha = gameplay.InReplayMode ? 1 : 0;
             }
 
             ThreadScheduler.RunAfter(() => DialogManager.Dismiss(this), 300);
@@ -184,6 +184,6 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnMultiplayerGameStarted(object sender, GameStartedEventArgs e) => Close();
+        // private void OnMultiplayerGameStarted(object sender, GameStartedEventArgs e) => Close();
     }
 }

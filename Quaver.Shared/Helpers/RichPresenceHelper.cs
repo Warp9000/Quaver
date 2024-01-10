@@ -1,5 +1,5 @@
 using Quaver.Shared.Discord;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,8 +18,8 @@ namespace Quaver.Shared.Helpers
         /// <param name="details">details of the game.</param>
         public static void UpdateRichPresence(string state, string details) {
             // might be a good idea to check k_cchMaxRichPresenceValueLength and the return value in the future.
-            SteamManager.SetRichPresence("State", state);
-            SteamManager.SetRichPresence("Details", details);
+            // SteamManager.SetRichPresence("State", state);
+            // SteamManager.SetRichPresence("Details", details);
 
             DiscordHelper.Presence.Details = details;
             DiscordHelper.Presence.State = state;

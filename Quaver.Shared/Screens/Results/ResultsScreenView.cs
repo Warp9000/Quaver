@@ -11,7 +11,7 @@ using Quaver.Shared.Screens.Results.UI.Footer;
 using Quaver.Shared.Screens.Results.UI.Header;
 using Quaver.Shared.Screens.Results.UI.Header.Contents.Tabs;
 using Quaver.Shared.Screens.Results.UI.Tabs;
-using Quaver.Shared.Screens.Results.UI.Tabs.Multiplayer;
+// using Quaver.Shared.Screens.Results.UI.Tabs.Multiplayer;
 using Quaver.Shared.Screens.Results.UI.Tabs.Overview;
 using Quaver.Shared.Screens.Tests.UI.Borders;
 using Quaver.Shared.Skinning;
@@ -52,7 +52,7 @@ namespace Quaver.Shared.Screens.Results
 
         /// <summary>
         /// </summary>
-        private ResultsMultiplayerTab MultiplayerTab { get; set; }
+        // private ResultsMultiplayerTab MultiplayerTab { get; set; }
 
         /// <summary>
         ///     The width of the screen content
@@ -75,12 +75,12 @@ namespace Quaver.Shared.Screens.Results
             CreateScreenHeader();
             CreateOverviewTab();
 
-            if (ResultsScreen.MultiplayerGame != null)
-            {
-                CreateMultiplayerTab();
-                ResultsScreen.ActiveTab.Value = ResultsScreenTabType.Multiplayer;
-                SnapTabPositions();
-            }
+            // if (ResultsScreen.MultiplayerGame != null)
+            // {
+            //     CreateMultiplayerTab();
+            //     ResultsScreen.ActiveTab.Value = ResultsScreenTabType.Multiplayer;
+            //     SnapTabPositions();
+            // }
 
             Header.Parent = Container;
             Footer.Parent = Container;
@@ -155,7 +155,7 @@ namespace Quaver.Shared.Screens.Results
         private void CreateOverviewTab()
         {
             OverviewTab = new ResultsOverviewTab(ResultsScreen.Map, ResultsScreen.Processor,
-                ResultsScreen.ActiveTab, ResultsScreen.IsSubmittingScore, ResultsScreen.ScoreSubmissionStats)
+                ResultsScreen.ActiveTab, ResultsScreen.IsSubmittingScore)
             {
                 Parent = Container,
                 Alignment = Alignment.TopCenter,
@@ -167,19 +167,19 @@ namespace Quaver.Shared.Screens.Results
 
         /// <summary>
         /// </summary>
-        private void CreateMultiplayerTab()
-        {
-            MultiplayerTab = new ResultsMultiplayerTab(ResultsScreen.Map, ResultsScreen.Processor,
-                ResultsScreen.ActiveTab, ResultsScreen.MultiplayerGame, ResultsScreen.MultiplayerTeam1Users, ResultsScreen.MultiplayerTeam2Users)
-            {
-                Parent = Container,
-                Alignment = Alignment.TopCenter,
-                Y = OverviewTab.Y
-            };
+        // private void CreateMultiplayerTab()
+        // {
+        //     MultiplayerTab = new ResultsMultiplayerTab(ResultsScreen.Map, ResultsScreen.Processor,
+        //         ResultsScreen.ActiveTab, ResultsScreen.MultiplayerGame, ResultsScreen.MultiplayerTeam1Users, ResultsScreen.MultiplayerTeam2Users)
+        //     {
+        //         Parent = Container,
+        //         Alignment = Alignment.TopCenter,
+        //         Y = OverviewTab.Y
+        //     };
 
-            MultiplayerTab.X = -Container.Width - 50;
-            TabContainers[ResultsScreenTabType.Multiplayer] = MultiplayerTab;
-        }
+        //     MultiplayerTab.X = -Container.Width - 50;
+        //     TabContainers[ResultsScreenTabType.Multiplayer] = MultiplayerTab;
+        // }
 
         /// <summary>
         /// </summary>

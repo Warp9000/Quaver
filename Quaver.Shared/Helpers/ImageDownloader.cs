@@ -10,9 +10,9 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
-using Quaver.Server.Client;
+// using Quaver.Server.Client;
 using Quaver.Shared.Assets;
-using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Screens.Download;
 using Wobble.Assets;
 
 namespace Quaver.Shared.Helpers
@@ -23,34 +23,34 @@ namespace Quaver.Shared.Helpers
         ///     Downloads a mapset banner and returns a stream for it
         /// </summary>
         /// <param name="id"></param>
-        public static async Task<Texture2D> DownloadMapsetBanner(int id)
-        {
-            if (DownloadScreen.MapsetBanners.ContainsKey(id))
-                return DownloadScreen.MapsetBanners[id];
+        // public static async Task<Texture2D> DownloadMapsetBanner(int id)
+        // {
+        //     if (DownloadScreen.MapsetBanners.ContainsKey(id))
+        //         return DownloadScreen.MapsetBanners[id];
 
-            var url = OnlineClient.GetBannerUrl(id);
+        //     var url = OnlineClient.GetBannerUrl(id);
 
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    var data = await webClient.DownloadDataTaskAsync(url);
+        //     try
+        //     {
+        //         using (var webClient = new WebClient())
+        //         {
+        //             var data = await webClient.DownloadDataTaskAsync(url);
 
-                    using (var mem = new MemoryStream(data))
-                    {
-                        var img = AssetLoader.LoadTexture2D(mem);
-                        DownloadScreen.MapsetBanners[id] = img;
-                        return img;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
+        //             using (var mem = new MemoryStream(data))
+        //             {
+        //                 var img = AssetLoader.LoadTexture2D(mem);
+        //                 DownloadScreen.MapsetBanners[id] = img;
+        //                 return img;
+        //             }
+        //         }
+        //     }
+        //     catch (Exception)
+        //     {
+        //         // ignored
+        //     }
 
-            // Make a transparent texture.
-            return UserInterface.MenuBackgroundBlurred;
-        }
+        //     // Make a transparent texture.
+        //     return UserInterface.MenuBackgroundBlurred;
+        // }
     }
 }

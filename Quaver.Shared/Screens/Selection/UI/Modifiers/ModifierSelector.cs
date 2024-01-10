@@ -4,7 +4,7 @@ using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Menu.UI.Jukebox;
 using Wobble;
 using Wobble.Assets;
@@ -116,11 +116,11 @@ namespace Quaver.Shared.Screens.Selection.UI.Modifiers
 
             ResetModifiersButton = new IconButton(UserInterface.EditPlayButton, (sender, args) =>
             {
-                if (OnlineManager.CurrentGame != null &&
-                    (OnlineManager.CurrentGame.HostId != OnlineManager.Self?.OnlineUser?.Id && OnlineManager.CurrentGame.FreeModType == 0))
-                {
-                    return;
-                }
+                // if (OnlineManager.CurrentGame != null &&
+                //     (OnlineManager.CurrentGame.HostId != OnlineManager.Self?.OnlineUser?.Id && OnlineManager.CurrentGame.FreeModType == 0))
+                // {
+                //     return;
+                // }
 
                 ModManager.RemoveAllMods();
             })

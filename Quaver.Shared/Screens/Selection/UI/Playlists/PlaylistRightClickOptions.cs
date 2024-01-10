@@ -5,7 +5,7 @@ using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Playlists;
 using Quaver.Shared.Graphics.Form.Dropdowns.RightClick;
 using Quaver.Shared.Graphics.Notifications;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Selection.UI.Mapsets;
 using Quaver.Shared.Screens.Selection.UI.Playlists.Dialogs;
 using Quaver.Shared.Screens.Selection.UI.Playlists.Dialogs.Create;
@@ -84,11 +84,11 @@ namespace Quaver.Shared.Screens.Selection.UI.Playlists
                         DialogManager.Show(new ExportPlaylistDialog(Playlist));
                         break;
                     case Edit:
-                        if (Playlist.IsOnlineMapPool() && Playlist.OnlineMapPoolCreatorId != OnlineManager.Self.OnlineUser.Id)
-                        {
-                            NotificationManager.Show(NotificationLevel.Error, "You cannot edit an online playlist that isn't yours!");
-                            return;
-                        }
+                        // if (Playlist.IsOnlineMapPool() && Playlist.OnlineMapPoolCreatorId != OnlineManager.Self.OnlineUser.Id)
+                        // {
+                        //     NotificationManager.Show(NotificationLevel.Error, "You cannot edit an online playlist that isn't yours!");
+                        //     return;
+                        // }
 
                         if (Playlist.PlaylistGame != MapGame.Quaver)
                         {
@@ -143,8 +143,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Playlists
                 options.Add(Sync, ColorHelper.HexToColor("#27B06E"));
 
             if (playlist.PlaylistGame == MapGame.Quaver &&
-                playlist.OnlineMapPoolCreatorId == -1 ||
-                playlist.OnlineMapPoolCreatorId == OnlineManager.Self?.OnlineUser.Id)
+                playlist.OnlineMapPoolCreatorId == -1)
+                // || playlist.OnlineMapPoolCreatorId == OnlineManager.Self?.OnlineUser.Id)
             {
                 options.Add(UploadAsMapPool, ColorHelper.HexToColor("#FFE76B"));
             }

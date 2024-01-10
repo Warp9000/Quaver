@@ -13,7 +13,7 @@ using Quaver.Shared.Graphics.Dialogs.Menu;
 using Quaver.Shared.Graphics.Menu.Border;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Edit.Actions;
 using Quaver.Shared.Screens.Edit.Actions.Layers.Move;
@@ -127,16 +127,16 @@ namespace Quaver.Shared.Screens.Edit.UI.Menu
 
             ImGui.Separator();
 
-            if (ImGui.MenuItem("Upload", "CTRL + U", false, Screen.Map.Game == MapGame.Quaver))
-            {
-                Screen.UploadMapset();
-            }
+            // if (ImGui.MenuItem("Upload", "CTRL + U", false, Screen.Map.Game == MapGame.Quaver))
+            // {
+            //     Screen.UploadMapset();
+            // }
 
-            if (ImGui.MenuItem("Submit For Rank", "", false, Screen.Map.Game == MapGame.Quaver
-                                                             && Screen.Map.RankedStatus != RankedStatus.Ranked && Screen.Map.MapId != -1))
-            {
-                Screen.SubmitForRank();
-            }
+            // if (ImGui.MenuItem("Submit For Rank", "", false, Screen.Map.Game == MapGame.Quaver
+            //                                                  && Screen.Map.RankedStatus != RankedStatus.Ranked && Screen.Map.MapId != -1))
+            // {
+            //     Screen.SubmitForRank();
+            // }
 
             if (ImGui.MenuItem("Export", "CTRL + E", false))
             {
@@ -555,25 +555,25 @@ namespace Quaver.Shared.Screens.Edit.UI.Menu
 
                         Tooltip(plugin.Description);
 
-                        if (ImGui.MenuItem("Upload To Workshop"))
-                        {
-                            var item = new SteamWorkshopItem(plugin.Name, $"{WobbleGame.WorkingDirectory}Plugins/{plugin.Directory}");
+                        // if (ImGui.MenuItem("Upload To Workshop"))
+                        // {
+                        //     var item = new SteamWorkshopItem(plugin.Name, $"{WobbleGame.WorkingDirectory}Plugins/{plugin.Directory}");
 
-                            if (!item.HasUploaded && (SteamWorkshopItem.Current == null || SteamWorkshopItem.Current.HasUploaded))
-                            {
-                                NotificationManager.Show(NotificationLevel.Info, "Uploading plugin to the Steam Workshop...");
+                        //     if (!item.HasUploaded && (SteamWorkshopItem.Current == null || SteamWorkshopItem.Current.HasUploaded))
+                        //     {
+                        //         NotificationManager.Show(NotificationLevel.Info, "Uploading plugin to the Steam Workshop...");
 
-                                ThreadScheduler.Run(() =>
-                                {
-                                    item.Upload();
+                        //         ThreadScheduler.Run(() =>
+                        //         {
+                        //             item.Upload();
 
-                                    while (!item.HasUploaded)
-                                        Thread.Sleep(50);
+                        //             while (!item.HasUploaded)
+                        //                 Thread.Sleep(50);
 
-                                    NotificationManager.Show(NotificationLevel.Success, "Successfully uploaded plugin to the workshop!");
-                                });
-                            }
-                        }
+                        //             NotificationManager.Show(NotificationLevel.Success, "Successfully uploaded plugin to the workshop!");
+                        //         });
+                        //     }
+                        // }
 
                         if (ImGui.MenuItem("Open Folder"))
                             Utils.NativeUtils.OpenNatively($"{WobbleGame.WorkingDirectory}Plugins/{plugin.Directory}");

@@ -5,7 +5,7 @@ using osu_database_reader.Components.HitObjects;
 using Quaver.API.Maps.Structures;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble;
 using Wobble.Assets;
 using Wobble.Bindables;
@@ -75,39 +75,39 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// </summary>
         private void UpdateTimeLeft()
         {
-            if (OnlineManager.CurrentGame == null)
+            // if (OnlineManager.CurrentGame == null)
                 return;
 
-            var judgementCount = Scoreboard.Users.First().Processor.TotalJudgementCount;
+            // var judgementCount = Scoreboard.Users.First().Processor.TotalJudgementCount;
 
-            var game = (QuaverGame) GameBase.Game;
-            var screen = (GameplayScreen) game.CurrentScreen;
+            // var game = (QuaverGame) GameBase.Game;
+            // var screen = (GameplayScreen) game.CurrentScreen;
 
-            if (Scoreboard.BattleRoyalePlayersLeft.Value == 2)
-                LastEliminationObject = screen.Map.HitObjects.Last();
-            else
-            {
-                var nextKnockoutJudgement = GetEliminationInterval() - judgementCount % GetEliminationInterval();
-                nextKnockoutJudgement = judgementCount + nextKnockoutJudgement - 1;
+            // if (Scoreboard.BattleRoyalePlayersLeft.Value == 2)
+            //     LastEliminationObject = screen.Map.HitObjects.Last();
+            // else
+            // {
+            //     var nextKnockoutJudgement = GetEliminationInterval() - judgementCount % GetEliminationInterval();
+            //     nextKnockoutJudgement = judgementCount + nextKnockoutJudgement - 1;
 
-                if (PreviousEliminationJudgementIndex != nextKnockoutJudgement)
-                    LastEliminationObject = screen.Map.GetHitObjectAtJudgementIndex(nextKnockoutJudgement);
+            //     if (PreviousEliminationJudgementIndex != nextKnockoutJudgement)
+            //         LastEliminationObject = screen.Map.GetHitObjectAtJudgementIndex(nextKnockoutJudgement);
 
-                PreviousEliminationJudgementIndex = nextKnockoutJudgement;
-            }
+            //     PreviousEliminationJudgementIndex = nextKnockoutJudgement;
+            // }
 
-            if (LastEliminationObject == null)
-                LastEliminationObject = screen.Map.HitObjects.Last();
+            // if (LastEliminationObject == null)
+            //     LastEliminationObject = screen.Map.HitObjects.Last();
 
-            var time = LastEliminationObject.StartTime - screen.Timing.Time;
+            // var time = LastEliminationObject.StartTime - screen.Timing.Time;
 
-            if (time < 0)
-                time = 0;
+            // if (time < 0)
+            //     time = 0;
 
-            var timeLeft = new DateTime(1970, 1, 1) + TimeSpan.FromMilliseconds(time);
-            TimeLeft.Text = "-" + timeLeft.ToString("mm:ss");
+            // var timeLeft = new DateTime(1970, 1, 1) + TimeSpan.FromMilliseconds(time);
+            // TimeLeft.Text = "-" + timeLeft.ToString("mm:ss");
         }
 
-        private int GetEliminationInterval() => OnlineManager.CurrentGame.JudgementCount / Scoreboard.Users.Count;
+        // private int GetEliminationInterval() => OnlineManager.CurrentGame.JudgementCount / Scoreboard.Users.Count;
     }
 }

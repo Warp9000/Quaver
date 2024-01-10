@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Wobble.Bindables;
 using Wobble.Graphics;
@@ -48,15 +48,15 @@ namespace Quaver.Shared.Screens.Selection.Components
 
                 if (PlayFromBeginning)
                 {
-                    if (OnlineManager.CurrentGame != null)
-                    {
-                        if (MapManager.Selected.Value == null ||
-                            MapManager.Selected.Value.Md5Checksum != OnlineManager.CurrentGame.MapMd5 &&
-                            MapManager.Selected.Value.Md5Checksum != OnlineManager.CurrentGame.AlternativeMd5)
-                        {
-                            return 0;
-                        }
-                    }
+                    // if (OnlineManager.CurrentGame != null)
+                    // {
+                    //     if (MapManager.Selected.Value == null ||
+                    //         MapManager.Selected.Value.Md5Checksum != OnlineManager.CurrentGame.MapMd5 &&
+                    //         MapManager.Selected.Value.Md5Checksum != OnlineManager.CurrentGame.AlternativeMd5)
+                    //     {
+                    //         return 0;
+                    //     }
+                    // }
 
                     AudioEngine.LoadCurrentTrack();
                     AudioEngine.Track.Play();

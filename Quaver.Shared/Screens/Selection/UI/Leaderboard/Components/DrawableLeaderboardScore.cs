@@ -4,7 +4,7 @@ using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Containers;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble.Assets;
 using Wobble.Graphics;
 using Wobble.Graphics.Sprites;

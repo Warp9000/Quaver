@@ -12,19 +12,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using Quaver.API.Enums;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Input;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.HitObjects;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield.Health;
 using Quaver.Shared.Screens.Gameplay.UI;
 using Quaver.Shared.Screens.Gameplay.UI.Health;
-using Quaver.Shared.Screens.Gameplay.UI.Multiplayer;
+// using Quaver.Shared.Screens.Gameplay.UI.Multiplayer;
 using Quaver.Shared.Skinning;
 using Wobble;
 using Wobble.Assets;
@@ -150,7 +150,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
         /// <summary>
         ///     Displays last place/elimination alerts for battle royale
         /// </summary>
-        private BattleRoyaleAlert BattleRoyaleAlert { get; set; }
+        // private BattleRoyaleAlert BattleRoyaleAlert { get; set; }
 
         /// <summary>
         ///     Make a quicker and shorter reference to the game skin
@@ -159,7 +159,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
 
         /// <summary>
         /// </summary>
-        private BattleRoyalePlayerEliminated BattleRoyalePlayerEliminated { get; set; }
+        // private BattleRoyalePlayerEliminated BattleRoyalePlayerEliminated { get; set; }
 
         /// <summary>
         ///     Ctor
@@ -206,12 +206,12 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
                 CreateHitLighting();
                 CreateJudgementHitBurst();
 
-                if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
-                    ConfigManager.EnableBattleRoyaleAlerts.Value)
-                {
-                    CreateBattleRoyaleAlert();
-                    CreateBattleRoyaleEliminated();
-                }
+                // if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
+                //     ConfigManager.EnableBattleRoyaleAlerts.Value)
+                // {
+                    // CreateBattleRoyaleAlert();
+                    // CreateBattleRoyaleEliminated();
+                // }
 
 
                 CreateSongInfo();
@@ -223,12 +223,12 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
                 CreateJudgementHitBurst();
                 CreateHitLighting();
 
-                if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
-                    ConfigManager.EnableBattleRoyaleAlerts.Value)
-                {
-                    CreateBattleRoyaleAlert();
-                    CreateBattleRoyaleEliminated();
-                }
+                // if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
+                //     ConfigManager.EnableBattleRoyaleAlerts.Value)
+                // {
+                    // CreateBattleRoyaleAlert();
+                    // CreateBattleRoyaleEliminated();
+                // }
 
                 CreateSongInfo();
                 CreateLaneCoverOverlay();
@@ -544,7 +544,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
         private void CreateJudgementHitBurst()
         {
             var skin = SkinManager.Skin.Keys[Screen.Map.Mode];
-            JudgementHitBursts = new List<JudgementHitBurst>(); 
+            JudgementHitBursts = new List<JudgementHitBurst>();
 
             // Default the frames to miss.
             var frames = SkinManager.Skin.Judgements[Judgement.Miss];
@@ -662,27 +662,27 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
         /// <summary>
         ///     Creates the sprite that displays battle royale alerts
         /// </summary>
-        private void CreateBattleRoyaleAlert()
-        {
-            var width = SkinManager.Skin.BattleRoyaleWarning.Width;
-            var height = SkinManager.Skin.BattleRoyaleWarning.Height;
-            var size = new Vector2(width, height) * Skin.BattleRoyaleAlertScale / height;
+        // private void CreateBattleRoyaleAlert()
+        // {
+        //     var width = SkinManager.Skin.BattleRoyaleWarning.Width;
+        //     var height = SkinManager.Skin.BattleRoyaleWarning.Height;
+        //     var size = new Vector2(width, height) * Skin.BattleRoyaleAlertScale / height;
 
-            BattleRoyaleAlert = new BattleRoyaleAlert(Screen)
-            {
-                Parent = Playfield.ForegroundContainer,
-                Alignment = Alignment.MidCenter,
-                Position = new ScalableVector2(Skin.BattleRoyaleAlertPosX, Skin.BattleRoyaleAlertPosY),
-                Size = new ScalableVector2(size.X, size.Y),
-            };
-        }
+        //     BattleRoyaleAlert = new BattleRoyaleAlert(Screen)
+        //     {
+        //         Parent = Playfield.ForegroundContainer,
+        //         Alignment = Alignment.MidCenter,
+        //         Position = new ScalableVector2(Skin.BattleRoyaleAlertPosX, Skin.BattleRoyaleAlertPosY),
+        //         Size = new ScalableVector2(size.X, size.Y),
+        //     };
+        // }
 
-        private void CreateBattleRoyaleEliminated() => BattleRoyalePlayerEliminated = new BattleRoyalePlayerEliminated(Screen)
-        {
-            Parent = Playfield.ForegroundContainer,
-            Alignment = Alignment.MidCenter,
-            Position = new ScalableVector2(Skin.BattleRoyaleEliminatedPosX, Skin.BattleRoyaleEliminatedPosY)
-        };
+        // private void CreateBattleRoyaleEliminated() => BattleRoyalePlayerEliminated = new BattleRoyalePlayerEliminated(Screen)
+        // {
+        //     Parent = Playfield.ForegroundContainer,
+        //     Alignment = Alignment.MidCenter,
+        //     Position = new ScalableVector2(Skin.BattleRoyaleEliminatedPosX, Skin.BattleRoyaleEliminatedPosY)
+        // };
 
         /// <summary>
         ///     Updates the given receptor and column lighting activity

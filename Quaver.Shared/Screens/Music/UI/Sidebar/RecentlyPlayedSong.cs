@@ -6,7 +6,7 @@ using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble;
 using Wobble.Graphics.Sprites.Text;
 using Wobble.Graphics.UI.Buttons;
@@ -41,11 +41,11 @@ namespace Quaver.Shared.Screens.Music.UI.Sidebar
                 if (Map == null)
                     return;
 
-                if (!OnlineManager.IsListeningPartyHost)
-                {
-                    NotificationManager.Show(NotificationLevel.Error, "You are not the host of the listening party!");
-                    return;
-                }
+                // if (!OnlineManager.IsListeningPartyHost)
+                // {
+                //     NotificationManager.Show(NotificationLevel.Error, "You are not the host of the listening party!");
+                //     return;
+                // }
 
                 MapManager.Selected.Value = Map;
             };

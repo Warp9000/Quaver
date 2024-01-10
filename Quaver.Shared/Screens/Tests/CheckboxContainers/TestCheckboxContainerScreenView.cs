@@ -14,13 +14,13 @@ namespace Quaver.Shared.Screens.Tests.CheckboxContainers
         {
             var channels = new List<ICheckboxContainerItem>();
 
-            for (var i = 0; i < 15; i++)
-            {
-                channels.Add(new TestCheckboxChatChannel()
-                {
-                    Name = $"Channel {i}"
-                });
-            }
+            // for (var i = 0; i < 15; i++)
+            // {
+            //     channels.Add(new TestCheckboxChatChannel()
+            //     {
+            //         Name = $"Channel {i}"
+            //     });
+            // }
 
             new CheckboxContainer(channels, new ScalableVector2(250, 400), 250)
             {

@@ -16,7 +16,7 @@ using Quaver.API.Replays;
 using Quaver.API.Replays.Virtual;
 using Quaver.Shared.Config;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Gameplay.Rulesets.HitObjects;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Input;
 using Quaver.Shared.Screens.Gameplay.UI.Scoreboard;
@@ -89,7 +89,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets
 
             // If in replay mode, pass all the existing replay frames to the standardized player.
             // there's no need to manually dump frames as the play goes on.
-            if (Screen.InReplayMode && Screen.SpectatorClient == null)
+            if (Screen.InReplayMode)// && Screen.SpectatorClient == null)
             {
                 var inputManager = (KeysInputManager) InputManager;
 
@@ -140,7 +140,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets
         public void UpdateStandardizedScoreProcessor(bool force = false)
         {
             // No need to update the processor in replay mode
-            if (Screen.InReplayMode && Screen.SpectatorClient == null)
+            if (Screen.InReplayMode)// && Screen.SpectatorClient == null)
                 return;
 
             if (StandardizedReplayPlayer.CurrentFrame >= Screen.ReplayCapturer.Replay.Frames.Count - 1 && !force)

@@ -1,16 +1,16 @@
 ﻿using System.Threading;
 using Microsoft.Xna.Framework;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Transitions;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Beta;
 using Quaver.Shared.Screens.Main;
 using Quaver.Shared.Skinning;
-using Steamworks;
+// using Steamworks;
 using Wobble;
 using Wobble.Logging;
 using Wobble.Scheduling;
@@ -66,7 +66,7 @@ namespace Quaver.Shared.Screens.Initialization
             game.SetProcessPriority();
             game.PerformGameSetup();
 
-            SteamManager.SendAvatarRetrievalRequest(SteamUser.GetSteamID().m_SteamID);
+            // SteamManager.SendAvatarRetrievalRequest(SteamUser.GetSteamID().m_SteamID);
             BackgroundHelper.Initialize();
 
             // Create the global FPS counter.
@@ -90,6 +90,6 @@ namespace Quaver.Shared.Screens.Initialization
 #endif
         }
 
-        public override UserClientStatus GetClientStatus() => null;
+        // public override UserClientStatus GetClientStatus() => null;
     }
 }

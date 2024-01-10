@@ -16,7 +16,7 @@ using Quaver.Shared.Screens.Gameplay.Rulesets.HitObjects;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.HitObjects;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield;
-using Quaver.Shared.Screens.Tournament.Gameplay;
+// using Quaver.Shared.Screens.Tournament.Gameplay;
 using Wobble;
 using Wobble.Bindables;
 using Wobble.Input;
@@ -356,7 +356,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
         private void ChangeScrollSpeed()
         {
             // Only allow scroll speed changes if the map hasn't started or if we're on a break
-            if (Ruleset.Screen.IsSongSelectPreview || Ruleset.Screen.Timing.Time >= 5000 && !Ruleset.Screen.EligibleToSkip && !(Ruleset.Screen is TournamentGameplayScreen) && !Ruleset.Screen.InReplayMode)
+            if (Ruleset.Screen.IsSongSelectPreview || Ruleset.Screen.Timing.Time >= 5000 && !Ruleset.Screen.EligibleToSkip/* && !(Ruleset.Screen is TournamentGameplayScreen)*/ && !Ruleset.Screen.InReplayMode)
                 return;
 
             if (!KeyboardManager.IsUniqueKeyPress(ConfigManager.KeyIncreaseScrollSpeed.Value) &&
@@ -393,10 +393,10 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
         /// <param name="mode"></param>
         private void SetInputKeybinds(GameMode mode)
         {
-            if (Ruleset.Screen.TournamentOptions == null || Ruleset.Screen.TournamentOptions?.Index == 0)
+            // if (Ruleset.Screen.TournamentOptions == null || Ruleset.Screen.TournamentOptions?.Index == 0)
                 SetPlayer1Keybinds(mode);
-            else if (Ruleset.Screen.TournamentOptions != null)
-                SetPlayer2Keybinds(mode);
+            // else if (Ruleset.Screen.TournamentOptions != null)
+            //     SetPlayer2Keybinds(mode);
         }
 
         /// <summary>

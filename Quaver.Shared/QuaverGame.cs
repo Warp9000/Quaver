@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Quaver.API.Helpers;
-using Quaver.Server.Common.Helpers;
+// using Quaver.Server.Common.Helpers;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
@@ -36,26 +36,26 @@ using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Dialogs.Menu;
 using Quaver.Shared.Graphics.Menu.Border;
 using Quaver.Shared.Graphics.Notifications;
-using Quaver.Shared.Graphics.Overlays.Chatting;
+// using Quaver.Shared.Graphics.Overlays.Chatting;
 using Quaver.Shared.Graphics.Overlays.Hub;
 using Quaver.Shared.Graphics.Overlays.Volume;
 using Quaver.Shared.Graphics.Transitions;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Online.API.Imgur;
-using Quaver.Shared.Online.Chat;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Online.API.Imgur;
+// using Quaver.Shared.Online.Chat;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens;
 using Quaver.Shared.Screens.Beta;
-using Quaver.Shared.Screens.Downloading;
+// using Quaver.Shared.Screens.Downloading;
 using Quaver.Shared.Screens.Edit;
 using Quaver.Shared.Screens.Importing;
 using Quaver.Shared.Screens.Initialization;
 using Quaver.Shared.Screens.Main;
 using Quaver.Shared.Screens.Menu;
 using Quaver.Shared.Screens.Menu.UI.Navigation.User;
-using Quaver.Shared.Screens.Multi;
-using Quaver.Shared.Screens.MultiplayerLobby;
+// using Quaver.Shared.Screens.Multi;
+// using Quaver.Shared.Screens.MultiplayerLobby;
 using Quaver.Shared.Screens.Music;
 using Quaver.Shared.Screens.Options;
 using Quaver.Shared.Screens.Selection;
@@ -100,7 +100,7 @@ using Quaver.Shared.Screens.Tests.Volume;
 using Quaver.Shared.Screens.Theater;
 using Quaver.Shared.Skinning;
 using Quaver.Shared.Window;
-using Steamworks;
+// using Steamworks;
 using Wobble;
 using Wobble.Audio;
 using Wobble.Audio.Samples;
@@ -150,7 +150,7 @@ namespace Quaver.Shared
 
         /// <summary>
         /// </summary>
-        public OnlineChat OnlineChat { get; private set; }
+        // public OnlineChat OnlineChat { get; private set; }
 
         /// <summary>
         /// </summary>
@@ -330,7 +330,7 @@ namespace Quaver.Shared
             Transitioner.Dispose();
             DiscordHelper.Shutdown();
             base.UnloadContent();
-            OnlineManager.Client?.Disconnect();
+            // OnlineManager.Client?.Disconnect();
         }
 
         /// <inheritdoc />
@@ -345,8 +345,8 @@ namespace Quaver.Shared
 
             base.Update(gameTime);
 
-            if (SteamManager.IsInitialized)
-                SteamAPI.RunCallbacks();
+            // if (SteamManager.IsInitialized)
+            //     SteamAPI.RunCallbacks();
 
             if (!FirstUpdateCalled)
             {
@@ -355,7 +355,7 @@ namespace Quaver.Shared
                 // Create the online hub on the first update, since it uses text, and we have to wait for things to
                 // be initialized
                 OnlineHub = new OnlineHub();
-                OnlineChat = new OnlineChat();
+                // OnlineChat = new OnlineChat();
                 VolumeController = new VolumeControl();
                 FirstUpdateCalled = true;
             }
@@ -453,7 +453,7 @@ namespace Quaver.Shared
             ConfigManager.WindowBorderless.ValueChanged += (sender, e) => Window.IsBorderless = e.Value;
             ConfigManager.SelectedGameMode.ValueChanged += (sender, args) =>
             {
-                DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(args.Value);
+                // DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(args.Value);
                 DiscordHelper.Presence.SmallImageKey = ModeHelper.ToShortHand(ConfigManager.SelectedGameMode.Value).ToLower();
                 DiscordHelper.Presence.SmallImageText = ModeHelper.ToLongHand(ConfigManager.SelectedGameMode.Value);
                 DiscordRpc.UpdatePresence(ref DiscordHelper.Presence);
@@ -777,15 +777,15 @@ namespace Quaver.Shared
                 {
                     try
                     {
-                        var request = new APIRequestImgurUpload(path);
-                        var response = request.ExecuteRequest();
+                        // var request = new APIRequestImgurUpload(path);
+                        // var response = request.ExecuteRequest();
 
-                        if (response == null)
-                            throw new Exception("Failed to upload screenshot to imgur");
+                        // if (response == null)
+                        //     throw new Exception("Failed to upload screenshot to imgur");
 
-                        Clipboard.NativeClipboard.SetText(response);
-                        BrowserHelper.OpenURL(response, true);
-                        NotificationManager.Show(NotificationLevel.Success, "Successfully uploaded screenshot!");
+                        // Clipboard.NativeClipboard.SetText(response);
+                        // BrowserHelper.OpenURL(response, true);
+                        // NotificationManager.Show(NotificationLevel.Success, "Successfully uploaded screenshot!");
                     }
                     catch (Exception ex)
                     {
@@ -895,17 +895,17 @@ namespace Quaver.Shared
                 case QuaverScreenType.Select:
                     CurrentScreen?.Exit(() => new SelectionScreen());
                     break;
-                case QuaverScreenType.Download:
-                    CurrentScreen?.Exit(() => new DownloadingScreen(CurrentScreen.Type));
-                    break;
-                case QuaverScreenType.Lobby:
-                    CurrentScreen?.Exit(() => new MultiplayerLobbyScreen());
-                    break;
-                case QuaverScreenType.Multiplayer:
-                    var screen = (MultiplayerGameScreen) CurrentScreen;
-                    screen.DontLeaveGameUponScreenSwitch = true;
-                    CurrentScreen?.Exit(() => new MultiplayerGameScreen());
-                    break;
+                // case QuaverScreenType.Download:
+                //     CurrentScreen?.Exit(() => new DownloadingScreen(CurrentScreen.Type));
+                //     break;
+                // case QuaverScreenType.Lobby:
+                //     CurrentScreen?.Exit(() => new MultiplayerLobbyScreen());
+                //     break;
+                // case QuaverScreenType.Multiplayer:
+                //     var screen = (MultiplayerGameScreen) CurrentScreen;
+                //     screen.DontLeaveGameUponScreenSwitch = true;
+                //     CurrentScreen?.Exit(() => new MultiplayerGameScreen());
+                //     break;
                 case QuaverScreenType.Music:
                     CurrentScreen?.Exit(() => new MusicPlayerScreen());
                     break;

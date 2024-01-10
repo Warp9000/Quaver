@@ -8,7 +8,7 @@ using Quaver.API.Maps.Parsers;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online.API.Playlists;
+// using Quaver.Shared.Online.API.Playlists;
 using SharpCompress.Archives;
 using SharpCompress.Archives.Zip;
 using SharpCompress.Common;
@@ -154,16 +154,16 @@ namespace Quaver.Shared.Database.Playlists
 
             var missing = new List<int>();
 
-            var response = new APIRequestPlaylistMaps(this).ExecuteRequest();
+            // var response = new APIRequestPlaylistMaps(this).ExecuteRequest();
 
-            foreach (var id in response.MapIds)
-            {
-                var map = MapManager.FindMapFromOnlineId(id);
+            // foreach (var id in response.MapIds)
+            // {
+            //     var map = MapManager.FindMapFromOnlineId(id);
 
-                // Map is already in playlist or doesn't exist
-                if (map == null)
-                    missing.Add(id);
-            }
+            //     // Map is already in playlist or doesn't exist
+            //     if (map == null)
+            //         missing.Add(id);
+            // }
 
             return missing;
         }

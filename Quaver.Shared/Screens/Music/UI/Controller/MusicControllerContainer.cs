@@ -1,12 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
-using Quaver.Server.Common.Objects.Listening;
+// using Quaver.Server.Common.Objects.Listening;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Main.UI.Jukebox;
 using Quaver.Shared.Screens.Music.Components;
 using TagLib.Ape;
@@ -226,20 +226,21 @@ namespace Quaver.Shared.Screens.Music.UI.Controller
         /// <summary>
         /// </summary>
         private void SetText()
-        {
+        {;
             ScheduleUpdate(() =>
             {
                 var map = MapManager.Selected.Value;
 
-                if (map == null && OnlineManager.ListeningParty != null)
-                {
-                    Title.Text = OnlineManager.ListeningParty.SongTitle;
-                    Title.Tint = Color.Crimson;
+                // if (map == null && OnlineManager.ListeningParty != null)
+                // {
+                //     Title.Text = OnlineManager.ListeningParty.SongTitle;
+                //     Title.Tint = Color.Crimson;
 
-                    Artist.Text = OnlineManager.ListeningParty.SongArtist;
+                //     Artist.Text = OnlineManager.ListeningParty.SongArtist;
 
-                }
-                else if (map != null)
+                // }
+                // else
+                if (map != null)
                 {
                     Title.Text = map.Title;
                     Title.Tint = ColorHelper.HexToColor("#57D6FF");
@@ -277,8 +278,8 @@ namespace Quaver.Shared.Screens.Music.UI.Controller
             if (AudioEngine.Track == null || AudioEngine.Track.IsDisposed)
                 return;
 
-            if (!OnlineManager.IsListeningPartyHost)
-                return;
+            // if (!OnlineManager.IsListeningPartyHost)
+            //     return;
 
             try
             {
@@ -287,7 +288,7 @@ namespace Quaver.Shared.Screens.Music.UI.Controller
                 lock (AudioEngine.Track)
                 {
                     AudioEngine.Track.Seek(percentage * AudioEngine.Track.Length);
-                    OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Seek);
+                    // OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Seek);
                 }
             }
             catch (Exception ex)

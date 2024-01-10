@@ -3,9 +3,9 @@ using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Skinning;
-using Steamworks;
+// using Steamworks;
 using Wobble;
 using Wobble.Assets;
 using Wobble.Bindables;
@@ -40,25 +40,25 @@ namespace Quaver.Shared.Screens.Results.UI.Header.Contents
                 Image = UserInterface.UnknownAvatar
             };
 
-            if (SteamManager.UserAvatars != null)
-            {
-                var steamId = processor.Value.SteamId;
+            // if (SteamManager.UserAvatars != null)
+            // {
+            //     var steamId = processor.Value.SteamId;
 
-                if (ConfigManager.Username.Value == processor.Value.PlayerName)
-                    steamId = SteamUser.GetSteamID().m_SteamID;
+            //     if (ConfigManager.Username.Value == processor.Value.PlayerName)
+            //         steamId = SteamUser.GetSteamID().m_SteamID;
 
-                if (steamId != 0 && SteamManager.UserAvatarsLarge.ContainsKey(steamId))
-                {
-                    var tex = SteamManager.UserAvatarsLarge[steamId];
+            //     if (steamId != 0 && SteamManager.UserAvatarsLarge.ContainsKey(steamId))
+            //     {
+            //         var tex = SteamManager.UserAvatarsLarge[steamId];
 
-                    if (tex != UserInterface.UnknownAvatar && SteamManager.UserAvatarsLarge.ContainsKey(steamId))
-                        Avatar.Image = tex;
-                    else if (tex == UserInterface.UnknownAvatar && SteamManager.UserAvatars.ContainsKey(steamId))
-                        Avatar.Image = SteamManager.UserAvatars[steamId];
-                    else
-                        Avatar.Image = UserInterface.UnknownAvatar;
-                }
-            }
+            //         if (tex != UserInterface.UnknownAvatar && SteamManager.UserAvatarsLarge.ContainsKey(steamId))
+            //             Avatar.Image = tex;
+            //         else if (tex == UserInterface.UnknownAvatar && SteamManager.UserAvatars.ContainsKey(steamId))
+            //             Avatar.Image = SteamManager.UserAvatars[steamId];
+            //         else
+            //             Avatar.Image = UserInterface.UnknownAvatar;
+            //     }
+            // }
 
             GameBase.Game.ScheduledRenderTargetDraws.Add(() =>
             {

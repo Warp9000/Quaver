@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Quaver.API.Enums;
 using Quaver.API.Maps.Processors.Rating;
-using Quaver.Server.Client;
+// using Quaver.Server.Client;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
@@ -13,10 +13,10 @@ using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Selection.UI.Leaderboard.Components;
 using Quaver.Shared.Screens.Selection.UI.Leaderboard.Rankings;
-using Quaver.Shared.Screens.Selection.UI.Leaderboard.Rankings.Quaver.Shared.Screens.Selection.UI.Leaderboard.Rankings;
+// using Quaver.Shared.Screens.Selection.UI.Leaderboard.Rankings.Quaver.Shared.Screens.Selection.UI.Leaderboard.Rankings;
 using Quaver.Shared.Skinning;
 using WebSocketSharp;
 using Wobble.Bindables;
@@ -107,8 +107,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
             if (ConfigManager.DisplayFailedLocalScores != null)
                 ConfigManager.DisplayFailedLocalScores.ValueChanged += OnDisplayFailedLocalScoresChanged;
 
-            ModManager.ModsChanged += OnModsChanged;
-            OnlineManager.Status.ValueChanged += OnConnectionStatusChanged;
+            // ModManager.ModsChanged += OnModsChanged;
+            // OnlineManager.Status.ValueChanged += OnConnectionStatusChanged;
             ScoreDatabaseCache.ScoreDeleted += OnScoreDeleted;
             ScoreDatabaseCache.LocalMapScoresDeleted += OnMapLocalScoresDeleted;
 
@@ -137,10 +137,10 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
                 ConfigManager.DisplayFailedLocalScores.ValueChanged -= OnDisplayFailedLocalScoresChanged;
             }
 
-            ModManager.ModsChanged -= OnModsChanged;
+            // ModManager.ModsChanged -= OnModsChanged;
 
             // ReSharper disable once DelegateSubtraction
-            OnlineManager.Status.ValueChanged -= OnConnectionStatusChanged;
+            // OnlineManager.Status.ValueChanged -= OnConnectionStatusChanged;
             ScoreDatabaseCache.ScoreDeleted -= OnScoreDeleted;
             ScoreDatabaseCache.LocalMapScoresDeleted -= OnMapLocalScoresDeleted;
 
@@ -279,32 +279,32 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
                 case LeaderboardType.Local:
                     scores = new ScoreFetcherLocal().Fetch(map);
                     break;
-                case LeaderboardType.Global:
-                    scores = new ScoreFetcherGlobal().Fetch(map);
-                    break;
-                case LeaderboardType.Mods:
-                    scores = new ScoreFetcherMods().Fetch(map);
-                    break;
-                case LeaderboardType.Country:
-                    scores = new ScoreFetcherCountry().Fetch(map);
-                    break;
-                case LeaderboardType.Rate:
-                    scores = new ScoreFetcherRate().Fetch(map);
-                    break;
-                case LeaderboardType.Friends:
-                    scores = new ScoreFetcherFriends().Fetch(map);
-                    break;
-                case LeaderboardType.All:
-                    scores = new ScoreFetcherAll().Fetch(map);
-                    break;
+                // case LeaderboardType.Global:
+                //     scores = new ScoreFetcherGlobal().Fetch(map);
+                //     break;
+                // case LeaderboardType.Mods:
+                //     scores = new ScoreFetcherMods().Fetch(map);
+                //     break;
+                // case LeaderboardType.Country:
+                //     scores = new ScoreFetcherCountry().Fetch(map);
+                //     break;
+                // case LeaderboardType.Rate:
+                //     scores = new ScoreFetcherRate().Fetch(map);
+                //     break;
+                // case LeaderboardType.Friends:
+                //     scores = new ScoreFetcherFriends().Fetch(map);
+                //     break;
+                // case LeaderboardType.All:
+                //     scores = new ScoreFetcherAll().Fetch(map);
+                    // break;
                 default:
                     scores = new FetchedScoreStore();
                     break;
             }
 
             // Set scores to use during gameplay
-            if (OnlineManager.CurrentGame != null)
-                return scores;
+            // if (OnlineManager.CurrentGame != null)
+            //     return scores;
 
             MapManager.Selected.Value.Scores.Value = scores.Scores;
             ScoresHelper.SetRatingProcessors(MapManager.Selected.Value.Scores.Value);
@@ -393,14 +393,14 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnModsChanged(object sender, ModsChangedEventArgs e)
-        {
-            if (ConfigManager.LeaderboardSection == null ||
-                ConfigManager.LeaderboardSection.Value != LeaderboardType.Mods && ConfigManager.LeaderboardSection.Value != LeaderboardType.Rate)
-                return;
+        // private void OnModsChanged(object sender, ModsChangedEventArgs e)
+        // {
+        //     if (ConfigManager.LeaderboardSection == null ||
+        //         ConfigManager.LeaderboardSection.Value != LeaderboardType.Mods && ConfigManager.LeaderboardSection.Value != LeaderboardType.Rate)
+        //         return;
 
-            FetchScores();
-        }
+        //     FetchScores();
+        // }
 
         /// <summary>
         /// </summary>
@@ -441,13 +441,13 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnConnectionStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
-        {
-            if (e.Value != ConnectionStatus.Connected || ConfigManager.LeaderboardSection.Value == LeaderboardType.Local)
-                return;
+        // private void OnConnectionStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
+        // {
+        //     if (e.Value != ConnectionStatus.Connected || ConfigManager.LeaderboardSection.Value == LeaderboardType.Local)
+        //         return;
 
-            ScheduleUpdate(FetchScores);
-        }
+        //     ScheduleUpdate(FetchScores);
+        // }
 
         /// <summary>
         ///     Called when the user deletes a local score.

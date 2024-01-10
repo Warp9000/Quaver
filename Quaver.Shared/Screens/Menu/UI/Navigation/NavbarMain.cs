@@ -8,11 +8,11 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
-using Quaver.Server.Client;
-using Quaver.Server.Client.Handlers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Online.Chat;
-using Quaver.Shared.Screens.Download;
+// using Quaver.Server.Client;
+// using Quaver.Server.Client.Handlers;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Online.Chat;
+// using Quaver.Shared.Screens.Download;
 using Wobble;
 using Wobble.Bindables;
 using Wobble.Logging;
@@ -43,119 +43,119 @@ namespace Quaver.Shared.Screens.Menu.UI.Navigation
             : base(leftAlignedItems, rightAlignedItems, isUpsideDown)
         {
             // Add community chat button
-            if (OnlineManager.CurrentGame == null)
-            {
-                DownloadMapsButton = new NavbarItem("Download", screen.Type == QuaverScreenType.Download) { DestroyIfParentIsNull = false };
-                DownloadMapsButton.Clicked += (o, e) => OnDownloadMapsButtonClicked();
-            }
+            // if (OnlineManager.CurrentGame == null)
+            // {
+            //     DownloadMapsButton = new NavbarItem("Download", screen.Type == QuaverScreenType.Download) { DestroyIfParentIsNull = false };
+            //     DownloadMapsButton.Clicked += (o, e) => OnDownloadMapsButtonClicked();
+            // }
 
             // Add community chat button
             OpenChatButton = new NavbarItem("Community Chat") { DestroyIfParentIsNull = false };
 
             // Make sure all online buttons are there if applicable
-            if (OnlineManager.Status.Value == ConnectionStatus.Connected ||
-                OnlineManager.Status.Value == ConnectionStatus.Reconnecting)
-            {
-                if (OnlineManager.CurrentGame == null)
-                    LeftAlignedItems.Add(DownloadMapsButton);
+            // if (OnlineManager.Status.Value == ConnectionStatus.Connected ||
+            //     OnlineManager.Status.Value == ConnectionStatus.Reconnecting)
+            // {
+            //     if (OnlineManager.CurrentGame == null)
+            //         LeftAlignedItems.Add(DownloadMapsButton);
 
-                LeftAlignedItems.Add(OpenChatButton);
-                AlignLeftItems();
-            }
+            //     LeftAlignedItems.Add(OpenChatButton);
+            //     AlignLeftItems();
+            // }
 
-            OnlineManager.Status.ValueChanged += OnOnlineStatusChanged;
+            // OnlineManager.Status.ValueChanged += OnOnlineStatusChanged;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnLoginSuccess += OnLoginSuccess;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnLoginSuccess += OnLoginSuccess;
         }
 
         /// <inheritdoc />
         /// <summary>
         /// </summary>
-        public override void Destroy()
-        {
-            // ReSharper disable once DelegateSubtraction
-            OnlineManager.Status.ValueChanged -= OnOnlineStatusChanged;
+        // public override void Destroy()
+        // {
+        //     // ReSharper disable once DelegateSubtraction
+        //     OnlineManager.Status.ValueChanged -= OnOnlineStatusChanged;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnLoginSuccess -= OnLoginSuccess;
+        //     if (OnlineManager.Client != null)
+        //         OnlineManager.Client.OnLoginSuccess -= OnLoginSuccess;
 
-            base.Destroy();
-        }
+        //     base.Destroy();
+        // }
 
         /// <summary>
         ///     Called when the user's online status has changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnOnlineStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
-        {
-            try
-            {
-                switch (e.Value)
-                {
-                    case ConnectionStatus.Disconnected:
-                        if (LeftAlignedItems.Contains(DownloadMapsButton))
-                        {
-                            DownloadMapsButton.Parent = null;
-                            LeftAlignedItems.Remove(DownloadMapsButton);
-                        }
+        // private void OnOnlineStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
+        // {
+        //     try
+        //     {
+        //         switch (e.Value)
+        //         {
+        //             case ConnectionStatus.Disconnected:
+        //                 if (LeftAlignedItems.Contains(DownloadMapsButton))
+        //                 {
+        //                     DownloadMapsButton.Parent = null;
+        //                     LeftAlignedItems.Remove(DownloadMapsButton);
+        //                 }
 
-                        if (LeftAlignedItems.Contains(OpenChatButton))
-                        {
-                            OpenChatButton.Parent = null;
-                            LeftAlignedItems.Remove(OpenChatButton);
-                        }
+        //                 if (LeftAlignedItems.Contains(OpenChatButton))
+        //                 {
+        //                     OpenChatButton.Parent = null;
+        //                     LeftAlignedItems.Remove(OpenChatButton);
+        //                 }
 
-                        AlignLeftItems();
-                        break;
-                    case ConnectionStatus.Connecting:
-                        break;
-                    case ConnectionStatus.Connected:
-                        if (!LeftAlignedItems.Contains(DownloadMapsButton))
-                            LeftAlignedItems.Add(DownloadMapsButton);
+        //                 AlignLeftItems();
+        //                 break;
+        //             case ConnectionStatus.Connecting:
+        //                 break;
+        //             case ConnectionStatus.Connected:
+        //                 if (!LeftAlignedItems.Contains(DownloadMapsButton))
+        //                     LeftAlignedItems.Add(DownloadMapsButton);
 
-                        if (!LeftAlignedItems.Contains(OpenChatButton))
-                            LeftAlignedItems.Add(OpenChatButton);
+        //                 if (!LeftAlignedItems.Contains(OpenChatButton))
+        //                     LeftAlignedItems.Add(OpenChatButton);
 
-                        AlignLeftItems();
-                        break;
-                    case ConnectionStatus.Reconnecting:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex, LogType.Runtime);
+        //                 AlignLeftItems();
+        //                 break;
+        //             case ConnectionStatus.Reconnecting:
+        //                 break;
+        //             default:
+        //                 throw new ArgumentOutOfRangeException();
+        //         }
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Logger.Error(ex, LogType.Runtime);
 
-            }
-        }
+        //     }
+        // }
 
         /// <summary>
         ///     Realign the nav items upon login success
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnLoginSuccess(object sender, LoginReplyEventArgs e)
-        {
-            AlignLeftItems();
-            AlignRightItems();
-        }
+        // private void OnLoginSuccess(object sender, LoginReplyEventArgs e)
+        // {
+        //     AlignLeftItems();
+        //     AlignRightItems();
+        // }
 
         /// <summary>
         ///     Called when the user wants to go and download maps.
         /// </summary>
-        private void OnDownloadMapsButtonClicked()
-        {
-            var game = GameBase.Game as QuaverGame;
+        // private void OnDownloadMapsButtonClicked()
+        // {
+        //     var game = GameBase.Game as QuaverGame;
 
-            game?.CurrentScreen?.Exit(() =>
-            {
-                AudioEngine.Track?.Fade(10, 300);
-                return new DownloadScreen();
-            });
-        }
+        //     game?.CurrentScreen?.Exit(() =>
+        //     {
+        //         AudioEngine.Track?.Fade(10, 300);
+        //         return new DownloadScreen();
+        //     });
+        // }
     }
 }

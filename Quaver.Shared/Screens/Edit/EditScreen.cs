@@ -11,9 +11,9 @@ using Quaver.API.Enums;
 using Quaver.API.Helpers;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Helpers;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Helpers;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
@@ -23,7 +23,7 @@ using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Edit.Actions;
 using Quaver.Shared.Screens.Edit.Actions.HitObjects.Flip;
@@ -741,8 +741,8 @@ namespace Quaver.Shared.Screens.Edit
             if (KeyboardManager.IsUniqueKeyPress(Keys.X))
                 CutSelectedObjects();
 
-            if (KeyboardManager.IsUniqueKeyPress(Keys.U))
-                UploadMapset();
+            // if (KeyboardManager.IsUniqueKeyPress(Keys.U))
+                // UploadMapset();
 
             if (KeyboardManager.IsUniqueKeyPress(Keys.E))
                 ExportToZip();
@@ -775,13 +775,13 @@ namespace Quaver.Shared.Screens.Edit
 
             if (KeyboardManager.IsUniqueKeyPress(Keys.I))
                 PlaceTimingPointOrScrollVelocity();
-            
+
             if (KeyboardManager.IsUniqueKeyPress(Keys.B))
                 DialogManager.Show(new EditorBookmarkDialog(ActionManager, Track, null));
-            
+
             if (KeyboardManager.IsUniqueKeyPress(Keys.Left))
                 SeekToNearestBookmark(Direction.Backward);
-            
+
             if (KeyboardManager.IsUniqueKeyPress(Keys.Right))
                 SeekToNearestBookmark(Direction.Forward);
         }
@@ -1394,7 +1394,7 @@ namespace Quaver.Shared.Screens.Edit
 
                 var startTime = fromStart ? 0 : Track.Time;
 
-                return new GameplayScreen(map, "", new List<Score>(), null, true, startTime, false, null, null, false, true);
+                return new GameplayScreen(map, "", new List<Score>(), null, true, startTime, false, false, true);
             });
         }
 
@@ -1406,7 +1406,7 @@ namespace Quaver.Shared.Screens.Edit
         {
             if (WorkingMap.Bookmarks.Count == 0)
                 return;
-            
+
             BookmarkInfo nextBookmark = null;
 
             var closest = WorkingMap.Bookmarks.OrderBy(x => Math.Abs(x.StartTime - Track.Time)).First();
@@ -1432,10 +1432,10 @@ namespace Quaver.Shared.Screens.Edit
 
             if (nextBookmark == null)
                 return;
-            
+
             Track.Seek(Math.Clamp(nextBookmark.StartTime, 0, Track.Length));
         }
-        
+
         /// <summary>
         ///     Creates a new mapset from an audio file
         /// </summary>
@@ -1458,7 +1458,8 @@ namespace Quaver.Shared.Screens.Edit
                     Tags = string.Join(" ", tagFile.Tag.Genres) ?? "",
                     Creator = ConfigManager.Username.Value,
                     DifficultyName = "",
-                    Description = $"Created at {TimeHelper.GetUnixTimestampMilliseconds()}",
+                    // Description = $"Created at {TimeHelper.GetUnixTimestampMilliseconds()}",
+                    Description = $"Created at {DateTimeOffset.Now.ToUnixTimeMilliseconds()}",
                     BackgroundFile = "",
                     Mode = GameMode.Keys4,
                     BPMDoesNotAffectScrollVelocity = true,
@@ -1466,14 +1467,14 @@ namespace Quaver.Shared.Screens.Edit
                 };
 
                 // Create a new directory to house the map.
-                var dir = $"{ConfigManager.SongDirectory.Value}/{TimeHelper.GetUnixTimestampMilliseconds()}";
+                var dir = $"{ConfigManager.SongDirectory.Value}/{DateTimeOffset.Now.ToUnixTimeMilliseconds()}";
                 Directory.CreateDirectory(dir);
 
                 // Copy over the audio file into the directory
                 File.Copy(audioFile, $"{dir}/{audioFileName}");
 
                 // Save the new .qua file into the directory
-                var path = $"{dir}/{StringHelper.FileNameSafeString($"{TimeHelper.GetUnixTimestampMilliseconds()}")}.qua";
+                var path = $"{dir}/{StringHelper.FileNameSafeString($"{DateTimeOffset.Now.ToUnixTimeMilliseconds()}")}.qua";
                 qua.Save(path);
 
                 // Create a new database map
@@ -1540,13 +1541,13 @@ namespace Quaver.Shared.Screens.Edit
                     var qua = ObjectHelper.DeepClone(WorkingMap);
                     qua.DifficultyName = "";
                     qua.MapId = -1;
-                    qua.Description = $"Created at {TimeHelper.GetUnixTimestampMilliseconds()}";
+                    qua.Description = $"Created at {DateTimeOffset.Now.ToUnixTimeMilliseconds()}";
 
                     if (!copyCurrent)
                         qua.HitObjects.Clear();
 
                     var dir = $"{ConfigManager.SongDirectory.Value}/{Map.Directory}";
-                    var path = $"{dir}/{StringHelper.FileNameSafeString($"{TimeHelper.GetUnixTimestampMilliseconds()}")}.qua";
+                    var path = $"{dir}/{StringHelper.FileNameSafeString($"{DateTimeOffset.Now.ToUnixTimeMilliseconds()}")}.qua";
                     qua.Save(path);
 
                     // Add the new map to the db.
@@ -1575,35 +1576,35 @@ namespace Quaver.Shared.Screens.Edit
 
         /// <summary>
         /// </summary>
-        public void UploadMapset()
-        {
-            if (!OnlineManager.Connected)
-                NotificationManager.Show(NotificationLevel.Warning, "You must be logged in to upload your mapset!");
-            else
-                DialogManager.Show(new EditorUploadConfirmationDialog(this));
-        }
+        // public void UploadMapset()
+        // {
+        //     if (!OnlineManager.Connected)
+        //         NotificationManager.Show(NotificationLevel.Warning, "You must be logged in to upload your mapset!");
+        //     else
+        //         DialogManager.Show(new EditorUploadConfirmationDialog(this));
+        // }
 
         /// <summary>
         /// </summary>
-        public void SubmitForRank()
-        {
-            if (!OnlineManager.Connected)
-            {
-                NotificationManager.Show(NotificationLevel.Warning, "You must be logged in to submit your mapset for rank!");
-                return;
-            }
+        // public void SubmitForRank()
+        // {
+        //     if (!OnlineManager.Connected)
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Warning, "You must be logged in to submit your mapset for rank!");
+        //         return;
+        //     }
 
-            if (!EditorUploadConfirmationDialog.IsMapsetEligibleToUpload(Map))
-                return;
+        //     if (!EditorUploadConfirmationDialog.IsMapsetEligibleToUpload(Map))
+        //         return;
 
-            if (ActionManager.HasUnsavedChanges)
-            {
-                NotificationManager.Show(NotificationLevel.Warning, "Your map has unsaved changes. Please save & upload before submitting for rank.");
-                return;
-            }
+        //     if (ActionManager.HasUnsavedChanges)
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Warning, "Your map has unsaved changes. Please save & upload before submitting for rank.");
+        //         return;
+        //     }
 
-            DialogManager.Show(new EditorSubmitForRankConfirmationDialog(this));
-        }
+        //     DialogManager.Show(new EditorSubmitForRankConfirmationDialog(this));
+        // }
 
         /// <summary>
         /// </summary>
@@ -1654,8 +1655,8 @@ namespace Quaver.Shared.Screens.Edit
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.Editing, Map.MapId, "",
-            (byte)WorkingMap.Mode, $"{Map.Artist} - {Map.Title} [{Map.DifficultyName}]", 0);
+        // public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.Editing, Map.MapId, "",
+        //     (byte)WorkingMap.Mode, $"{Map.Artist} - {Map.Title} [{Map.DifficultyName}]", 0);
 
         /// <summary>
         ///     Returns if the user is able to seek through the track
@@ -1674,9 +1675,9 @@ namespace Quaver.Shared.Screens.Edit
         {
             try
             {
-                DiscordHelper.Presence.StartTimestamp = (long)(TimeHelper.GetUnixTimestampMilliseconds() / 1000);
+                DiscordHelper.Presence.StartTimestamp = (long)(DateTimeOffset.Now.ToUnixTimeMilliseconds() / 1000);
                 DiscordHelper.Presence.EndTimestamp = 0;
-                DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
+                // DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
                 DiscordHelper.Presence.SmallImageKey = ModeHelper.ToShortHand(WorkingMap.Mode).ToLower();
                 DiscordHelper.Presence.SmallImageText = ModeHelper.ToLongHand(WorkingMap.Mode);
 

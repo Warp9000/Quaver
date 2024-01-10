@@ -10,7 +10,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Transitions;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Wobble;
 using Wobble.Graphics.UI.Buttons;
@@ -102,10 +102,10 @@ namespace Quaver.Shared.Screens
             game.CurrentScreen = screen;
 
             // Update client status on the server.
-            var status = screen.GetClientStatus();
+            // var status = screen.GetClientStatus();
 
-            if (status != null)
-                OnlineManager.Client?.UpdateClientStatus(status);
+            // if (status != null)
+            //     OnlineManager.Client?.UpdateClientStatus(status);
 
             OtherGameMapDatabaseCache.RunThread();
             GC.Collect();

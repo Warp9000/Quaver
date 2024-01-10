@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Quaver.Shared.Assets;
-using Quaver.Shared.Screens.Multiplayer.UI.Dialogs;
+// using Quaver.Shared.Screens.Multiplayer.UI.Dialogs;
 using Wobble.Graphics;
 using Wobble.Graphics.Sprites;
 

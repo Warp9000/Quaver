@@ -9,7 +9,7 @@ using Quaver.Shared.Screens.Music.Components;
 using Quaver.Shared.Screens.Music.UI;
 using Quaver.Shared.Screens.Music.UI.Controller;
 using Quaver.Shared.Screens.Music.UI.Controller.Search;
-using Quaver.Shared.Screens.Music.UI.ListenerList;
+// using Quaver.Shared.Screens.Music.UI.ListenerList;
 using Quaver.Shared.Screens.Music.UI.Sidebar;
 using Quaver.Shared.Screens.Selection.UI.FilterPanel;
 using Quaver.Shared.Screens.Tests.UI.Borders;
@@ -77,7 +77,7 @@ namespace Quaver.Shared.Screens.Music
             CreateBackground();
             CreateMenuHeader();
             CreateMenuFooter();
-            
+
             ContentContainer = new Container
             {
                 Parent = Container,
@@ -133,7 +133,7 @@ namespace Quaver.Shared.Screens.Music
             Parent = Container,
             Alignment = Alignment.BotLeft
         };
-        
+
         /// <summary>
         /// </summary>
         private void CreateMusicControllerContainer() => ControllerContainer = new MusicControllerContainer(Jukebox)

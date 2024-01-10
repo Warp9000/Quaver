@@ -14,8 +14,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Quaver.API.Enums;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Parsers;
-using Quaver.Server.Client;
-using Quaver.Server.Common.Objects.Twitch;
+// using Quaver.Server.Client;
+// using Quaver.Server.Common.Objects.Twitch;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
@@ -24,8 +24,8 @@ using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Online.API.Maps;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Online.API.Maps;
 using Quaver.Shared.Screens.Selection.UI.Maps;
 using RestSharp;
 using RestSharp.Extensions;
@@ -91,7 +91,7 @@ namespace Quaver.Shared.Database.Maps
         /// <summary>
         ///     Event invoked when a song request has been played
         /// </summary>
-        public static event EventHandler<SongRequestPlayedEventArgs> SongRequestPlayed;
+        // public static event EventHandler<SongRequestPlayedEventArgs> SongRequestPlayed;
 
         /// <summary>
         ///     Select a map in the mapset based on user preferences
@@ -415,86 +415,86 @@ namespace Quaver.Shared.Database.Maps
         ///     Updates an individual map to the latest version
         /// </summary>
         /// <param name="outdated"></param>
-        public static void UpdateMapToLatestVersion(Map outdated)
-        {
-            try
-            {
-                var lookup = new APIRequestMapInformation(outdated.MapId).ExecuteRequest();
+        // public static void UpdateMapToLatestVersion(Map outdated)
+        // {
+        //     try
+        //     {
+        //         var lookup = new APIRequestMapInformation(outdated.MapId).ExecuteRequest();
 
-                if (lookup.Status != 200)
-                    throw new Exception($"Map updated failed. APIRequestMapInformation failed with status: {lookup.Status}");
+        //         if (lookup.Status != 200)
+        //             throw new Exception($"Map updated failed. APIRequestMapInformation failed with status: {lookup.Status}");
 
-                // Check if we already have the updated version of the map. If we do, just delete the old one,
-                // and select the new version
-                foreach (var mapset in Mapsets)
-                {
-                    var foundMap = mapset.Maps.Find(x => x.Md5Checksum == lookup.Map.Md5);
+        //         // Check if we already have the updated version of the map. If we do, just delete the old one,
+        //         // and select the new version
+        //         foreach (var mapset in Mapsets)
+        //         {
+        //             var foundMap = mapset.Maps.Find(x => x.Md5Checksum == lookup.Map.Md5);
 
-                    if (foundMap == null)
-                        continue;
+        //             if (foundMap == null)
+        //                 continue;
 
-                    outdated.Mapset.Maps.Remove(outdated);
+        //             outdated.Mapset.Maps.Remove(outdated);
 
-                    MapDatabaseCache.RemoveMap(outdated);
+        //             MapDatabaseCache.RemoveMap(outdated);
 
-                    if (outdated.Mapset.Maps.Count == 0)
-                        Mapsets.Remove(outdated.Mapset);
+        //             if (outdated.Mapset.Maps.Count == 0)
+        //                 Mapsets.Remove(outdated.Mapset);
 
-                    if (Selected.Value == outdated)
-                        Selected.Value = foundMap;
+        //             if (Selected.Value == outdated)
+        //                 Selected.Value = foundMap;
 
-                    PlaylistManager.UpdateMapInPlaylists(outdated, foundMap);
-                    MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, foundMap));
-                    return;
-                }
+        //             PlaylistManager.UpdateMapInPlaylists(outdated, foundMap);
+        //             MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, foundMap));
+        //             return;
+        //         }
 
-                // We don't have the map, so replace it and update its map information.
-                var path = $"{ConfigManager.SongDirectory.Value}/{outdated.Directory}/{outdated.Path}";
+        //         // We don't have the map, so replace it and update its map information.
+        //         var path = $"{ConfigManager.SongDirectory.Value}/{outdated.Directory}/{outdated.Path}";
 
-                Logger.Important($"Downloading latest version of map: {outdated.Id}", LogType.Runtime);
+        //         Logger.Important($"Downloading latest version of map: {outdated.Id}", LogType.Runtime);
 
-                var client = new RestClient($"{OnlineClient.API_ENDPOINT}");
-                client.DownloadData(new RestRequest($"{OnlineClient.API_ENDPOINT}/d/web/map/{outdated.MapId}", Method.GET)).SaveAs(path);
+        //         var client = new RestClient($"{OnlineClient.API_ENDPOINT}");
+        //         client.DownloadData(new RestRequest($"{OnlineClient.API_ENDPOINT}/d/web/map/{outdated.MapId}", Method.GET)).SaveAs(path);
 
-                Logger.Important($"Successfully downloaded latest version of map: {outdated.Id}", LogType.Runtime);
+        //         Logger.Important($"Successfully downloaded latest version of map: {outdated.Id}", LogType.Runtime);
 
-                var newMap = Map.FromQua(Qua.Parse(path), path);
-                newMap.CalculateDifficulties();
-                newMap.Id = outdated.Id;
-                newMap.Mapset = outdated.Mapset;
-                newMap.Directory = outdated.Directory;
-                newMap.Path = outdated.Path;
-                newMap.DateAdded = outdated.DateAdded;
-                newMap.TimesPlayed = outdated.TimesPlayed;
-                newMap.LocalOffset = outdated.LocalOffset;
+        //         var newMap = Map.FromQua(Qua.Parse(path), path);
+        //         newMap.CalculateDifficulties();
+        //         newMap.Id = outdated.Id;
+        //         newMap.Mapset = outdated.Mapset;
+        //         newMap.Directory = outdated.Directory;
+        //         newMap.Path = outdated.Path;
+        //         newMap.DateAdded = outdated.DateAdded;
+        //         newMap.TimesPlayed = outdated.TimesPlayed;
+        //         newMap.LocalOffset = outdated.LocalOffset;
 
-                MapDatabaseCache.UpdateMap(outdated);
+        //         MapDatabaseCache.UpdateMap(outdated);
 
-                outdated.Mapset.Maps.Remove(outdated);
-                outdated.Mapset.Maps.Add(newMap);
-                outdated.Mapset.Maps = newMap.Mapset.Maps.OrderBy(x => x.DifficultyFromMods(ModManager.Mods)).ToList();
+        //         outdated.Mapset.Maps.Remove(outdated);
+        //         outdated.Mapset.Maps.Add(newMap);
+        //         outdated.Mapset.Maps = newMap.Mapset.Maps.OrderBy(x => x.DifficultyFromMods(ModManager.Mods)).ToList();
 
-                if (Selected.Value == outdated)
-                    Selected.Value = newMap;
+        //         if (Selected.Value == outdated)
+        //             Selected.Value = newMap;
 
-                PlaylistManager.UpdateMapInPlaylists(outdated, newMap);
-                MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, newMap));
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e, LogType.Runtime);
-                MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, outdated));
-            }
-        }
+        //         PlaylistManager.UpdateMapInPlaylists(outdated, newMap);
+        //         MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, newMap));
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Logger.Error(e, LogType.Runtime);
+        //         MapUpdated?.Invoke(typeof(MapManager), new MapUpdatedEventArgs(outdated, outdated));
+        //     }
+        // }
 
         /// <summary>
         ///     Raises an event stating that the user wants to play a song request
         /// </summary>
         /// <param name="request"></param>
         /// <param name="map"></param>
-        public static void PlaySongRequest(SongRequest request, Map map)
-        {
-            SongRequestPlayed?.Invoke(typeof(MapManager), new SongRequestPlayedEventArgs(request, map));
-        }
+        // public static void PlaySongRequest(SongRequest request, Map map)
+        // {
+        //     SongRequestPlayed?.Invoke(typeof(MapManager), new SongRequestPlayedEventArgs(request, map));
+        // }
     }
 }

@@ -4,15 +4,15 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Quaver.API.Replays;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Main;
-using Quaver.Shared.Screens.Tournament;
+// using Quaver.Shared.Screens.Tournament;
 using Wobble;
 using Wobble.Input;
 using Wobble.Logging;
@@ -153,6 +153,6 @@ namespace Quaver.Shared.Screens.Theater
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.InMenus, -1, "-1", 1, "", 0);
+        // public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.InMenus, -1, "-1", 1, "", 0);
     }
 }

@@ -1,12 +1,12 @@
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Quaver.API.Enums;
-using Quaver.Server.Client;
+// using Quaver.Server.Client;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Profiles;
 using Quaver.Shared.Graphics;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble.Bindables;
 using Wobble.Graphics;
 using Wobble.Graphics.Animations;
@@ -76,7 +76,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
             if (ConfigManager.SelectedGameMode != null)
                 ConfigManager.SelectedGameMode.ValueChanged += OnSelectedGameModeChanged;
 
-            OnlineManager.Status.ValueChanged += OnConnectionStatusChanged;
+            // OnlineManager.Status.ValueChanged += OnConnectionStatusChanged;
             Profile.ValueChanged += OnProfileChanged;
 
             if (UserProfileDatabaseCache.Profiles != null)
@@ -99,7 +99,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
 
             // ReSharper disable twice DelegateSubtraction
             Profile.ValueChanged -= OnProfileChanged;
-            OnlineManager.Status.ValueChanged -= OnConnectionStatusChanged;
+            // OnlineManager.Status.ValueChanged -= OnConnectionStatusChanged;
 
             if (UserProfileDatabaseCache.Profiles != null)
             {
@@ -211,7 +211,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
                 Banner?.Destroy();
 
                 // Not connected to the server, so display a message
-                if (Profile.Value.IsOnline && !OnlineManager.Connected)
+                if (Profile.Value.IsOnline)// && !OnlineManager.Connected)
                 {
                     StatusText.Text = $"You must be logged in to view your online profile".ToUpper();
                     StatusText.FadeTo(1, Easing.Linear, 250);
@@ -260,16 +260,16 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnConnectionStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
-        {
-            if (!Profile.Value.IsOnline)
-                return;
+        // private void OnConnectionStatusChanged(object sender, BindableValueChangedEventArgs<ConnectionStatus> e)
+        // {
+        //     if (!Profile.Value.IsOnline)
+        //         return;
 
-            if (e.Value != ConnectionStatus.Connected)
-                return;
+        //     if (e.Value != ConnectionStatus.Connected)
+        //         return;
 
-            StartProfileLoadTask();
-        }
+        //     StartProfileLoadTask();
+        // }
 
         /// <summary>
         /// </summary>

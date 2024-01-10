@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Quaver.API.Enums;
 using Quaver.API.Maps.Processors.Scoring;
 using Quaver.API.Maps.Processors.Scoring.Data;
-using Quaver.Server.Client.Structures;
+// using Quaver.Server.Client.Structures;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
@@ -46,7 +46,7 @@ namespace Quaver.Shared.Screens.Results.UI.Tabs.Overview.Graphs
 
         /// <summary>
         /// </summary>
-        private Bindable<ScoreSubmissionResponse> ScoreSubmissionStats { get; }
+        // private Bindable<ScoreSubmissionResponse> ScoreSubmissionStats { get; }
 
         /// <summary>
         /// </summary>
@@ -115,13 +115,12 @@ namespace Quaver.Shared.Screens.Results.UI.Tabs.Overview.Graphs
         /// <param name="isSubmittingScore"></param>
         /// <param name="scoreSubmissionStats"></param>
         public ResultsOverviewGraphContainer(Map map, Bindable<ScoreProcessor> processor,
-            Bindable<bool> isSubmittingScore,
-            Bindable<ScoreSubmissionResponse> scoreSubmissionStats)
+            Bindable<bool> isSubmittingScore)//,Bindable<ScoreSubmissionResponse> scoreSubmissionStats)
         {
             Map = map;
             Processor = processor;
             IsSubmittingScore = isSubmittingScore;
-            ScoreSubmissionStats = scoreSubmissionStats;
+            // ScoreSubmissionStats = scoreSubmissionStats;
 
             Image = SkinManager.Skin?.Results?.ResultsGraphContainerPanel ?? UserInterface.ResultsGraphContainerPanel;
             Size = new ScalableVector2(ResultsScreenView.CONTENT_WIDTH - ResultsTabContainer.PADDING_X, Image.Height);
@@ -163,7 +162,7 @@ namespace Quaver.Shared.Screens.Results.UI.Tabs.Overview.Graphs
                 Size = new ScalableVector2(Width, 69),
             };
 
-            Footer = new ResultsOverviewFooter(Map, Processor, IsSubmittingScore, ScoreSubmissionStats,
+            Footer = new ResultsOverviewFooter(Map, Processor, IsSubmittingScore,
                 FooterContainer.Size)
             {
                 Parent = FooterContainer

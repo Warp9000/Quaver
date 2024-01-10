@@ -263,7 +263,7 @@ namespace Quaver.Shared.Screens.Options
                     new OptionsSubcategory("Sharing", new List<OptionsItem>()
                     {
                         new OptionsItemExportSkin(containerRect, "Export Skin"),
-                        new OptionsItemUploadSkinToWorkshop(containerRect, "Upload Skin To Steam Workshop")
+                        // new OptionsItemUploadSkinToWorkshop(containerRect, "Upload Skin To Steam Workshop")
                     }),
                     new OptionsSubcategory("Tournament", new List<OptionsItem>()
                     {
@@ -392,8 +392,8 @@ namespace Quaver.Shared.Screens.Options
                     new OptionsSubcategory("Navigation & Maintenance", new List<OptionsItem>()
                     {
                         new OptionsItemOpenGameFolder(containerRect, "Open Game Folder"),
-                        new OptionsItemUpdateRankedStatuses(containerRect, "Update Map Ranked Statuses"),
-                        new OptionsItemUpdateOnlineOffsets(containerRect, "Update Map Online Offsets")
+                        // new OptionsItemUpdateRankedStatuses(containerRect, "Update Map Ranked Statuses"),
+                        // new OptionsItemUpdateOnlineOffsets(containerRect, "Update Map Online Offsets")
                     }),
                     new OptionsSubcategory("Installed Games", new List<OptionsItem>()
                     {
@@ -425,7 +425,7 @@ namespace Quaver.Shared.Screens.Options
                         new OptionsItemPrioritizedGameMode(containerRect, "Prioritized Game Mode"),
                         new OptionsSlider(containerRect, "Prioritized 4K Difficulty", ConfigManager.PrioritizedMapDifficulty4K, i => $"{i / 10f:0.0}"),
                         new OptionsSlider(containerRect, "Prioritized 7K Difficulty", ConfigManager.PrioritizedMapDifficulty7K, i => $"{i / 10f:0.0}"),
-                        new OptionsItemSuggestDifficulty(containerRect, "Suggest Difficulty from Overall Rating")
+                        // new OptionsItemSuggestDifficulty(containerRect, "Suggest Difficulty from Overall Rating")
                     }),
                     new OptionsSubcategory("Leaderboard", new List<OptionsItem>()
                     {

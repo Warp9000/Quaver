@@ -17,7 +17,7 @@ using Quaver.Shared;
 using Quaver.Shared.Config;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.IPC;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble;
 using Wobble.Extended.HotReload;
 using Wobble.Logging;
@@ -80,8 +80,8 @@ namespace Quaver
             {
                 var exception = args.ExceptionObject as Exception;
                 Logger.Error(exception, LogType.Runtime);
-                SendCrashLog(exception);
-                OnlineManager.Client?.Disconnect();
+                // SendCrashLog(exception);
+                // OnlineManager.Client?.Disconnect();
             };
 
             // Change the working directory to where the executable is.
@@ -96,7 +96,7 @@ namespace Quaver
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
             NativeAssemblies.Copy();
-            SteamManager.Initialize();
+            // SteamManager.Initialize();
 
             try
             {
@@ -174,7 +174,7 @@ namespace Quaver
             var runtime = File.ReadAllText(Logger.GetLogPath(LogType.Runtime));
             var network = File.ReadAllText(Logger.GetLogPath(LogType.Network));
 
-            OnlineManager.Client?.SendCrashLog(runtime, network, e.ToString(), game.Version);
+            // OnlineManager.Client?.SendCrashLog(runtime, network, e.ToString(), game.Version);
         }
     }
 }

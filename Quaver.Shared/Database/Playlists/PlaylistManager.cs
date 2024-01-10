@@ -12,8 +12,8 @@ using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Online.API.Playlists;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Online.API.Playlists;
 using Quaver.Shared.Scheduling;
 using SQLite;
 using Wobble.Bindables;
@@ -346,25 +346,25 @@ namespace Quaver.Shared.Database.Playlists
             if (!playlist.IsOnlineMapPool())
                 return;
 
-            var response = new APIRequestPlaylistMaps(playlist).ExecuteRequest();
+            // var response = new APIRequestPlaylistMaps(playlist).ExecuteRequest();
 
             var missingMapIds = new List<int>();
-            foreach (var id in response.MapIds)
-            {
-                var map = MapManager.FindMapFromOnlineId(id);
+            // foreach (var id in response.MapIds)
+            // {
+            //     var map = MapManager.FindMapFromOnlineId(id);
 
-                // Map is already in playlist or doesn't exist
-                if (map == null)
-                {
-                    missingMapIds.Add(id);
-                    continue;
-                }
+            //     // Map is already in playlist or doesn't exist
+            //     if (map == null)
+            //     {
+            //         missingMapIds.Add(id);
+            //         continue;
+            //     }
 
-                if (playlist.Maps.Any(x => x.MapId == id))
-                    continue;
+            //     if (playlist.Maps.Any(x => x.MapId == id))
+            //         continue;
 
-                AddMapToPlaylist(playlist, map);
-            }
+            //     AddMapToPlaylist(playlist, map);
+            // }
 
             if (missingMapIds.Count > 0)
             {
@@ -427,18 +427,18 @@ namespace Quaver.Shared.Database.Playlists
             var ids = new List<int>();
             maps.ForEach(x => ids.Add(x.MapId));
 
-            var response = OnlineManager.Client?.UploadPlaylist(playlist.Name, playlist.Description, ids);
+            // var response = OnlineManager.Client?.UploadPlaylist(playlist.Name, playlist.Description, ids);
 
             // Success
-            if (response?.Status == 200)
-            {
-                playlist.OnlineMapPoolId = response.PlaylistId;
-                playlist.OnlineMapPoolCreatorId = OnlineManager.Self.OnlineUser.Id;
-                Logger.Important($"Successfully uploaded playlist: {playlist.Name} (#{playlist.Id}) online: {playlist.OnlineMapPoolId}", LogType.Runtime);
-                playlist.OpenUrl();
-            }
-            else
-                Logger.Important($"Failed to upload playlist: {playlist.Name} (#{playlist.Id}) online!", LogType.Runtime);
+            // if (response?.Status == 200)
+            // {
+            //     playlist.OnlineMapPoolId = response.PlaylistId;
+            //     playlist.OnlineMapPoolCreatorId = OnlineManager.Self.OnlineUser.Id;
+            //     Logger.Important($"Successfully uploaded playlist: {playlist.Name} (#{playlist.Id}) online: {playlist.OnlineMapPoolId}", LogType.Runtime);
+            //     playlist.OpenUrl();
+            // }
+            // else
+            //     Logger.Important($"Failed to upload playlist: {playlist.Name} (#{playlist.Id}) online!", LogType.Runtime);
 
             EditPlaylist(playlist, null);
         }
@@ -457,17 +457,17 @@ namespace Quaver.Shared.Database.Playlists
             var ids = new List<int>();
             maps.ForEach(x => ids.Add(x.MapId));
 
-            var response = OnlineManager.Client?.UpdatePlaylist(playlist.OnlineMapPoolId,
-                playlist.Name, playlist.Description, ids, removeMissingMaps);
+            // var response = OnlineManager.Client?.UpdatePlaylist(playlist.OnlineMapPoolId,
+            //     playlist.Name, playlist.Description, ids, removeMissingMaps);
 
             // Success
-            if (response == 200)
-            {
-                Logger.Important($"Successfully updated playlist: {playlist.Name} (#{playlist.Id}) online: {playlist.OnlineMapPoolId}", LogType.Runtime);
-                playlist.OpenUrl();
-            }
-            else
-                Logger.Important($"Failed to upload playlist: {playlist.Name} (#{playlist.Id}) online! {playlist.OnlineMapPoolId}", LogType.Runtime);
+            // if (response == 200)
+            // {
+            //     Logger.Important($"Successfully updated playlist: {playlist.Name} (#{playlist.Id}) online: {playlist.OnlineMapPoolId}", LogType.Runtime);
+            //     playlist.OpenUrl();
+            // }
+            // else
+            //     Logger.Important($"Failed to upload playlist: {playlist.Name} (#{playlist.Id}) online! {playlist.OnlineMapPoolId}", LogType.Runtime);
 
             EditPlaylist(playlist, null);
         }
@@ -536,11 +536,11 @@ namespace Quaver.Shared.Database.Playlists
         public static void ImportPlaylist(int onlineId)
         {
             Logger.Important($"Importing playlist: ID {onlineId}", LogType.Runtime);
-            PlaylistInformationResponse playlistResponse;
+            // PlaylistInformationResponse playlistResponse;
 
             try
             {
-                playlistResponse = new APIRequestPlaylistInformation(onlineId).ExecuteRequest();
+                // playlistResponse = new APIRequestPlaylistInformation(onlineId).ExecuteRequest();
             }
             catch (Exception e)
             {
@@ -549,12 +549,12 @@ namespace Quaver.Shared.Database.Playlists
                 return;
             }
 
-            if (playlistResponse == null || playlistResponse.Status != 200)
-            {
-                Logger.Important($"Failed to retrieve playlist information with error code: {playlistResponse?.Status ?? -1}", LogType.Network);
-                NotificationManager.Show(NotificationLevel.Error, "Failed to retrieve playlist information");
-                return;
-            }
+            // if (playlistResponse == null || playlistResponse.Status != 200)
+            // {
+            //     Logger.Important($"Failed to retrieve playlist information with error code: {playlistResponse?.Status ?? -1}", LogType.Network);
+            //     NotificationManager.Show(NotificationLevel.Error, "Failed to retrieve playlist information");
+            //     return;
+            // }
 
             var playlistAlreadyExistsLocally = false;
 
@@ -563,11 +563,11 @@ namespace Quaver.Shared.Database.Playlists
             {
                 playlist = new Playlist()
                 {
-                    Name = playlistResponse.PlaylistInformation.Name,
-                    Description = playlistResponse.PlaylistInformation.Description,
-                    Creator = playlistResponse.PlaylistInformation.OwnerUsername,
-                    OnlineMapPoolId = playlistResponse.PlaylistInformation.Id,
-                    OnlineMapPoolCreatorId = playlistResponse.PlaylistInformation.OwnerId
+                    // Name = playlistResponse.PlaylistInformation.Name,
+                    // Description = playlistResponse.PlaylistInformation.Description,
+                    // Creator = playlistResponse.PlaylistInformation.OwnerUsername,
+                    // OnlineMapPoolId = playlistResponse.PlaylistInformation.Id,
+                    // OnlineMapPoolCreatorId = playlistResponse.PlaylistInformation.OwnerId
                 };
 
                 AddPlaylist(playlist);
@@ -576,9 +576,9 @@ namespace Quaver.Shared.Database.Playlists
             {
                 Logger.Important($"Playlist with online ID #{playlist.OnlineMapPoolId} already exists locally", LogType.Runtime);
 
-                playlist.Name = playlistResponse.PlaylistInformation.Name;
-                playlist.Description = playlistResponse.PlaylistInformation.Description;
-                playlist.Creator = playlistResponse.PlaylistInformation.OwnerUsername;
+                // playlist.Name = playlistResponse.PlaylistInformation.Name;
+                // playlist.Description = playlistResponse.PlaylistInformation.Description;
+                // playlist.Creator = playlistResponse.PlaylistInformation.OwnerUsername;
 
                 EditPlaylist(playlist, null);
 

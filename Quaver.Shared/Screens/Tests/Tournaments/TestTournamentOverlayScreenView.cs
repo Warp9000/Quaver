@@ -4,14 +4,14 @@ using Quaver.API.Enums;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Processors.Difficulty.Rulesets.Keys;
 using Quaver.API.Maps.Processors.Scoring;
-using Quaver.Server.Client.Structures;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Objects;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Client.Structures;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Screens.Tournament.Overlay;
+// using Quaver.Shared.Screens.Tournament.Overlay;
 using Wobble;
 using Wobble.Graphics;
 using Wobble.Graphics.Sprites;
@@ -69,50 +69,50 @@ namespace Quaver.Shared.Screens.Tests.Tournaments
         private void InitializeOverlay()
         {
 
-            var map = Qua.Parse(GameBase.Game.Resources.Get($"Quaver.Resources/Maps/PrincessOfWinter/2044.qua"));
-            var diffculty = new DifficultyProcessorKeys(map, new StrainConstantsKeys(), 0);
+            // var map = Qua.Parse(GameBase.Game.Resources.Get($"Quaver.Resources/Maps/PrincessOfWinter/2044.qua"));
+            // var diffculty = new DifficultyProcessorKeys(map, new StrainConstantsKeys(), 0);
 
-            var players = new List<TournamentPlayer>()
-            {
-                new TournamentPlayer(new User(new OnlineUser()
-                {
-                    Username = "Player1",
-                    CountryFlag = "US",
-                    Id = 1,
-                    UserGroups = UserGroups.Normal
-                }), new ScoreProcessorKeys(map, ModIdentifier.Mirror | ModIdentifier.Autoplay | ModIdentifier.Paused), diffculty.OverallDifficulty),
-                new TournamentPlayer(new User(new OnlineUser()
-                {
-                    Username = "Player2",
-                    CountryFlag = "CA",
-                    Id = 2,
-                    UserGroups = UserGroups.Normal
-                }), new ScoreProcessorKeys(map, ModIdentifier.Speed12X | ModIdentifier.Autoplay), diffculty.OverallDifficulty),
-            };
+            // var players = new List<TournamentPlayer>()
+            // {
+            //     new TournamentPlayer(new User(new OnlineUser()
+            //     {
+            //         Username = "Player1",
+            //         CountryFlag = "US",
+            //         Id = 1,
+            //         UserGroups = UserGroups.Normal
+            //     }), new ScoreProcessorKeys(map, ModIdentifier.Mirror | ModIdentifier.Autoplay | ModIdentifier.Paused), diffculty.OverallDifficulty),
+            //     new TournamentPlayer(new User(new OnlineUser()
+            //     {
+            //         Username = "Player2",
+            //         CountryFlag = "CA",
+            //         Id = 2,
+            //         UserGroups = UserGroups.Normal
+            //     }), new ScoreProcessorKeys(map, ModIdentifier.Speed12X | ModIdentifier.Autoplay), diffculty.OverallDifficulty),
+            // };
 
-            var game = new MultiplayerGame()
-            {
-                Type = MultiplayerGameType.Friendly,
-                PlayerWins = new List<MultiplayerPlayerWins>()
-                {
-                    new MultiplayerPlayerWins()
-                    {
-                        UserId = 1,
-                        Wins = 10
-                    },
-                    new MultiplayerPlayerWins()
-                    {
-                        UserId = 2,
-                        Wins = 5
-                    }
-                }
-            };
+            // var game = new MultiplayerGame()
+            // {
+            //     Type = MultiplayerGameType.Friendly,
+            //     PlayerWins = new List<MultiplayerPlayerWins>()
+            //     {
+            //         new MultiplayerPlayerWins()
+            //         {
+            //             UserId = 1,
+            //             Wins = 10
+            //         },
+            //         new MultiplayerPlayerWins()
+            //         {
+            //             UserId = 2,
+            //             Wins = 5
+            //         }
+            //     }
+            // };
 
-            // ReSharper disable once ObjectCreationAsStatement
-            new TournamentOverlay(map, game, players)
-            {
-                Parent = Container,
-            };
+            // // ReSharper disable once ObjectCreationAsStatement
+            // new TournamentOverlay(map, game, players)
+            // {
+            //     Parent = Container,
+            // };
         }
     }
 }

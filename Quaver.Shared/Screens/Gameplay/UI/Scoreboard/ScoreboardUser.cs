@@ -17,16 +17,16 @@ using Quaver.API.Maps.Processors.Rating;
 using Quaver.API.Maps.Processors.Scoring;
 using Quaver.API.Maps.Processors.Scoring.Data;
 using Quaver.API.Maps.Processors.Scoring.Multiplayer;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Skinning;
-using Steamworks;
+// using Steamworks;
 using Wobble.Assets;
 using Wobble.Graphics;
 using Wobble.Graphics.Animations;
@@ -127,8 +127,8 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// </summary>
         public bool HasQuit { get; private set; }
 
-        public bool IsOneVersusOne => OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Free_For_All
-                                      && Screen.LocalScores.Count == 1;
+        // public bool IsOneVersusOne => OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Free_For_All
+        //                               && Screen.LocalScores.Count == 1;
 
         /// <inheritdoc />
         /// <summary>
@@ -180,12 +180,12 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
             {
                 case GameMode.Keys4:
                 case GameMode.Keys7:
-                    if (screen.IsMultiplayerGame && Type == ScoreboardUserType.Other)
-                    {
-                        var mp = new ScoreProcessorMultiplayer((MultiplayerHealthType) OnlineManager.CurrentGame.HealthType, OnlineManager.CurrentGame.Lives);
-                        Processor = new ScoreProcessorKeys(Screen.Map, mods, mp);
-                    }
-                    else
+                    // if (screen.IsMultiplayerGame && Type == ScoreboardUserType.Other)
+                    // {
+                        // var mp = new ScoreProcessorMultiplayer((MultiplayerHealthType) OnlineManager.CurrentGame.HealthType, OnlineManager.CurrentGame.Lives);
+                        // Processor = new ScoreProcessorKeys(Screen.Map, mods, mp);
+                    // }
+                    // else
                         Processor = Type == ScoreboardUserType.Other ? new ScoreProcessorKeys(Screen.Map, mods): Screen.Ruleset.ScoreProcessor;
                     break;
                 default:
@@ -214,23 +214,23 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                 if (LocalScore != null && (LocalScore.IsOnline || LocalScore.IsMultiplayer))
                 {
                     // Check to see if we have a Steam avatar for this user cached.
-                    if (SteamManager.UserAvatars.ContainsKey((ulong)LocalScore.SteamId))
-                        Avatar.Image = SteamManager.UserAvatars[(ulong)LocalScore.SteamId];
-                    else
-                    {
-                        Avatar.Alpha = 0;
-                        Avatar.Image = UserInterface.UnknownAvatar;
+                    // if (SteamManager.UserAvatars.ContainsKey((ulong)LocalScore.SteamId))
+                    //     Avatar.Image = SteamManager.UserAvatars[(ulong)LocalScore.SteamId];
+                    // else
+                    // {
+                    //     Avatar.Alpha = 0;
+                    //     Avatar.Image = UserInterface.UnknownAvatar;
 
-                        // Otherwise we need to request for it.
-                        SteamManager.SteamUserAvatarLoaded += OnAvatarLoaded;
-                        SteamManager.SendAvatarRetrievalRequest((ulong)LocalScore.SteamId);
-                    }
+                    //     // Otherwise we need to request for it.
+                    //     SteamManager.SteamUserAvatarLoaded += OnAvatarLoaded;
+                    //     SteamManager.SendAvatarRetrievalRequest((ulong)LocalScore.SteamId);
+                    // }
                 }
                 else
                 {
-                    Avatar.Image = ConfigManager.Username?.Value == UsernameRaw
-                        ? SteamManager.GetAvatarOrUnknown(SteamUser.GetSteamID().m_SteamID)
-                        : UserInterface.UnknownAvatar;
+                    // Avatar.Image = ConfigManager.Username?.Value == UsernameRaw
+                    //     ? SteamManager.GetAvatarOrUnknown(SteamUser.GetSteamID().m_SteamID)
+                    //     : UserInterface.UnknownAvatar;
                 }
             }
 
@@ -276,7 +276,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         public override void Destroy()
         {
             // ReSharper disable once DelegateSubtraction
-            SteamManager.SteamUserAvatarLoaded -= OnAvatarLoaded;
+            // SteamManager.SteamUserAvatarLoaded -= OnAvatarLoaded;
 
             base.Destroy();
         }
@@ -301,7 +301,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                 Combo.Text = Processor.Combo.ToString("N0") + "x";
 
                 SetTintBasedOnHealth();
-                Scoreboard.TeamBanner?.UpdateAverageRating();
+                // Scoreboard.TeamBanner?.UpdateAverageRating();
                 return;
             }
 
@@ -320,7 +320,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
 
                 Score.Text = $"{rating:0.00} / {StringHelper.AccuracyToString(Processor.Accuracy)}";
                 Combo.Text = Processor.Combo.ToString("N0") + "x";
-                Scoreboard.TeamBanner?.UpdateAverageRating();
+                // Scoreboard.TeamBanner?.UpdateAverageRating();
             }
 
             CurrentJudgement++;
@@ -373,15 +373,15 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <exception cref="NotImplementedException"></exception>
-        private void OnAvatarLoaded(object sender, SteamAvatarLoadedEventArgs e)
-        {
-            if (e.SteamId != (ulong)LocalScore.SteamId)
-                return;
+        // private void OnAvatarLoaded(object sender, SteamAvatarLoadedEventArgs e)
+        // {
+        //     if (e.SteamId != (ulong)LocalScore.SteamId)
+        //         return;
 
-            Avatar.Image = e.Texture;
-            Avatar.ClearAnimations();
-            Avatar.Animations.Add(new Animation(AnimationProperty.Alpha, Easing.Linear, Avatar.Alpha, 1, 600));
-        }
+        //     Avatar.Image = e.Texture;
+        //     Avatar.ClearAnimations();
+        //     Avatar.Animations.Add(new Animation(AnimationProperty.Alpha, Easing.Linear, Avatar.Alpha, 1, 600));
+        // }
 
         /// <summary>
         /// </summary>
@@ -400,40 +400,40 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                 case ScoreboardUserType.Self:
                     Image = SkinManager.Skin.Scoreboard;
 
-                    if (OnlineManager.CurrentGame != null &&
-                        OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Team)
-                    {
-                        switch (Scoreboard.Team)
-                        {
-                            case MultiplayerTeam.Red:
-                                Image = SkinManager.Skin.ScoreboardRedTeam;
-                                break;
-                            case MultiplayerTeam.Blue:
-                                Image = SkinManager.Skin.ScoreboardBlueTeam;
-                                break;
-                        }
-                    }
-                    else if (IsOneVersusOne)
-                        Image = SkinManager.Skin.ScoreboardRedTeam;
+                    // if (OnlineManager.CurrentGame != null &&
+                    //     OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Team)
+                    // {
+                    //     switch (Scoreboard.Team)
+                    //     {
+                    //         case MultiplayerTeam.Red:
+                    //             Image = SkinManager.Skin.ScoreboardRedTeam;
+                    //             break;
+                    //         case MultiplayerTeam.Blue:
+                    //             Image = SkinManager.Skin.ScoreboardBlueTeam;
+                    //             break;
+                    //     }
+                    // }
+                    // else if (IsOneVersusOne)
+                    //     Image = SkinManager.Skin.ScoreboardRedTeam;
                     break;
                 case ScoreboardUserType.Other:
                     Image = SkinManager.Skin.ScoreboardOther;
 
-                    if (OnlineManager.CurrentGame != null &&
-                        OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Team)
-                    {
-                        switch (Scoreboard.Team)
-                        {
-                            case MultiplayerTeam.Red:
-                                Image = SkinManager.Skin.ScoreboardRedTeamOther;
-                                break;
-                            case MultiplayerTeam.Blue:
-                                Image = SkinManager.Skin.ScoreboardBlueTeamOther;
-                                break;
-                        }
-                    }
-                    else if (IsOneVersusOne)
-                        Image = UserInterface.ScoreboardBlueMirrored;
+                    // if (OnlineManager.CurrentGame != null &&
+                    //     OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Team)
+                    // {
+                    //     switch (Scoreboard.Team)
+                    //     {
+                    //         case MultiplayerTeam.Red:
+                    //             Image = SkinManager.Skin.ScoreboardRedTeamOther;
+                    //             break;
+                    //         case MultiplayerTeam.Blue:
+                    //             Image = SkinManager.Skin.ScoreboardBlueTeamOther;
+                    //             break;
+                    //     }
+                    // }
+                    // else if (IsOneVersusOne)
+                    //     Image = UserInterface.ScoreboardBlueMirrored;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -454,12 +454,12 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
 
             Processor = oldProcessor;
 
-            if (Processor.MultiplayerProcessor != null)
-            {
-                if (OnlineManager.CurrentGame != null && OnlineManager.CurrentGame.Ruleset != MultiplayerGameRuleset.Battle_Royale &&
-                    (Processor.MultiplayerProcessor.IsRegeneratingHealth || Processor.MultiplayerProcessor.IsEliminated))
-                    rating = 0;
-            }
+            // if (Processor.MultiplayerProcessor != null)
+            // {
+            //     if (OnlineManager.CurrentGame != null && OnlineManager.CurrentGame.Ruleset != MultiplayerGameRuleset.Battle_Royale &&
+            //         (Processor.MultiplayerProcessor.IsRegeneratingHealth || Processor.MultiplayerProcessor.IsEliminated))
+            //         rating = 0;
+            // }
 
             return rating;
         }

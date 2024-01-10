@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Quaver.Shared.Graphics.Menu.Border.Components;
 using Quaver.Shared.Graphics.Menu.Border.Components.Buttons;
-using Quaver.Shared.Graphics.Menu.Border.Components.Users;
+// using Quaver.Shared.Graphics.Menu.Border.Components.Users;
 using Wobble.Graphics;
 
 namespace Quaver.Shared.Graphics.Menu.Border
@@ -10,7 +10,7 @@ namespace Quaver.Shared.Graphics.Menu.Border
     {
         /// <summary>
         /// </summary>
-        private DrawableLoggedInUser User { get; }
+        // private DrawableLoggedInUser User { get; }
 
         /// <inheritdoc />
         /// <summary>
@@ -19,19 +19,19 @@ namespace Quaver.Shared.Graphics.Menu.Border
             {
                 new MenuBorderLogo(),
                 new IconTextButtonHome(),
-                new IconTextButtonDownloadMaps(),
-                new IconTextButtonSkins(),
-                new IconTextButtonDonate()
+                // new IconTextButtonDownloadMaps(),
+                // new IconTextButtonSkins(),
+                // new IconTextButtonDonate()
             },
             new List<Drawable>
             {
                 new IconTextButtonOnlineHub(),
             })
         {
-            User = new DrawableLoggedInUser();
-            User.Resized += OnUserResized;
+            // User = new DrawableLoggedInUser();
+            // User.Resized += OnUserResized;
 
-            RightAlignedItems.Add(User);
+            // RightAlignedItems.Add(User);
             RightAlignedItems.Add(new DrawableSessionTime());
 
             AlignRightItems();
@@ -42,10 +42,10 @@ namespace Quaver.Shared.Graphics.Menu.Border
         /// </summary>
         public override void Destroy()
         {
-            User.Resized -= OnUserResized;
+            // User.Resized -= OnUserResized;
             base.Destroy();
         }
 
-        private void OnUserResized(object sender, LoggedInUserResizedEventArgs e) => AlignRightItems();
+        // private void OnUserResized(object sender, LoggedInUserResizedEventArgs e) => AlignRightItems();
     }
 }

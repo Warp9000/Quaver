@@ -6,9 +6,9 @@ using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Menu.Border.Components;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Screens.Download;
-using Quaver.Shared.Screens.Downloading;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Screens.Downloading;
 using Quaver.Shared.Screens.Editor;
 using Quaver.Shared.Screens.Music.UI.Sidebar.Playlists;
 using Quaver.Shared.Screens.Selection;
@@ -81,8 +81,8 @@ namespace Quaver.Shared.Screens.Music.UI.Sidebar
 
             // Explore
             CreateExploreHeader();
-            CreateDownloadSongsButton();
-            CreateOnlineMapPoolsButton();
+            // CreateDownloadSongsButton();
+            // CreateOnlineMapPoolsButton();
             CreateSongSelectButton();
             CreateMapEditorButton();
 
@@ -162,46 +162,46 @@ namespace Quaver.Shared.Screens.Music.UI.Sidebar
 
         /// <summary>
         /// </summary>
-        private void CreateDownloadSongsButton()
-        {
-            DownloadSongs = new IconTextButton(FontAwesome.Get(FontAwesomeIcon.fa_download_to_storage_drive),
-                FontManager.GetWobbleFont(Fonts.LatoBlack), "Download Songs", (sender, args) =>
-                {
-                    var game = (QuaverGame) GameBase.Game;
-                    game.CurrentScreen.Exit(() => new DownloadingScreen());
-                })
-            {
-                Parent = ExploreContainer,
-                X = 14,
-                Y = 32,
-                Text =
-                {
-                    FontSize = 22,
-                    Text = "Download Songs"
-                }
-            };
-        }
+        // private void CreateDownloadSongsButton()
+        // {
+        //     DownloadSongs = new IconTextButton(FontAwesome.Get(FontAwesomeIcon.fa_download_to_storage_drive),
+        //         FontManager.GetWobbleFont(Fonts.LatoBlack), "Download Songs", (sender, args) =>
+        //         {
+        //             var game = (QuaverGame) GameBase.Game;
+        //             game.CurrentScreen.Exit(() => new DownloadingScreen());
+        //         })
+        //     {
+        //         Parent = ExploreContainer,
+        //         X = 14,
+        //         Y = 32,
+        //         Text =
+        //         {
+        //             FontSize = 22,
+        //             Text = "Download Songs"
+        //         }
+        //     };
+        // }
 
         /// <summary>
         /// </summary>
-        private void CreateOnlineMapPoolsButton()
-        {
-            OnlineMapPools = new IconTextButton(UserInterface.JukeboxHamburgerIcon,
-                FontManager.GetWobbleFont(Fonts.LatoBlack), "Online Playlists", (sender, args) =>
-                {
-                    BrowserHelper.OpenURL($"https://quavergame.com/mappools/");
-                })
-            {
-                Parent = ExploreContainer,
-                X = DownloadSongs.X,
-                Y = DownloadSongs.Y + DownloadSongs.Height + DownloadSongs.Y,
-                Text =
-                {
-                    FontSize = 22,
-                    Text = "Online Playlists"
-                }
-            };
-        }
+        // private void CreateOnlineMapPoolsButton()
+        // {
+        //     OnlineMapPools = new IconTextButton(UserInterface.JukeboxHamburgerIcon,
+        //         FontManager.GetWobbleFont(Fonts.LatoBlack), "Online Playlists", (sender, args) =>
+        //         {
+        //             BrowserHelper.OpenURL($"https://quavergame.com/mappools/");
+        //         })
+        //     {
+        //         Parent = ExploreContainer,
+        //         X = DownloadSongs.X,
+        //         Y = DownloadSongs.Y + DownloadSongs.Height + DownloadSongs.Y,
+        //         Text =
+        //         {
+        //             FontSize = 22,
+        //             Text = "Online Playlists"
+        //         }
+        //     };
+        // }
 
         /// <summary>
         /// </summary>
@@ -241,11 +241,11 @@ namespace Quaver.Shared.Screens.Music.UI.Sidebar
                     if (AudioEngine.Track != null && AudioEngine.Track.IsPlaying)
                         AudioEngine.Track.Stop();
 
-                    if (OnlineManager.CurrentGame != null)
-                    {
-                        NotificationManager.Show(NotificationLevel.Error, "You cannot use the editor while playing multiplayer.");
-                        return;
-                    }
+                    // if (OnlineManager.CurrentGame != null)
+                    // {
+                    //     NotificationManager.Show(NotificationLevel.Error, "You cannot use the editor while playing multiplayer.");
+                    //     return;
+                    // }
 
                     var game = (QuaverGame) GameBase.Game;
                     game.CurrentScreen.Exit(() => new EditorScreen(MapManager.Selected.Value.LoadQua()));

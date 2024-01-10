@@ -14,12 +14,12 @@ using Microsoft.Xna.Framework;
 using Quaver.API.Enums;
 using Quaver.API.Helpers;
 using Quaver.API.Maps.Processors.Rating;
-using Quaver.Server.Client.Handlers;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Client.Handlers;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Skinning;
 using Wobble;
 using Wobble.Assets;
@@ -43,7 +43,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// <summary>
         ///     The team (if any) this scoreboard represents
         /// </summary>
-        public MultiplayerTeam Team { get; }
+        // public MultiplayerTeam Team { get; }
 
         /// <summary>
         ///     The list of users on the scoreboard.
@@ -53,7 +53,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// <summary>
         ///     Displays the banner for the scoreboard team
         /// </summary>
-        public ScoreboardTeamBanner TeamBanner { get; }
+        // public ScoreboardTeamBanner TeamBanner { get; }
 
         /// <summary>
         ///     Displays the players left/time left for battle royale
@@ -73,54 +73,54 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// <inheritdoc />
         /// <summary>
         /// </summary>
-        internal Scoreboard(ScoreboardType type, IEnumerable<ScoreboardUser> users, MultiplayerTeam team = MultiplayerTeam.Red)
+        internal Scoreboard(ScoreboardType type, IEnumerable<ScoreboardUser> users)//, MultiplayerTeam team = MultiplayerTeam.Red)
         {
             Type = type;
-            Team = team;
+            // Team = team;
             Users = users?.ToList();
 
-            if (OnlineManager.CurrentGame != null)
-            {
-                OnlineManager.Client.OnGameJudgements += OnGameJudgements;
-                OnlineManager.Client.OnPlayerBattleRoyaleEliminated += OnPlayerBattleRoyaleEliminated;
+            // if (OnlineManager.CurrentGame != null)
+            // {
+            //     OnlineManager.Client.OnGameJudgements += OnGameJudgements;
+            //     OnlineManager.Client.OnPlayerBattleRoyaleEliminated += OnPlayerBattleRoyaleEliminated;
 
-                if (OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Battle_Royale)
-                {
-                    BattleRoyalePlayersLeft = new Bindable<int>(0)
-                    {
-                        Value = Users.Count + 1
-                    };
-                }
-            }
+            //     if (OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Battle_Royale)
+            //     {
+            //         BattleRoyalePlayersLeft = new Bindable<int>(0)
+            //         {
+            //             Value = Users.Count + 1
+            //         };
+            //     }
+            // }
 
-            if (Type == ScoreboardType.Teams)
-            {
-                TeamBanner = new ScoreboardTeamBanner(this)
-                {
-                    Parent = this,
-                    Y = 235,
-                };
+            // if (Type == ScoreboardType.Teams)
+            // {
+                // TeamBanner = new ScoreboardTeamBanner(this)
+                // {
+                //     Parent = this,
+                //     Y = 235,
+                // };
 
-                if (Team == MultiplayerTeam.Blue)
-                    TeamBanner.X = WindowManager.Width - TeamBanner.Width;
-            }
+                // if (Team == MultiplayerTeam.Blue)
+                //     TeamBanner.X = WindowManager.Width - TeamBanner.Width;
+            // }
 
-            if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale)
-            {
-                BattleRoyaleBanner = new ScoreboardBattleRoyaleBanner(this)
-                {
-                    Parent = this,
-                    Y = 235
-                };
-            }
-            else if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Free_For_All && Users.Count <= 2)
-            {
-                /*OneVsOneWinsBanner = new ScoreboardOneVsOneWins(this)
-                {
-                    Parent = this,
-                    Y = 235
-                };*/
-            }
+            // if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Battle_Royale)
+            // {
+            //     BattleRoyaleBanner = new ScoreboardBattleRoyaleBanner(this)
+            //     {
+            //         Parent = this,
+            //         Y = 235
+            //     };
+            // }
+            // else if (OnlineManager.CurrentGame?.Ruleset == MultiplayerGameRuleset.Free_For_All && Users.Count <= 2)
+            // {
+            //     /*OneVsOneWinsBanner = new ScoreboardOneVsOneWins(this)
+            //     {
+            //         Parent = this,
+            //         Y = 235
+            //     };*/
+            // }
 
             Users = users.OrderBy(x => x.Processor.Health <= 0).ThenByDescending(x => x.RatingProcessor.CalculateRating(x.Processor.Accuracy)).ToList();
             SetTargetYPositions();
@@ -130,8 +130,8 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                 x.Scoreboard = this;
                 x.Y = x.TargetYPosition;
 
-                if (Team == MultiplayerTeam.Blue)
-                    x.X = WindowManager.Width;
+                // if (Team == MultiplayerTeam.Blue)
+                //     x.X = WindowManager.Width;
             });
         }
 
@@ -139,11 +139,11 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// </summary>
         public override void Destroy()
         {
-            if (OnlineManager.CurrentGame != null)
-            {
-                OnlineManager.Client.OnGameJudgements -= OnGameJudgements;
-                OnlineManager.Client.OnPlayerBattleRoyaleEliminated -= OnPlayerBattleRoyaleEliminated;
-            }
+            // if (OnlineManager.CurrentGame != null)
+            // {
+            //     OnlineManager.Client.OnGameJudgements -= OnGameJudgements;
+            //     OnlineManager.Client.OnPlayerBattleRoyaleEliminated -= OnPlayerBattleRoyaleEliminated;
+            // }
 
             base.Destroy();
         }
@@ -153,77 +153,77 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <exception cref="NotImplementedException"></exception>
-        private void OnGameJudgements(object sender, GameJudgementsEventArgs e)
-        {
-            if (OnlineManager.CurrentGame != null && OnlineManager.IsSpectatingSomeone)
-                return;
+        // private void OnGameJudgements(object sender, GameJudgementsEventArgs e)
+        // {
+        //     if (OnlineManager.CurrentGame != null && OnlineManager.IsSpectatingSomeone)
+        //         return;
 
-            ScoreboardUser user = null;
+        //     ScoreboardUser user = null;
 
-            foreach (var u in Users)
-            {
-                if (u.LocalScore == null)
-                    continue;
+        //     foreach (var u in Users)
+        //     {
+        //         if (u.LocalScore == null)
+        //             continue;
 
-                if (u.LocalScore.PlayerId == e.UserId)
-                {
-                    user = u;
-                    break;
-                }
-            }
+        //         if (u.LocalScore.PlayerId == e.UserId)
+        //         {
+        //             user = u;
+        //             break;
+        //         }
+        //     }
 
-            if (user == null)
-                return;
+        //     if (user == null)
+        //         return;
 
-            foreach (var t in e.Judgements)
-            {
-                user.Judgements.Add(t);
-                user.CalculateScoreForNextObject(t == e.Judgements.Last());
-            }
+        //     foreach (var t in e.Judgements)
+        //     {
+        //         user.Judgements.Add(t);
+        //         user.CalculateScoreForNextObject(t == e.Judgements.Last());
+        //     }
 
-            SetTargetYPositions();
-        }
+        //     SetTargetYPositions();
+        // }
 
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <exception cref="NotImplementedException"></exception>
-        private void OnPlayerBattleRoyaleEliminated(object sender, PlayerBattleRoyaleEliminatedEventArgs e)
-        {
-            ScoreboardUser user = null;
+        // private void OnPlayerBattleRoyaleEliminated(object sender, PlayerBattleRoyaleEliminatedEventArgs e)
+        // {
+        //     ScoreboardUser user = null;
 
-            foreach (var u in Users)
-            {
-                if (u.Type == ScoreboardUserType.Self && e.UserId == OnlineManager.Self.OnlineUser.Id)
-                {
-                    user = u;
-                    SkinManager.Skin.SoundFailure.CreateChannel().Play();
-                    break;
-                }
+        //     foreach (var u in Users)
+        //     {
+        //         if (u.Type == ScoreboardUserType.Self && e.UserId == OnlineManager.Self.OnlineUser.Id)
+        //         {
+        //             user = u;
+        //             SkinManager.Skin.SoundFailure.CreateChannel().Play();
+        //             break;
+        //         }
 
-                if (u.LocalScore != null && u.LocalScore.PlayerId == e.UserId)
-                {
-                    user = u;
-                    break;
-                }
-            }
+        //         if (u.LocalScore != null && u.LocalScore.PlayerId == e.UserId)
+        //         {
+        //             user = u;
+        //             break;
+        //         }
+        //     }
 
-            if (user == null)
-                return;
+        //     if (user == null)
+        //         return;
 
-            user.Processor.MultiplayerProcessor.IsBattleRoyaleEliminated = true;
-            BattleRoyalePlayersLeft.Value--;
+        //     user.Processor.MultiplayerProcessor.IsBattleRoyaleEliminated = true;
+        //     BattleRoyalePlayersLeft.Value--;
 
-            user.Rank = e.Rank;
-            user.SetTintBasedOnHealth();
-            SetTargetYPositions();
+        //     user.Rank = e.Rank;
+        //     user.SetTintBasedOnHealth();
+        //     SetTargetYPositions();
 
-            var game = (QuaverGame) GameBase.Game;
+        //     var game = (QuaverGame) GameBase.Game;
 
-            if (game.CurrentScreen is GameplayScreen screen)
-                screen.SetRichPresence();
-        }
+        //     if (game.CurrentScreen is GameplayScreen screen)
+        //         screen.SetRichPresence();
+        // }
 
         /// <inheritdoc />
         /// <summary>
@@ -242,24 +242,24 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                 // Tween X Position based on if the scoreboard is hidden
                 if (ConfigManager.ScoreboardVisible.Value)
                 {
-                    var target = Team == MultiplayerTeam.Red ? 0 : WindowManager.Width - user.Width;
-                    user.X = MathHelper.Lerp(user.X, target, (float) Math.Min(dt / 120, 1));
+                    // var target = Team == MultiplayerTeam.Red ? 0 : WindowManager.Width - user.Width;
+                    user.X = MathHelper.Lerp(user.X, 0, (float) Math.Min(dt / 120, 1));
                 }
                 else
                 {
-                    var target = Team == MultiplayerTeam.Red ? -user.Width - 10 : WindowManager.Width + user.Width + 10;
-                    user.X = MathHelper.Lerp(user.X, target, (float) Math.Min(dt / 90, 1));
+                    // var target = Team == MultiplayerTeam.Red ? -user.Width - 10 : WindowManager.Width + user.Width + 10;
+                    user.X = MathHelper.Lerp(user.X, 0, (float) Math.Min(dt / 90, 1));
                 }
 
                 user.Visible = user.X >= -user.Width + 10;
             });
 
             // Lerp team banner in and out
-            if (TeamBanner != null)
-            {
-                var target = Team == MultiplayerTeam.Red ? 0 : WindowManager.Width - TeamBanner.Width;
-                TeamBanner.X = MathHelper.Lerp(TeamBanner.X, target, (float) Math.Min(dt / 120, 1));
-            }
+            // if (TeamBanner != null)
+            // {
+            //     var target = WindowManager.Width - TeamBanner.Width;
+            //     TeamBanner.X = MathHelper.Lerp(TeamBanner.X, target, (float) Math.Min(dt / 120, 1));
+            // }
 
             base.Update(gameTime);
         }
@@ -271,8 +271,8 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
         {
             foreach (var x in Users)
             {
-                if (OnlineManager.CurrentGame != null && x.Type != ScoreboardUserType.Self)
-                    return;
+                // if (OnlineManager.CurrentGame != null && x.Type != ScoreboardUserType.Self)
+                //     return;
 
                 x.CalculateScoreForNextObject();
             }
@@ -314,13 +314,13 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
 
             for (var i = 0; i < users.Count; i++)
             {
-                if (OnlineManager.CurrentGame == null
-                    || OnlineManager.CurrentGame.Ruleset != MultiplayerGameRuleset.Battle_Royale
-                    || (OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
-                        !users[i].Processor.MultiplayerProcessor.IsEliminated))
-                {
+                // if (OnlineManager.CurrentGame == null
+                //     || OnlineManager.CurrentGame.Ruleset != MultiplayerGameRuleset.Battle_Royale
+                //     || (OnlineManager.CurrentGame.Ruleset == MultiplayerGameRuleset.Battle_Royale &&
+                //         !users[i].Processor.MultiplayerProcessor.IsEliminated))
+                // {
                     users[i].Rank = i + 1;
-                }
+                // }
             }
 
             users = Users.OrderBy(x => x.Rank).ToList();
@@ -335,7 +335,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                     try
                     {
                         users[i].TargetYPosition = (Type == ScoreboardType.FreeForAll && Users.Count != 1)
-                                                   &&  OnlineManager.CurrentGame?.Ruleset != MultiplayerGameRuleset.Battle_Royale
+                                                //    &&  OnlineManager.CurrentGame?.Ruleset != MultiplayerGameRuleset.Battle_Royale
                             ? Math.Min(users.Count, 5) * -users[i].Height / 2f
                             : 4 * -users[i].Height / 2f + 60;
 

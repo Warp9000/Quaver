@@ -1,17 +1,17 @@
 using System;
 using System.Linq;
 using System.Net;
-using Quaver.Server.Common.Objects.Twitch;
+// using Quaver.Server.Common.Objects.Twitch;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Playlists;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Graphics.Overlays.Hub;
-using Quaver.Shared.Online;
-using Quaver.Shared.Online.API.Maps;
-using Quaver.Shared.Online.API.Mapsets;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Online.API.Maps;
+// using Quaver.Shared.Online.API.Mapsets;
 using Quaver.Shared.Screens;
-using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Screens.Download;
 using Quaver.Shared.Screens.Edit;
 using Quaver.Shared.Screens.Importing;
 using Wobble;
@@ -99,18 +99,18 @@ namespace Quaver.Shared.IPC
             try
             {
                 // Find mapset id & song name.
-                var response = new APIRequestMapInformation(id).ExecuteRequest();
+                // var response = new APIRequestMapInformation(id).ExecuteRequest();
 
-                if (response.Status == (int) HttpStatusCode.NotFound)
-                {
-                    NotificationManager.Show(NotificationLevel.Error, $"That map does not exist on the server.");
-                    return;
-                }
+                // if (response.Status == (int) HttpStatusCode.NotFound)
+                // {
+                //     NotificationManager.Show(NotificationLevel.Error, $"That map does not exist on the server.");
+                //     return;
+                // }
 
-                if (response.Status != (int) HttpStatusCode.OK)
-                    throw new Exception($"Failed map information `{id}` fetch with response: {response.Status}");
+                // if (response.Status != (int) HttpStatusCode.OK)
+                //     throw new Exception($"Failed map information `{id}` fetch with response: {response.Status}");
 
-                DownloadMapAndImport(response.Map.MapsetId, response.Map.Artist, response.Map.Title, true);
+                // DownloadMapAndImport(response.Map.MapsetId, response.Map.Artist, response.Map.Title, true);
             }
             catch (Exception e)
             {
@@ -144,18 +144,18 @@ namespace Quaver.Shared.IPC
             try
             {
                 // Find mapset id & song name.
-                var response = new APIRequestMapsetInformation(id).ExecuteRequest();
+                // var response = new APIRequestMapsetInformation(id).ExecuteRequest();
 
-                if (response.Status == (int) HttpStatusCode.NotFound)
-                {
-                    NotificationManager.Show(NotificationLevel.Error, $"That mapset does not exist on the server.");
-                    return;
-                }
+                // if (response.Status == (int) HttpStatusCode.NotFound)
+                // {
+                //     NotificationManager.Show(NotificationLevel.Error, $"That mapset does not exist on the server.");
+                //     return;
+                // }
 
-                if (response.Status != (int) HttpStatusCode.OK)
-                    throw new Exception($"Failed mapset information `{id}` fetch with response: {response.Status}");
+                // if (response.Status != (int) HttpStatusCode.OK)
+                //     throw new Exception($"Failed mapset information `{id}` fetch with response: {response.Status}");
 
-                DownloadMapAndImport(id, response.Mapset.Artist, response.Mapset.Title, false);
+                // DownloadMapAndImport(id, response.Mapset.Artist, response.Mapset.Title, false);
             }
             catch (Exception e)
             {
@@ -187,13 +187,13 @@ namespace Quaver.Shared.IPC
         /// <returns></returns>
         private static bool IsConnected()
         {
-            if (!OnlineManager.Connected)
-            {
+            // if (!OnlineManager.Connected)
+            // {
                 NotificationManager.Show(NotificationLevel.Warning, $"You must be logged in to download maps!");
                 return false;
-            }
+            // }
 
-            return true;
+            // return true;
         }
 
         /// <summary>
@@ -235,13 +235,13 @@ namespace Quaver.Shared.IPC
                 return false;
             }
 
-            if (game.CurrentScreen.Type == QuaverScreenType.Select)
-                MapManager.PlaySongRequest(new SongRequest(), map);
-            else
-            {
+            // if (game.CurrentScreen.Type == QuaverScreenType.Select)
+            //     MapManager.PlaySongRequest(new SongRequest(), map);
+            // else
+            // {
                 MapManager.Selected.Value = map;
                 AudioEngine.LoadCurrentTrack();
-            }
+            // }
 
             return true;
         }
@@ -253,27 +253,27 @@ namespace Quaver.Shared.IPC
         /// <param name="artist"></param>
         /// <param name="title"></param>
         /// <param name="isMap"></param>
-        private static void DownloadMapAndImport(int id, string artist, string title, bool isMap)
-        {
-            var game = (QuaverGame) GameBase.Game;
+        // private static void DownloadMapAndImport(int id, string artist, string title, bool isMap)
+        // {
+        //     var game = (QuaverGame) GameBase.Game;
 
-            var dl = MapsetDownloadManager.Download(id, artist, title);
-            MapsetDownloadManager.OpenOnlineHub();
+        //     var dl = MapsetDownloadManager.Download(id, artist, title);
+        //     MapsetDownloadManager.OpenOnlineHub();
 
-            // Automatically import if the user is still in song select after completion.
-            dl.Completed.ValueChanged += (o, e) =>
-            {
-                if (!IsSelectionAllowedOnScreen())
-                    return;
+        //     // Automatically import if the user is still in song select after completion.
+        //     dl.Completed.ValueChanged += (o, e) =>
+        //     {
+        //         if (!IsSelectionAllowedOnScreen())
+        //             return;
 
-                var dialog = DialogManager.Dialogs.Find(x => x is OnlineHubDialog) as OnlineHubDialog;
-                dialog?.Close();
+        //         var dialog = DialogManager.Dialogs.Find(x => x is OnlineHubDialog) as OnlineHubDialog;
+        //         dialog?.Close();
 
-                if (isMap)
-                    game.CurrentScreen.Exit(() => new ImportingScreen(null, true, false, id));
-                else
-                    game.CurrentScreen.Exit(() => new ImportingScreen(null, true, false));
-            };
-        }
+        //         if (isMap)
+        //             game.CurrentScreen.Exit(() => new ImportingScreen(null, true, false, id));
+        //         else
+        //             game.CurrentScreen.Exit(() => new ImportingScreen(null, true, false));
+        //     };
+        // }
     }
 }

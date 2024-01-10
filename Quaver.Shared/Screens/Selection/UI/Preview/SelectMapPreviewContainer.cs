@@ -208,7 +208,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Preview
                 var autoplay = Replay.GeneratePerfectReplayKeys(new Replay(qua.Mode, "Autoplay", 0, map.Md5Checksum), qua);
 
                 var gameplay = new GameplayScreen(qua, map.Md5Checksum, new List<Score>(), autoplay, true, 0,
-                    false, null, null, true);
+                    false, true);
 
                 gameplay.HandleReplaySeeking();
 

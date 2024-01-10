@@ -17,7 +17,7 @@ using Quaver.API.Helpers;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Parsers;
 using Quaver.API.Maps.Parsers.Stepmania;
-using Quaver.Server.Client;
+// using Quaver.Server.Client;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Graphics.Notifications;
@@ -546,7 +546,7 @@ namespace Quaver.Shared.Database.Maps
                 return;
             }
 
-            BrowserHelper.OpenURL(MapId != -1 ? $"{OnlineClient.WEBSITE_URL}/mapsets/map/{MapId}" : $"{OnlineClient.WEBSITE_URL}/mapsets/{MapSetId}");
+            // BrowserHelper.OpenURL(MapId != -1 ? $"{OnlineClient.WEBSITE_URL}/mapsets/map/{MapId}" : $"{OnlineClient.WEBSITE_URL}/mapsets/{MapSetId}");
         }
 
         /// <summary>

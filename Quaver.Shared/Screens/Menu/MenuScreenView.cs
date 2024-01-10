@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Quaver.Server.Client;
+// using Quaver.Server.Client;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
@@ -16,10 +16,10 @@ using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Dialogs;
 using Quaver.Shared.Graphics.Menu;
 using Quaver.Shared.Graphics.Notifications;
-using Quaver.Shared.Graphics.Online;
+// using Quaver.Shared.Graphics.Online;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Screens.Download;
 using Quaver.Shared.Screens.Editor;
 using Quaver.Shared.Screens.Importing;
 using Quaver.Shared.Screens.Main;
@@ -30,7 +30,7 @@ using Quaver.Shared.Screens.Menu.UI.Navigation.User;
 using Quaver.Shared.Screens.Menu.UI.Panels;
 using Quaver.Shared.Screens.Menu.UI.Tips;
 using Quaver.Shared.Screens.Menu.UI.Visualizer;
-using Quaver.Shared.Screens.MultiplayerLobby;
+// using Quaver.Shared.Screens.MultiplayerLobby;
 using Quaver.Shared.Screens.Options;
 using Quaver.Shared.Screens.Selection;
 using Wobble;
@@ -106,12 +106,12 @@ namespace Quaver.Shared.Screens.Menu
         /// <summary>
         ///     The user's profile when the click on their name in the navbar.
         /// </summary>
-        public UserProfileContainer UserProfile { get; set; }
+        // public UserProfileContainer UserProfile { get; set; }
 
         /// <summary>
         ///     The currently logged in user's playercard.
         /// </summary>
-        public OnlinePlayercard Playercard { get; set; }
+        // public OnlinePlayercard Playercard { get; set; }
 
         /// <summary>
         /// </summary>
@@ -135,7 +135,7 @@ namespace Quaver.Shared.Screens.Menu
             CreatePanelContainer();
             CreateMenuTip();
             CreateJukebox();
-            CreatePlayercard();
+            // CreatePlayercard();
         }
 
         /// <inheritdoc />
@@ -263,13 +263,13 @@ namespace Quaver.Shared.Screens.Menu
         /// <summary>
         ///     Creates the container for user profiles.
         /// </summary>
-        private void CreateUserProfile() => UserProfile = new UserProfileContainer(this)
-        {
-            Parent = Container,
-            Alignment = Alignment.TopRight,
-            Y = Navbar.Line.Y + Navbar.Line.Thickness,
-            X = -28
-        };
+        // private void CreateUserProfile() => UserProfile = new UserProfileContainer(this)
+        // {
+        //     Parent = Container,
+        //     Alignment = Alignment.TopRight,
+        //     Y = Navbar.Line.Y + Navbar.Line.Thickness,
+        //     X = -28
+        // };
 
         private void CreateMenuFooter()
         {
@@ -286,22 +286,22 @@ namespace Quaver.Shared.Screens.Menu
                 new ButtonText(FontsBitmap.GothamRegular, "Options", 14, (sender, args) => DialogManager.Show(new OptionsDialog())),
                 new ButtonText(FontsBitmap.GothamRegular, "Chat", 14, (sender, args) =>
                 {
-                    if (OnlineManager.Status.Value != ConnectionStatus.Connected)
-                    {
+                    // if (OnlineManager.Status.Value != ConnectionStatus.Connected)
+                    // {
                         NotificationManager.Show(NotificationLevel.Error, "You must be logged in to use the chat!");
                         return;
-                    }
+                    // }
                 }),
                 new ButtonText(FontsBitmap.GothamRegular, "Download Maps", 14, (sender, args) =>
                 {
-                    if (OnlineManager.Status.Value != ConnectionStatus.Connected)
-                    {
+                    // if (OnlineManager.Status.Value != ConnectionStatus.Connected)
+                    // {
                         NotificationManager.Show(NotificationLevel.Error, "You must be logged in to download maps!");
                         return;
-                    }
+                    // }
 
-                    var screen = (QuaverScreen) Screen;
-                    screen.Exit(() => new DownloadScreen());
+                    // var screen = (QuaverScreen) Screen;
+                    // screen.Exit(() => new DownloadScreen());
                 }),
             }, new List<ButtonText>()
             {
@@ -343,12 +343,12 @@ namespace Quaver.Shared.Screens.Menu
         /// <summary>
         ///     Creates the playercard container
         /// </summary>
-        private void CreatePlayercard() => Playercard = new OnlinePlayercard()
-        {
-            Parent = Container,
-            Alignment = Alignment.TopRight,
-            Position = new ScalableVector2(-Jukebox.X, Jukebox.Y - 16)
-        };
+        // private void CreatePlayercard() => Playercard = new OnlinePlayercard()
+        // {
+        //     Parent = Container,
+        //     Alignment = Alignment.TopRight,
+        //     Position = new ScalableVector2(-Jukebox.X, Jukebox.Y - 16)
+        // };
 
         /// <summary>
         ///     Called when the single player panel is clicked.
@@ -373,11 +373,11 @@ namespace Quaver.Shared.Screens.Menu
 
             if (MapManager.Mapsets.Count == 0 || MapManager.Selected == null || MapManager.Selected.Value == null)
             {
-                if (OnlineManager.Status.Value == ConnectionStatus.Connected)
-                {
-                    screen?.Exit(() => new DownloadScreen());
-                    return;
-                }
+                // if (OnlineManager.Status.Value == ConnectionStatus.Connected)
+                // {
+                //     screen?.Exit(() => new DownloadScreen());
+                //     return;
+                // }
 
                 NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
                 return;
@@ -411,27 +411,27 @@ namespace Quaver.Shared.Screens.Menu
         /// <param name="e"></param>
         private void OnCustomGamesPanelClicked(object sender, EventArgs e)
         {
-            if (!OnlineManager.Connected)
-            {
+            // if (!OnlineManager.Connected)
+            // {
                 NotificationManager.Show(NotificationLevel.Error, "You must be logged in to play multiplayer.");
                 return;
-            }
+            // }
 
-            var screen = (QuaverScreen) Screen;
+            // var screen = (QuaverScreen) Screen;
 
-            if (MapManager.Mapsets.Count == 0 || MapManager.Selected == null || MapManager.Selected.Value == null)
-            {
-                if (OnlineManager.Status.Value == ConnectionStatus.Connected)
-                {
-                    screen?.Exit(() => new DownloadScreen());
-                    return;
-                }
+            // if (MapManager.Mapsets.Count == 0 || MapManager.Selected == null || MapManager.Selected.Value == null)
+            // {
+            //     if (OnlineManager.Status.Value == ConnectionStatus.Connected)
+            //     {
+            //         screen?.Exit(() => new DownloadScreen());
+            //         return;
+            //     }
 
-                NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
-                return;
-            }
+            //     NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
+            //     return;
+            // }
 
-            screen.Exit(() => new MultiplayerLobbyScreen());
+            // screen.Exit(() => new MultiplayerLobbyScreen());
         }
 
         /// <summary>

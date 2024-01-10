@@ -389,7 +389,7 @@ namespace Quaver.Shared.Screens.Settings
                     new SettingsDefaultSkin(this, "Default Skin"),
                     new SettingsBool(this, "Use Steam Workshop Skin", ConfigManager.UseSteamWorkshopSkin),
                     new SettingsExportSkin(this, "Export Custom Skin"),
-                    new SettingUploadToWorkshop(this, "Upload Custom Skin To Workshop")
+                    // new SettingUploadToWorkshop(this, "Upload Custom Skin To Workshop")
                 }),
                 // Input
                 new SettingsSection(this, FontAwesome.Get(FontAwesomeIcon.fa_keyboard), "Input", new List<Drawable>

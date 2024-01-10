@@ -2,25 +2,25 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Quaver.API.Helpers;
-using Quaver.Server.Client;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Client;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Discord;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
-using Quaver.Shared.Screens.Download;
-using Quaver.Shared.Screens.Downloading;
+// using Quaver.Shared.Online;
+// using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Screens.Downloading;
 using Quaver.Shared.Screens.Edit;
 using Quaver.Shared.Screens.Editor;
 using Quaver.Shared.Screens.Importing;
 using Quaver.Shared.Screens.Main.Cheats;
 using Quaver.Shared.Screens.Main.UI;
 using Quaver.Shared.Screens.Menu;
-using Quaver.Shared.Screens.MultiplayerLobby;
+// using Quaver.Shared.Screens.MultiplayerLobby;
 using Quaver.Shared.Screens.Selection;
 using Quaver.Shared.Screens.Selection.UI.Dialogs;
 using Wobble;
@@ -69,7 +69,7 @@ namespace Quaver.Shared.Screens.Main
             OriginalAutoLoadOsuBeatmapsValue = ConfigManager.AutoLoadOsuBeatmaps.Value;
             ConfigManager.AutoLoadOsuBeatmaps.ValueChanged += OnAutoLoadOsuBeatmapsChanged;
             TheaterCheat = new CheatCodeTheater();
-            
+
             View = new MainMenuScreenView(this);
         }
 
@@ -77,18 +77,18 @@ namespace Quaver.Shared.Screens.Main
         {
             if (!FirstLoadHandled)
             {
-                if (ConfigManager.AutoLoginToServer.Value)
-                {
-                    try
-                    {
-                        OnlineManager.Login();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex, LogType.Runtime);
-                        NotificationManager.Show(NotificationLevel.Error, "Failed to automatically login!");
-                    }
-                }
+                // if (ConfigManager.AutoLoginToServer.Value)
+                // {
+                //     try
+                //     {
+                //         OnlineManager.Login();
+                //     }
+                //     catch (Exception ex)
+                //     {
+                //         Logger.Error(ex, LogType.Runtime);
+                //         NotificationManager.Show(NotificationLevel.Error, "Failed to automatically login!");
+                //     }
+                // }
 
                 FirstLoadHandled = true;
             }
@@ -170,11 +170,11 @@ namespace Quaver.Shared.Screens.Main
             if (MapManager.Mapsets.Count == 0)
             {
                 // If they're online, send them to the download screen
-                if (OnlineManager.Status.Value == ConnectionStatus.Connected)
-                {
-                    Exit(() => new DownloadingScreen());
-                    return;
-                }
+                // if (OnlineManager.Status.Value == ConnectionStatus.Connected)
+                // {
+                //     Exit(() => new DownloadingScreen());
+                //     return;
+                // }
 
                 // Not online, just notify them.
                 NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
@@ -197,26 +197,26 @@ namespace Quaver.Shared.Screens.Main
         /// </summary>
         public void ExitToMultiplayer()
         {
-            if (!OnlineManager.Connected)
-            {
+            // if (!OnlineManager.Connected)
+            // {
                 NotificationManager.Show(NotificationLevel.Error, "You must be logged in to play multiplayer.");
                 return;
-            }
+            // }
 
             // User has no maps, so send them to the download screen.
-            if (MapManager.Mapsets.Count == 0 || MapManager.Selected == null || MapManager.Selected.Value == null)
-            {
-                if (OnlineManager.Status.Value == ConnectionStatus.Connected)
-                {
-                    Exit(() => new DownloadingScreen());
-                    return;
-                }
+            // if (MapManager.Mapsets.Count == 0 || MapManager.Selected == null || MapManager.Selected.Value == null)
+            // {
+            //     if (OnlineManager.Status.Value == ConnectionStatus.Connected)
+            //     {
+            //         Exit(() => new DownloadingScreen());
+            //         return;
+            //     }
 
-                NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
-                return;
-            }
+            //     NotificationManager.Show(NotificationLevel.Error, "You have no maps loaded. Try importing some!");
+            //     return;
+            // }
 
-            Exit(() => new MultiplayerLobbyScreen());
+            // Exit(() => new MultiplayerLobbyScreen());
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Quaver.Shared.Screens.Main
 
         /// <summary>
         /// </summary>
-        public void ExitToDownload() => Exit(() => new DownloadingScreen(Type));
+        // public void ExitToDownload() => Exit(() => new DownloadingScreen(Type));
 
         /// <summary>
         /// </summary>
@@ -259,12 +259,12 @@ namespace Quaver.Shared.Screens.Main
             DiscordHelper.Presence.PartySize = 0;
             DiscordHelper.Presence.PartyMax = 0;
             DiscordHelper.Presence.EndTimestamp = 0;
-            DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
+            // DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
             DiscordHelper.Presence.SmallImageKey = ModeHelper.ToShortHand(ConfigManager.SelectedGameMode.Value).ToLower();
             DiscordHelper.Presence.SmallImageText = ModeHelper.ToLongHand(ConfigManager.SelectedGameMode.Value);
 
-            SteamManager.SetRichPresence("steam_player_group", null);
-            SteamManager.SetRichPresence("steam_player_group_size", null);
+            // SteamManager.SetRichPresence("steam_player_group", null);
+            // SteamManager.SetRichPresence("steam_player_group_size", null);
 
             Helpers.RichPresenceHelper.UpdateRichPresence("In the menus", "Main Menu");
         }
@@ -273,9 +273,9 @@ namespace Quaver.Shared.Screens.Main
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus()
-            => new UserClientStatus(ClientStatus.InMenus, -1, "", (byte) ConfigManager.SelectedGameMode.Value,
-                "", (long) ModManager.Mods);
+        // public override UserClientStatus GetClientStatus()
+        //     => new UserClientStatus(ClientStatus.InMenus, -1, "", (byte) ConfigManager.SelectedGameMode.Value,
+        //         "", (long) ModManager.Mods);
         /// <summary>
         /// </summary>
         /// <param name="sender"></param>

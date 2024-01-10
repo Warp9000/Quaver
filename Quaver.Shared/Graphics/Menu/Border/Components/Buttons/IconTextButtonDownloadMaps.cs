@@ -1,7 +1,7 @@
 using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Screens;
-using Quaver.Shared.Screens.Downloading;
+// using Quaver.Shared.Screens.Downloading;
 using Wobble;
 using Wobble.Managers;
 
@@ -26,7 +26,7 @@ namespace Quaver.Shared.Graphics.Menu.Border.Components.Buttons
                 return;
             }
 
-            game.CurrentScreen.Exit(() => new DownloadingScreen(game.CurrentScreen.Type));
+            // game.CurrentScreen.Exit(() => new DownloadingScreen(game.CurrentScreen.Type));
         }
     }
 }

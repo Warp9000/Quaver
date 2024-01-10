@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Quaver.Shared.Graphics.Menu.Border;
-using Quaver.Shared.Graphics.Overlays.Chatting;
+// using Quaver.Shared.Graphics.Overlays.Chatting;
 using Quaver.Shared.Graphics.Overlays.Hub;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Screens.Tests.UI.Borders;
@@ -14,7 +14,7 @@ namespace Quaver.Shared.Screens.Tests.Chat
 {
     public class TestChatScreenView : ScreenView
     {
-        public OnlineChat OnlineChatOverlay { get; }
+        // public OnlineChat OnlineChatOverlay { get; }
 
         public OnlineHub Hub { get; }
 
@@ -27,11 +27,11 @@ namespace Quaver.Shared.Screens.Tests.Chat
                 Y = MenuBorder.HEIGHT
             };
 
-            OnlineChatOverlay = new OnlineChat()
-            {
-                Parent = Container,
-                Alignment = Alignment.BotLeft
-            };
+            // OnlineChatOverlay = new OnlineChat()
+            // {
+            //     Parent = Container,
+            //     Alignment = Alignment.BotLeft
+            // };
 
             new TestMenuBorderHeader()
             {
@@ -43,13 +43,13 @@ namespace Quaver.Shared.Screens.Tests.Chat
         {
             if (KeyboardManager.IsUniqueKeyPress(Keys.D2))
             {
-                OnlineChatOverlay.Open();
+                // OnlineChatOverlay.Open();
                 Hub.Open();
             }
 
             if (KeyboardManager.IsUniqueKeyPress(Keys.D1))
             {
-                OnlineChatOverlay.Close();
+                // OnlineChatOverlay.Close();
                 Hub.Close();
             }
 

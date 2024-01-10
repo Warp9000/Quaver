@@ -6,7 +6,7 @@
 */
 
 using Microsoft.Xna.Framework;
-using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Enums;
 using Quaver.Shared.Helpers;
 
 namespace Quaver.Shared.Graphics
@@ -63,28 +63,28 @@ namespace Quaver.Shared.Graphics
         /// </summary>
         /// <param name="userGroups"></param>
         /// <returns></returns>
-        public static Color GetUserChatColor(UserGroups userGroups)
-        {
-            if (userGroups.HasFlag(UserGroups.Swan))
-                return Swan;
-            if (userGroups.HasFlag(UserGroups.Developer))
-                return ColorHelper.HexToColor("#bb79e5");
-            if (userGroups.HasFlag(UserGroups.Bot))
-                return ColorHelper.HexToColor($"#f8ff97");
-            if (userGroups.HasFlag(UserGroups.Admin))
-                return ColorHelper.HexToColor($"#ef2828");
-            if (userGroups.HasFlag(UserGroups.Moderator))
-                return ColorHelper.HexToColor($"#4cb0f7");
-            if (userGroups.HasFlag(UserGroups.RankingSupervisor))
-                return ColorHelper.HexToColor($"#49e6ef");
-            if (userGroups.HasFlag(UserGroups.Contributor))
-                return ColorHelper.HexToColor($"#75e475");
-            if (userGroups.HasFlag(UserGroups.Donator))
-                return ColorHelper.HexToColor($"#f47fff");
-            if (userGroups.HasFlag(UserGroups.Normal))
-                return Color.White;
+        // public static Color GetUserChatColor(UserGroups userGroups)
+        // {
+        //     if (userGroups.HasFlag(UserGroups.Swan))
+        //         return Swan;
+        //     if (userGroups.HasFlag(UserGroups.Developer))
+        //         return ColorHelper.HexToColor("#bb79e5");
+        //     if (userGroups.HasFlag(UserGroups.Bot))
+        //         return ColorHelper.HexToColor($"#f8ff97");
+        //     if (userGroups.HasFlag(UserGroups.Admin))
+        //         return ColorHelper.HexToColor($"#ef2828");
+        //     if (userGroups.HasFlag(UserGroups.Moderator))
+        //         return ColorHelper.HexToColor($"#4cb0f7");
+        //     if (userGroups.HasFlag(UserGroups.RankingSupervisor))
+        //         return ColorHelper.HexToColor($"#49e6ef");
+        //     if (userGroups.HasFlag(UserGroups.Contributor))
+        //         return ColorHelper.HexToColor($"#75e475");
+        //     if (userGroups.HasFlag(UserGroups.Donator))
+        //         return ColorHelper.HexToColor($"#f47fff");
+        //     if (userGroups.HasFlag(UserGroups.Normal))
+        //         return Color.White;
 
-            return Color.White;
-        }
+        //     return Color.White;
+        // }
     }
 }

@@ -1,14 +1,14 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
 using Quaver.Shared.Modifiers.Mods;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble;
 using Wobble.Graphics;
 using Wobble.Graphics.Sprites;
@@ -182,27 +182,27 @@ namespace Quaver.Shared.Screens.Selection.UI.Modifiers.Components
         /// <returns></returns>
         protected bool CanActivateMultiplayerMod()
         {
-            var game = OnlineManager.CurrentGame;
+            // var game = OnlineManager.CurrentGame;
 
-            if (game == null)
-                return true;
+            // if (game == null)
+            //     return true;
 
-            if (Mod is ModJudgementWindows)
-                return true;
+            // if (Mod is ModJudgementWindows)
+            //     return true;
 
-            if (!Mod.AllowedInMultiplayer)
-                return false;
+            // if (!Mod.AllowedInMultiplayer)
+            //     return false;
 
-            var isHost = game.HostId == OnlineManager.Self.OnlineUser.Id;
+            // var isHost = game.HostId == OnlineManager.Self.OnlineUser.Id;
 
-            if (Mod.OnlyMultiplayerHostCanCanChange && !isHost)
-                return false;
+            // if (Mod.OnlyMultiplayerHostCanCanChange && !isHost)
+            //     return false;
 
-            if (Mod is ModSpeed && !isHost && !game.FreeModType.HasFlag(MultiplayerFreeModType.Rate))
-                return false;
+            // if (Mod is ModSpeed && !isHost && !game.FreeModType.HasFlag(MultiplayerFreeModType.Rate))
+            //     return false;
 
-            if (!(Mod is ModSpeed) && !isHost && !game.FreeModType.HasFlag(MultiplayerFreeModType.Regular))
-                return false;
+            // if (!(Mod is ModSpeed) && !isHost && !game.FreeModType.HasFlag(MultiplayerFreeModType.Regular))
+            //     return false;
 
             return true;
         }

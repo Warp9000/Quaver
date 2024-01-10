@@ -7,7 +7,7 @@
 
 using System;
 using Quaver.API.Maps;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Objects;
 
 namespace Quaver.Shared.Screens.Editor
 {
@@ -21,6 +21,6 @@ namespace Quaver.Shared.Screens.Editor
         }
 
         public override QuaverScreenType Type { get; }
-        public override UserClientStatus GetClientStatus() => throw new NotImplementedException();
+        // public override UserClientStatus GetClientStatus() => throw new NotImplementedException();
     }
 }

@@ -1,11 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Quaver.Server.Common.Objects.Listening;
+// using Quaver.Server.Common.Objects.Listening;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Graphics.Notifications;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Menu.UI.Jukebox;
 using Wobble.Assets;
 using Wobble.Graphics.UI.Buttons;
@@ -34,29 +34,29 @@ namespace Quaver.Shared.Screens.Main.UI.Jukebox
             if (AudioEngine.Track == null)
                 return;
 
-            if (!OnlineManager.IsListeningPartyHost)
-            {
-                NotificationManager.Show(NotificationLevel.Error, "You are not the host of listening party!");
-                return;
-            }
+            // if (!OnlineManager.IsListeningPartyHost)
+            // {
+            //     NotificationManager.Show(NotificationLevel.Error, "You are not the host of listening party!");
+            //     return;
+            // }
 
             lock (AudioEngine.Track)
             {
                 if (AudioEngine.Track.IsPlaying)
                 {
                     AudioEngine.Track.Pause();
-                    OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Pause);
+                    // OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Pause);
                 }
                 else if (AudioEngine.Track.IsPaused)
                 {
                     AudioEngine.Track.Play();
-                    OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Play);
+                    // OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Play);
                 }
                 else if (AudioEngine.Track.IsStopped || AudioEngine.Track.IsDisposed)
                 {
                     AudioEngine.LoadCurrentTrack();
                     AudioEngine.Track?.Play();
-                    OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Play);
+                    // OnlineManager.UpdateListeningPartyState(ListeningPartyAction.Play);
                 }
             }
         })

@@ -11,7 +11,7 @@ using System.IO;
 using Quaver.API.Enums;
 using Quaver.API.Helpers;
 using Quaver.API.Replays;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
@@ -19,10 +19,10 @@ using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Modifiers;
 using Quaver.Shared.Modifiers.Mods;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Gameplay;
-using Quaver.Shared.Screens.Multi;
+// using Quaver.Shared.Screens.Multi;
 using Quaver.Shared.Screens.Selection;
 using Wobble;
 using Wobble.Audio;
@@ -57,15 +57,15 @@ namespace Quaver.Shared.Screens.Loading
         /// <summary>
         ///     The spectator client (if any)
         /// </summary>
-        private SpectatorClient SpectatorClient { get; }
+        // private SpectatorClient SpectatorClient { get; }
 
         /// <summary>
         /// </summary>
-        public MapLoadingScreen(List<Score> scores, Replay replay = null, SpectatorClient spectatorClient = null)
+        public MapLoadingScreen(List<Score> scores, Replay replay = null)//, SpectatorClient spectatorClient = null)
         {
             Scores = scores;
             Replay = replay;
-            SpectatorClient = spectatorClient;
+            // SpectatorClient = spectatorClient;
 
             var game = GameBase.Game as QuaverGame;
             var cursor = game?.GlobalUserInterface.Cursor;
@@ -104,7 +104,7 @@ namespace Quaver.Shared.Screens.Loading
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus() => null;
+        // public override UserClientStatus GetClientStatus() => null;
 
         /// <summary>
         ///     Loads the currently selected map asynchronously.
@@ -116,17 +116,17 @@ namespace Quaver.Shared.Screens.Loading
                 throw new Exception("No selected map, we should not be on this screen!");
 
             // Make sure the absolutely correct map is selected in multiplayer
-            if (OnlineManager.CurrentGame != null)
-            {
-                MultiplayerGameScreen.SelectMultiplayerMap();
-                AddModsFromIdentifiers(OnlineManager.GetSelfActivatedMods());
+            // if (OnlineManager.CurrentGame != null)
+            // {
+            //     MultiplayerGameScreen.SelectMultiplayerMap();
+            //     AddModsFromIdentifiers(OnlineManager.GetSelfActivatedMods());
 
-                if (MapManager.Selected.Value == null)
-                {
-                    Exit(() => new MultiplayerGameScreen());
-                    return;
-                }
-            }
+            //     if (MapManager.Selected.Value == null)
+            //     {
+            //         Exit(() => new MultiplayerGameScreen());
+            //         return;
+            //     }
+            // }
 
             MapManager.Selected.Value.Qua = MapManager.Selected.Value.LoadQua();
 
@@ -219,7 +219,7 @@ namespace Quaver.Shared.Screens.Loading
                     throw new ArgumentOutOfRangeException();
             }
 
-            Exit(() => new GameplayScreen(MapManager.Selected.Value.Qua, md5, Scores ?? new List<Score>(), Replay, false, 0, false, SpectatorClient));
+            Exit(() => new GameplayScreen(MapManager.Selected.Value.Qua, md5, Scores ?? new List<Score>(), Replay, false, 0, false));
         }
 
         /// <summary>

@@ -5,8 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Quaver.API.Enums;
 using Quaver.API.Helpers;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
@@ -18,9 +18,9 @@ using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Graphics.Transitions;
 using Quaver.Shared.Modifiers;
 using Quaver.Shared.Modifiers.Mods;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
-using Quaver.Shared.Screens.Download;
+// using Quaver.Shared.Screens.Download;
 using Quaver.Shared.Screens.Edit;
 using Quaver.Shared.Screens.Editor;
 using Quaver.Shared.Screens.Gameplay;
@@ -28,15 +28,15 @@ using Quaver.Shared.Screens.Importing;
 using Quaver.Shared.Screens.Loading;
 using Quaver.Shared.Screens.Main;
 using Quaver.Shared.Screens.Menu;
-using Quaver.Shared.Screens.Multi;
-using Quaver.Shared.Screens.Multiplayer;
+// using Quaver.Shared.Screens.Multi;
+// using Quaver.Shared.Screens.Multiplayer;
 using Quaver.Shared.Screens.Selection.UI;
 using Quaver.Shared.Screens.Selection.UI.Dialogs;
 using Quaver.Shared.Screens.Selection.UI.FilterPanel.Search;
 using Quaver.Shared.Screens.Selection.UI.Leaderboard;
 using Quaver.Shared.Screens.Selection.UI.Maps;
 using Quaver.Shared.Screens.Selection.UI.Mapsets;
-using Quaver.Shared.Screens.Tournament;
+// using Quaver.Shared.Screens.Tournament;
 using Wobble;
 using Wobble.Audio.Tracks;
 using Wobble.Bindables;
@@ -57,7 +57,7 @@ namespace Quaver.Shared.Screens.Selection
         /// <summary>
         ///     If the user is in multiplayer, this is the current screen
         /// </summary>
-        public bool IsMultiplayer { get; }
+        // public bool IsMultiplayer { get; }
 
         /// <summary>
         ///     Stores the currently available mapsets to play in the screen
@@ -107,7 +107,7 @@ namespace Quaver.Shared.Screens.Selection
         /// </summary>
         public SelectionScreen()
         {
-            IsMultiplayer = OnlineManager.CurrentGame != null;
+            // IsMultiplayer = OnlineManager.CurrentGame != null;
 
             // Go to the import screen if we've imported a map not on the select screen
             if (MapsetImporter.Queue.Count > 0 || QuaverSettingsDatabaseCache.OutdatedMaps.Count != 0
@@ -117,8 +117,8 @@ namespace Quaver.Shared.Screens.Selection
                 return;
             }
 
-            if (IsMultiplayer)
-                OnlineManager.Client?.SetGameCurrentlySelectingMap(true);
+            // if (IsMultiplayer)
+            //     OnlineManager.Client?.SetGameCurrentlySelectingMap(true);
             else
                 SetRichPresence();
 
@@ -135,7 +135,7 @@ namespace Quaver.Shared.Screens.Selection
             MapManager.MapsetDeleted += OnMapsetDeleted;
             MapManager.MapDeleted += OnMapDeleted;
             MapManager.MapUpdated += OnMapUpdated;
-            MapManager.SongRequestPlayed += OnSongRequestPlayed;
+            // MapManager.SongRequestPlayed += OnSongRequestPlayed;
             ConfigManager.AutoLoadOsuBeatmaps.ValueChanged += OnAutoLoadOsuBeatmapsChanged;
 
             View = new SelectionScreenView(this);
@@ -179,7 +179,7 @@ namespace Quaver.Shared.Screens.Selection
             MapManager.MapsetDeleted -= OnMapsetDeleted;
             MapManager.MapDeleted -= OnMapDeleted;
             MapManager.MapUpdated -= OnMapUpdated;
-            MapManager.SongRequestPlayed -= OnSongRequestPlayed;
+            // MapManager.SongRequestPlayed -= OnSongRequestPlayed;
 
             // ReSharper disable once DelegateSubtraction
             ConfigManager.AutoLoadOsuBeatmaps.ValueChanged -= OnAutoLoadOsuBeatmapsChanged;
@@ -645,18 +645,18 @@ namespace Quaver.Shared.Screens.Selection
             if (MapManager.Selected.Value == null)
                 return;
 
-            if (OnlineManager.CurrentGame != null)
-            {
-                SelectMultiplayerMap();
-                return;
-            }
+            // if (OnlineManager.CurrentGame != null)
+            // {
+            //     SelectMultiplayerMap();
+            //     return;
+            // }
 
-            if (OnlineManager.IsSpectatingSomeone)
-                OnlineManager.Client?.StopSpectating();
+            // if (OnlineManager.IsSpectatingSomeone)
+            //     OnlineManager.Client?.StopSpectating();
 
             if (ModManager.IsActivated(ModIdentifier.Coop))
             {
-                Exit(() => new TournamentScreen(2));
+                // Exit(() => new TournamentScreen(2));
                 return;
             }
 
@@ -670,11 +670,11 @@ namespace Quaver.Shared.Screens.Selection
         {
             Exit(() =>
             {
-                if (IsMultiplayer)
-                {
-                    OnlineManager.Client?.SetGameCurrentlySelectingMap(false);
-                    return new MultiplayerGameScreen();
-                }
+                // if (IsMultiplayer)
+                // {
+                //     OnlineManager.Client?.SetGameCurrentlySelectingMap(false);
+                //     return new MultiplayerGameScreen();
+                // }
 
                 return new MainMenuScreen();
             });
@@ -691,14 +691,14 @@ namespace Quaver.Shared.Screens.Selection
             if (AudioEngine.Track != null && !AudioEngine.Track.IsStopped)
                 AudioEngine.Track.Stop();
 
-            if (OnlineManager.CurrentGame != null)
-            {
-                NotificationManager.Show(NotificationLevel.Error, "You cannot use the editor while playing multiplayer.");
-                return;
-            }
+            // if (OnlineManager.CurrentGame != null)
+            // {
+            //     NotificationManager.Show(NotificationLevel.Error, "You cannot use the editor while playing multiplayer.");
+            //     return;
+            // }
 
-            if (OnlineManager.IsSpectatingSomeone)
-                OnlineManager.Client?.StopSpectating();
+            // if (OnlineManager.IsSpectatingSomeone)
+            //     OnlineManager.Client?.StopSpectating();
 
             try
             {
@@ -726,114 +726,114 @@ namespace Quaver.Shared.Screens.Selection
         /// <summary>
         ///     Handles the selection of multiplayer maps
         /// </summary>
-        private void SelectMultiplayerMap()
-        {
-            var map = MapManager.Selected.Value;
+        // private void SelectMultiplayerMap()
+        // {
+        //     var map = MapManager.Selected.Value;
 
-            if (!CheckMultiplayerDifficultyRange())
-                return;
+        //     if (!CheckMultiplayerDifficultyRange())
+        //         return;
 
-            if (!CheckMultiplayerSongLength())
-                return;
+        //     if (!CheckMultiplayerSongLength())
+        //         return;
 
-            if (!CheckMultiplayerGameMode())
-                return;
+        //     if (!CheckMultiplayerGameMode())
+        //         return;
 
-            if (!CheckMultiplayerLongNotePercentage())
-                return;
+        //     if (!CheckMultiplayerLongNotePercentage())
+        //         return;
 
-            // Start the fade out early to make it look like the screen is loading
-            Transitioner.FadeIn();
+        //     // Start the fade out early to make it look like the screen is loading
+        //     Transitioner.FadeIn();
 
-            ThreadScheduler.Run(() =>
-            {
-                OnlineManager.Client.ChangeMultiplayerGameMap(map.Md5Checksum, map.MapId,
-                    map.MapSetId, map.ToString(), (byte)map.Mode, map.DifficultyFromMods(ModManager.Mods),
-                    map.GetDifficultyRatings(), map.GetJudgementCount(), MapManager.Selected.Value.GetAlternativeMd5());
+        //     ThreadScheduler.Run(() =>
+        //     {
+        //         OnlineManager.Client.ChangeMultiplayerGameMap(map.Md5Checksum, map.MapId,
+        //             map.MapSetId, map.ToString(), (byte)map.Mode, map.DifficultyFromMods(ModManager.Mods),
+        //             map.GetDifficultyRatings(), map.GetJudgementCount(), MapManager.Selected.Value.GetAlternativeMd5());
 
-                OnlineManager.Client.SetGameCurrentlySelectingMap(false);
+        //         OnlineManager.Client.SetGameCurrentlySelectingMap(false);
 
-                Exit(() => new MultiplayerGameScreen());
-            });
-        }
+        //         Exit(() => new MultiplayerGameScreen());
+        //     });
+        // }
 
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        private bool CheckMultiplayerDifficultyRange()
-        {
-            var diff = MapManager.Selected.Value.DifficultyFromMods(ModManager.Mods);
+        // private bool CheckMultiplayerDifficultyRange()
+        // {
+        //     var diff = MapManager.Selected.Value.DifficultyFromMods(ModManager.Mods);
 
-            // Prevent host from picking a map not within difficulty range
-            if (diff < OnlineManager.CurrentGame.MinimumDifficultyRating || diff > OnlineManager.CurrentGame.MaximumDifficultyRating)
-            {
-                NotificationManager.Show(NotificationLevel.Error,
-                    $"Difficulty rating must be between {OnlineManager.CurrentGame.MinimumDifficultyRating} " +
-                    $"and {OnlineManager.CurrentGame.MaximumDifficultyRating} for this multiplayer match!");
+        //     // Prevent host from picking a map not within difficulty range
+        //     if (diff < OnlineManager.CurrentGame.MinimumDifficultyRating || diff > OnlineManager.CurrentGame.MaximumDifficultyRating)
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Error,
+        //             $"Difficulty rating must be between {OnlineManager.CurrentGame.MinimumDifficultyRating} " +
+        //             $"and {OnlineManager.CurrentGame.MaximumDifficultyRating} for this multiplayer match!");
 
-                return false;
-            }
+        //         return false;
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
 
         /// <summary>
         ///     Checks if the host is selecting a map that fits the length criteria
         /// </summary>
         /// <returns></returns>
-        private bool CheckMultiplayerSongLength()
-        {
-            var length = MapManager.Selected.Value.SongLength * ModHelper.GetRateFromMods(ModManager.Mods) / 1000;
+        // private bool CheckMultiplayerSongLength()
+        // {
+        //     var length = MapManager.Selected.Value.SongLength * ModHelper.GetRateFromMods(ModManager.Mods) / 1000;
 
-            // Pevent host from picking a map not in max song length range
-            if (length > OnlineManager.CurrentGame.MaximumSongLength)
-            {
-                NotificationManager.Show(NotificationLevel.Error,
-                    $"The maximum length allowed for this multiplayer match is: {OnlineManager.CurrentGame.MaximumSongLength} seconds");
+        //     // Pevent host from picking a map not in max song length range
+        //     if (length > OnlineManager.CurrentGame.MaximumSongLength)
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Error,
+        //             $"The maximum length allowed for this multiplayer match is: {OnlineManager.CurrentGame.MaximumSongLength} seconds");
 
-                return false;
-            }
+        //         return false;
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
 
         /// <summary>
         ///     Checks if the host is selecting a map that fits the game mode criteria
         /// </summary>
         /// <returns></returns>
-        private bool CheckMultiplayerGameMode()
-        {
-            // Prevent disallowed game modes from being selected
-            if (!OnlineManager.CurrentGame.AllowedGameModes.Contains((byte)MapManager.Selected.Value.Mode))
-            {
-                NotificationManager.Show(NotificationLevel.Error, "You cannot pick maps of this game mode in this multiplayer match!");
-                return false;
-            }
+        // private bool CheckMultiplayerGameMode()
+        // {
+        //     // Prevent disallowed game modes from being selected
+        //     if (!OnlineManager.CurrentGame.AllowedGameModes.Contains((byte)MapManager.Selected.Value.Mode))
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Error, "You cannot pick maps of this game mode in this multiplayer match!");
+        //         return false;
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
 
         /// <summary>
         ///     Checks if the host is selecting a map within the LN% range
         /// </summary>
         /// <returns></returns>
-        private bool CheckMultiplayerLongNotePercentage()
-        {
-            var map = MapManager.Selected.Value;
+        // private bool CheckMultiplayerLongNotePercentage()
+        // {
+        //     var map = MapManager.Selected.Value;
 
-            // Prevent maps not in range of the minimum and maximum LN%
-            if (map.LNPercentage < OnlineManager.CurrentGame.MinimumLongNotePercentage || map.LNPercentage > OnlineManager.CurrentGame.MaximumLongNotePercentage)
-            {
-                NotificationManager.Show(NotificationLevel.Error,
-                    $"You cannot select this map. The long note percentage must be between " +
-                    $"{OnlineManager.CurrentGame.MinimumLongNotePercentage}%-{OnlineManager.CurrentGame.MaximumLongNotePercentage}% " +
-                                                                  $"for this multiplayer match.");
+        //     // Prevent maps not in range of the minimum and maximum LN%
+        //     if (map.LNPercentage < OnlineManager.CurrentGame.MinimumLongNotePercentage || map.LNPercentage > OnlineManager.CurrentGame.MaximumLongNotePercentage)
+        //     {
+        //         NotificationManager.Show(NotificationLevel.Error,
+        //             $"You cannot select this map. The long note percentage must be between " +
+        //             $"{OnlineManager.CurrentGame.MinimumLongNotePercentage}%-{OnlineManager.CurrentGame.MaximumLongNotePercentage}% " +
+        //                                                           $"for this multiplayer match.");
 
-                return false;
-            }
+        //         return false;
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
 
         /// <summary>
         ///     Exports the current mapset to a zip file and opens it in the file manager
@@ -871,7 +871,7 @@ namespace Quaver.Shared.Screens.Selection
             DiscordHelper.Presence.PartyMax = 0;
             DiscordHelper.Presence.StartTimestamp = 0;
             DiscordHelper.Presence.EndTimestamp = 0;
-            DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
+            // DiscordHelper.Presence.LargeImageText = OnlineManager.GetRichPresenceLargeKeyText(ConfigManager.SelectedGameMode.Value);
             DiscordHelper.Presence.SmallImageKey = ModeHelper.ToShortHand(ConfigManager.SelectedGameMode.Value).ToLower();
             DiscordHelper.Presence.SmallImageText = ModeHelper.ToLongHand(ConfigManager.SelectedGameMode.Value);
 
@@ -953,16 +953,16 @@ namespace Quaver.Shared.Screens.Selection
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnSongRequestPlayed(object sender, SongRequestPlayedEventArgs e)
-        {
-            ThreadScheduler.Run(() =>
-            {
-                MapManager.Selected.Value = e.Map;
+        // private void OnSongRequestPlayed(object sender, SongRequestPlayedEventArgs e)
+        // {
+        //     ThreadScheduler.Run(() =>
+        //     {
+        //         MapManager.Selected.Value = e.Map;
 
-                lock (AvailableMapsets.Value)
-                    AvailableMapsets.Value = MapsetHelper.FilterMapsets(CurrentSearchQuery);
-            });
-        }
+        //         lock (AvailableMapsets.Value)
+        //             AvailableMapsets.Value = MapsetHelper.FilterMapsets(CurrentSearchQuery);
+        //     });
+        // }
 
         /// <summary>
         /// </summary>
@@ -976,6 +976,6 @@ namespace Quaver.Shared.Screens.Selection
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.Selecting, -1, "", 0, "", 0);
+        // public override UserClientStatus GetClientStatus() => new UserClientStatus(ClientStatus.Selecting, -1, "", 0, "", 0);
     }
 }

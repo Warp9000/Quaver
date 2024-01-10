@@ -18,7 +18,7 @@ using Quaver.Shared.Modifiers;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.HitObjects;
 using Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield;
-using Quaver.Shared.Screens.Tournament.Gameplay;
+// using Quaver.Shared.Screens.Tournament.Gameplay;
 using Wobble.Logging;
 
 namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
@@ -83,8 +83,8 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
             Screen = screen;
             Replay = Screen.LoadedReplay;
 
-            Windows = Screen.SpectatorClient != null ? JudgementWindowsDatabaseCache.Standard : JudgementWindowsDatabaseCache.Selected.Value;
-            VirtualPlayer = new VirtualReplayPlayer(Replay, Screen.Map, Windows, Screen.SpectatorClient != null);
+            Windows = /*Screen.SpectatorClient != null ? JudgementWindowsDatabaseCache.Standard : */JudgementWindowsDatabaseCache.Selected.Value;
+            VirtualPlayer = new VirtualReplayPlayer(Replay, Screen.Map, Windows);//, Screen.SpectatorClient != null);
 
             try
             {
@@ -114,7 +114,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
         /// </summary>
         internal void HandleInput(bool forceInput = false)
         {
-            if (Screen.SpectatorClient != null && !Screen.IsSongSelectPreview)
+            if (/*Screen.SpectatorClient != null && */!Screen.IsSongSelectPreview)
                 VirtualPlayer.PlayAllFrames();
 
             HandleScoring();
@@ -160,14 +160,14 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
         /// </summary>
         public void HandleSpectating()
         {
-            if (Screen.SpectatorClient == null || Screen.IsSongSelectPreview)
+            if (/*Screen.SpectatorClient == null || */Screen.IsSongSelectPreview)
                 return;
 
-            var isTournament = Screen is TournamentGameplayScreen;
+            // var isTournament = Screen is TournamentGameplayScreen;
 
             VirtualPlayer.PlayAllFrames();
 
-            if (CurrentFrame >= Replay.Frames.Count && !isTournament && VirtualPlayer.CurrentFrame >= VirtualPlayer.Replay.Frames.Count)
+            if (CurrentFrame >= Replay.Frames.Count && VirtualPlayer.CurrentFrame >= VirtualPlayer.Replay.Frames.Count)
             {
                 if (AudioEngine.Track.IsPlaying)
                     AudioEngine.Track.Pause();
@@ -178,10 +178,10 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
                 return;
             }
 
-            if (Screen.IsPaused && !isTournament)
+            if (Screen.IsPaused)
                 Screen.IsPaused = false;
 
-            if (AudioEngine.Track.IsPaused && !isTournament)
+            if (AudioEngine.Track.IsPaused)
                 AudioEngine.Track.Play();
         }
 

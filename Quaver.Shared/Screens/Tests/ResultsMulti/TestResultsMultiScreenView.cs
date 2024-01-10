@@ -4,7 +4,7 @@ using System.Globalization;
 using Microsoft.Xna.Framework;
 using Quaver.API.Enums;
 using Quaver.API.Maps.Processors.Scoring;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Screens.Results;
@@ -48,11 +48,11 @@ namespace Quaver.Shared.Screens.Tests.ResultsMulti
             JudgementWindowMiss = 164,
         };
 
-        private MultiplayerGame Game { get; } = new MultiplayerGame()
-        {
-            Name = "Test",
-            Ruleset = MultiplayerGameRuleset.Free_For_All
-        };
+        // private MultiplayerGame Game { get; } = new MultiplayerGame()
+        // {
+        //     Name = "Test",
+        //     Ruleset = MultiplayerGameRuleset.Free_For_All
+        // };
 
         private List<ScoreProcessor> LeftTeam { get; } = new List<ScoreProcessor>();
 
@@ -60,7 +60,7 @@ namespace Quaver.Shared.Screens.Tests.ResultsMulti
 
         public TestResultsMultiScreenView(Screen screen) : base(screen)
         {
-            Results = new ResultsScreen(TestMap, Game, TestScore, LeftTeam, RightTeam);
+            // Results = new ResultsScreen(TestMap, Game, TestScore, LeftTeam, RightTeam);
         }
 
         public override void Update(GameTime gameTime) => Results?.Update(gameTime);

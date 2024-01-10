@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Quaver.API.Enums;
-using Quaver.Server.Client.Events.Scores;
+// using Quaver.Server.Client.Events.Scores;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Containers;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble.Assets;
 using Wobble.Bindables;
 using Wobble.Graphics;
@@ -69,8 +69,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Mapsets
 
             MapManager.Selected.ValueChanged += OnMapChanged;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnRetrievedOnlineScores += OnRetrievedOnlineScores;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnRetrievedOnlineScores += OnRetrievedOnlineScores;
 
             ModManager.ModsChanged += OnModsChanged;
 
@@ -85,8 +85,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Mapsets
             // ReSharper disable once DelegateSubtraction
             MapManager.Selected.ValueChanged -= OnMapChanged;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnRetrievedOnlineScores -= OnRetrievedOnlineScores;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnRetrievedOnlineScores -= OnRetrievedOnlineScores;
 
             ModManager.ModsChanged -= OnModsChanged;
 
@@ -158,7 +158,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Mapsets
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnRetrievedOnlineScores(object sender, RetrievedOnlineScoresEventArgs e) => UpdateContent(Item, Index);
+        // private void OnRetrievedOnlineScores(object sender, RetrievedOnlineScoresEventArgs e) => UpdateContent(Item, Index);
 
         /// <summary>
         /// </summary>

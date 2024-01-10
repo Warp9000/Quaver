@@ -45,11 +45,11 @@ namespace Quaver.Shared.Screens.Main.UI.Panels
                 {
                     Background = { Tint = Color.Orange }
                 },
-                new MenuPanel(this, UserInterface.BlankBox,
-                    "Download Maps".ToUpper(), "Find new songs from the community to play".ToUpper(), menuScreen.ExitToDownload)
-                {
-                    Background = { Tint = Color.PaleVioletRed }
-                }
+                // new MenuPanel(this, UserInterface.BlankBox,
+                //     "Download Maps".ToUpper(), "Find new songs from the community to play".ToUpper(), menuScreen.ExitToDownload)
+                // {
+                //     Background = { Tint = Color.PaleVioletRed }
+                // }
             };
 
             Initialize();

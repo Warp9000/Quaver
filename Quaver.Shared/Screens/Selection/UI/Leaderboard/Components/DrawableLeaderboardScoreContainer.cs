@@ -12,11 +12,11 @@ using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Helpers;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Menu.UI.Jukebox;
 using Quaver.Shared.Screens.Results;
 using Quaver.Shared.Skinning;
-using Steamworks;
+// using Steamworks;
 using Wobble;
 using Wobble.Assets;
 using Wobble.Graphics;
@@ -172,7 +172,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             CreateRequiredAccuracyAlert();
             CreateTime();
 
-            SteamManager.SteamUserAvatarLoaded += OnSteamAvatarLoaded;
+            // SteamManager.SteamUserAvatarLoaded += OnSteamAvatarLoaded;
             ModManager.ModsChanged += OnModsChanged;
         }
 
@@ -243,7 +243,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             BlankImage?.Dispose();
 
             // ReSharper disable once DelegateSubtraction
-            SteamManager.SteamUserAvatarLoaded -= OnSteamAvatarLoaded;
+            // SteamManager.SteamUserAvatarLoaded -= OnSteamAvatarLoaded;
             ModManager.ModsChanged -= OnModsChanged;
 
             base.Destroy();
@@ -267,8 +267,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             {
                 var game = (QuaverGame) GameBase.Game;
 
-                if (OnlineManager.CurrentGame != null)
-                    return;
+                // if (OnlineManager.CurrentGame != null)
+                //     return;
 
                 game?.CurrentScreen?.Exit(() => new ResultsScreen(MapManager.Selected.Value, Score.Item));
             };
@@ -606,40 +606,40 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         /// </summary>
         private void UpdateAvatar()
         {
-            var steamId = (ulong) Score.Item.SteamId;
+            // var steamId = (ulong) Score.Item.SteamId;
 
-            if (ConfigManager.LeaderboardSection?.Value == LeaderboardType.Local)
-                steamId = SteamUser.GetSteamID().m_SteamID;
+            // if (ConfigManager.LeaderboardSection?.Value == LeaderboardType.Local)
+            //     steamId = SteamUser.GetSteamID().m_SteamID;
 
             lock (Avatar)
             lock (Avatar.Image)
             {
-                if (Score.IsPersonalBest && !Score.Item.IsOnline)
-                {
-                    Avatar.Image = SteamManager.GetAvatarOrUnknown(steamId);
-                    Avatar.Alpha = 1;
-                    return;
-                }
+                // if (Score.IsPersonalBest && !Score.Item.IsOnline)
+                // {
+                //     Avatar.Image = SteamManager.GetAvatarOrUnknown(steamId);
+                //     Avatar.Alpha = 1;
+                //     return;
+                // }
 
-                if (SteamManager.UserAvatars.ContainsKey(steamId))
-                {
-                    if (Avatar.Image == SteamManager.UserAvatars[steamId])
-                        return;
+                // if (SteamManager.UserAvatars.ContainsKey(steamId))
+                // {
+                //     if (Avatar.Image == SteamManager.UserAvatars[steamId])
+                //         return;
 
-                    Avatar.Alpha = 0;
-                    Avatar.ClearAnimations();
-                    Avatar.FadeTo(1, Easing.Linear, 400);
+                //     Avatar.Alpha = 0;
+                //     Avatar.ClearAnimations();
+                //     Avatar.FadeTo(1, Easing.Linear, 400);
 
-                    Avatar.Image = SteamManager.UserAvatars[steamId];
-                    return;
-                }
+                //     Avatar.Image = SteamManager.UserAvatars[steamId];
+                //     return;
+                // }
 
                 Avatar.Image = UserInterface.UnknownAvatar;
                 Avatar.ClearAnimations();
                 Avatar.Alpha = 0;
             }
 
-            SteamManager.SendAvatarRetrievalRequest(steamId);
+            // SteamManager.SendAvatarRetrievalRequest(steamId);
         }
 
         /// <summary>
@@ -703,20 +703,20 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnSteamAvatarLoaded(object sender, SteamAvatarLoadedEventArgs e)
-        {
-            if (e.SteamId != (ulong) Score.Item.SteamId)
-                return;
+        // private void OnSteamAvatarLoaded(object sender, SteamAvatarLoadedEventArgs e)
+        // {
+        //     if (e.SteamId != (ulong) Score.Item.SteamId)
+        //         return;
 
-            lock (Avatar)
-            lock (Avatar.Image)
-            {
-                Avatar.Alpha = 0;
-                Avatar.ClearAnimations();
-                Avatar.FadeTo(1, Easing.Linear, 400);
-                Avatar.Image = e.Texture;
-            }
-        }
+        //     lock (Avatar)
+        //     lock (Avatar.Image)
+        //     {
+        //         Avatar.Alpha = 0;
+        //         Avatar.ClearAnimations();
+        //         Avatar.FadeTo(1, Easing.Linear, 400);
+        //         Avatar.Image = e.Texture;
+        //     }
+        // }
 
         /// <summary>
         /// </summary>

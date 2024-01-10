@@ -1,7 +1,7 @@
-using Quaver.Server.Client.Events.Scores;
+// using Quaver.Server.Client.Events.Scores;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Graphics.Containers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Selection.UI.Mapsets;
 using Wobble.Bindables;
 using Wobble.Graphics;
@@ -46,8 +46,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Maps
             MapManager.Selected.ValueChanged += OnMapChanged;
             MapManager.MapUpdated += OnMapUpdated;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnRetrievedOnlineScores += OnRetrievedOnlineScores;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnRetrievedOnlineScores += OnRetrievedOnlineScores;
 
             UpdateContent(item, index);
         }
@@ -61,8 +61,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Maps
             MapManager.Selected.ValueChanged -= OnMapChanged;
             MapManager.MapUpdated -= OnMapUpdated;
 
-            if (OnlineManager.Client != null)
-                OnlineManager.Client.OnRetrievedOnlineScores -= OnRetrievedOnlineScores;
+            // if (OnlineManager.Client != null)
+            //     OnlineManager.Client.OnRetrievedOnlineScores -= OnRetrievedOnlineScores;
 
             base.Destroy();
         }
@@ -120,8 +120,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Maps
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnRetrievedOnlineScores(object sender, RetrievedOnlineScoresEventArgs e)
-            => UpdateContent(Item, Index);
+        // private void OnRetrievedOnlineScores(object sender, RetrievedOnlineScoresEventArgs e)
+        //     => UpdateContent(Item, Index);
 
         /// <summary>
         /// </summary>

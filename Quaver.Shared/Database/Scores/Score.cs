@@ -16,11 +16,11 @@ using Quaver.API.Maps.Processors.Rating;
 using Quaver.API.Maps.Processors.Scoring;
 using Quaver.API.Maps.Processors.Scoring.Data;
 using Quaver.API.Replays;
-using Quaver.Server.Client.Structures;
+// using Quaver.Server.Client.Structures;
 using Quaver.Shared.Config;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Loading;
 using SQLite;
 using Wobble;
@@ -302,66 +302,66 @@ namespace Quaver.Shared.Database.Scores
         /// </summary>
         /// <param name="score"></param>
         /// <returns></returns>
-        public static Score FromOnlineScoreboardScore(OnlineScoreboardScore score)
-        {
-            // Unix timestamp is seconds past epoch
-            var dtDateTime = new DateTime(1970,1,1,0,0,0,0,DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(score.Timestamp / 1000f).ToLocalTime();
+        // public static Score FromOnlineScoreboardScore(OnlineScoreboardScore score)
+        // {
+        //     // Unix timestamp is seconds past epoch
+        //     var dtDateTime = new DateTime(1970,1,1,0,0,0,0,DateTimeKind.Utc);
+        //     dtDateTime = dtDateTime.AddSeconds(score.Timestamp / 1000f).ToLocalTime();
 
-            var localScore = new Score()
-            {
-                IsOnline = true,
-                Id = score.Id,
-                PlayerId = score.UserId,
-                SteamId = score.SteamId,
-                MapMd5 = score.MapMd5,
-                Name = score.Username,
-                DateTime = dtDateTime.ToString(CultureInfo.InvariantCulture),
-                Mode = score.Mode,
-                TotalScore = score.TotalScore,
-                PerformanceRating = score.PerformanceRating,
-                Grade = GradeHelper.GetGradeFromAccuracy((float) score.Accuracy),
-                Accuracy = score.Accuracy,
-                MaxCombo = score.MaxCombo,
-                CountMarv = score.CountMarv,
-                CountPerf = score.CountPerf,
-                CountGreat = score.CountGreat,
-                CountGood = score.CountGood,
-                CountOkay = score.CountOkay,
-                CountMiss = score.CountMiss,
-                Mods = (long) score.Mods,
-                Country = score.Country
-            };
+        //     var localScore = new Score()
+        //     {
+        //         IsOnline = true,
+        //         Id = score.Id,
+        //         PlayerId = score.UserId,
+        //         SteamId = score.SteamId,
+        //         MapMd5 = score.MapMd5,
+        //         Name = score.Username,
+        //         DateTime = dtDateTime.ToString(CultureInfo.InvariantCulture),
+        //         Mode = score.Mode,
+        //         TotalScore = score.TotalScore,
+        //         PerformanceRating = score.PerformanceRating,
+        //         Grade = GradeHelper.GetGradeFromAccuracy((float) score.Accuracy),
+        //         Accuracy = score.Accuracy,
+        //         MaxCombo = score.MaxCombo,
+        //         CountMarv = score.CountMarv,
+        //         CountPerf = score.CountPerf,
+        //         CountGreat = score.CountGreat,
+        //         CountGood = score.CountGood,
+        //         CountOkay = score.CountOkay,
+        //         CountMiss = score.CountMiss,
+        //         Mods = (long) score.Mods,
+        //         Country = score.Country
+        //     };
 
-            if (score.Hits == null)
-                return localScore;
+        //     if (score.Hits == null)
+        //         return localScore;
 
-            localScore.OnlineJudgements = new List<Judgement>();
-            var processor = new ScoreProcessorKeys(new Qua(), score.Mods);
+        //     localScore.OnlineJudgements = new List<Judgement>();
+        //     var processor = new ScoreProcessorKeys(new Qua(), score.Mods);
 
-            foreach (var hit in score.Hits)
-            {
-                var split = hit.Split("L");
-                var deviance = int.Parse(split[0]);
+        //     foreach (var hit in score.Hits)
+        //     {
+        //         var split = hit.Split("L");
+        //         var deviance = int.Parse(split[0]);
 
-                // Early miss
-                if (deviance == int.MinValue)
-                {
-                    localScore.OnlineJudgements.Add(Judgement.Miss);
-                    continue;
-                }
+        //         // Early miss
+        //         if (deviance == int.MinValue)
+        //         {
+        //             localScore.OnlineJudgements.Add(Judgement.Miss);
+        //             continue;
+        //         }
 
-                var judgement = processor.CalculateScore(deviance,
-                    hit.Contains("L") ? KeyPressType.Release : KeyPressType.Press);
+        //         var judgement = processor.CalculateScore(deviance,
+        //             hit.Contains("L") ? KeyPressType.Release : KeyPressType.Press);
 
-                if (judgement == Judgement.Ghost)
-                    continue;
+        //         if (judgement == Judgement.Ghost)
+        //             continue;
 
-                localScore.OnlineJudgements.Add(judgement);
-            }
+        //         localScore.OnlineJudgements.Add(judgement);
+        //     }
 
-            return localScore;
-        }
+        //     return localScore;
+        // }
 
         /// <summary>
         ///     Converts the score object into a blank replay.
@@ -389,31 +389,31 @@ namespace Quaver.Shared.Database.Scores
         /// <returns></returns>
         public Replay DownloadOnlineReplay(bool delete = true)
         {
-            if (!IsOnline || !OnlineManager.Connected)
+            // if (!IsOnline || !OnlineManager.Connected)
                 return null;
 
-            Replay replay = null;
+            // Replay replay = null;
 
-            var dir = $"{ConfigManager.DataDirectory}/Downloads";
-            var path = $"{dir}/{Id}.qr";
-            Directory.CreateDirectory(dir);
+            // var dir = $"{ConfigManager.DataDirectory}/Downloads";
+            // var path = $"{dir}/{Id}.qr";
+            // Directory.CreateDirectory(dir);
 
-            try
-            {
-                OnlineManager.Client?.DownloadReplay(Id, path);
-                replay = new Replay(path);
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e, LogType.Network);
-            }
-            finally
-            {
-                if (delete)
-                    File.Delete(path);
-            }
+            // try
+            // {
+            //     OnlineManager.Client?.DownloadReplay(Id, path);
+            //     replay = new Replay(path);
+            // }
+            // catch (Exception e)
+            // {
+            //     Logger.Error(e, LogType.Network);
+            // }
+            // finally
+            // {
+            //     if (delete)
+            //         File.Delete(path);
+            // }
 
-            return replay;
+            // return replay;
         }
     }
 }

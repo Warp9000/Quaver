@@ -12,11 +12,11 @@ using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 using Quaver.API.Enums;
 using Quaver.API.Helpers;
-using Quaver.Server.Common.Objects.Multiplayer;
+// using Quaver.Server.Common.Objects.Multiplayer;
 using Quaver.Shared.Audio;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Modifiers.Mods;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Wobble.Logging;
 using Wobble.Managers;
 
@@ -75,8 +75,8 @@ namespace Quaver.Shared.Modifiers
             CurrentModifiersList.Add(gameplayModifier);
             gameplayModifier.InitializeMod();
 
-            if (updateMultiplayerMods)
-                UpdateMultiplayerMods();
+            // if (updateMultiplayerMods)
+            //     UpdateMultiplayerMods();
 
             ModsChanged?.Invoke(typeof(ModManager), new ModsChangedEventArgs(ModChangeType.Add, Mods, modIdentifier));
 
@@ -203,8 +203,8 @@ namespace Quaver.Shared.Modifiers
                 // Remove the Mod
                 CurrentModifiersList.Remove(removedMod);
 
-                if (updateMultiplayerMods)
-                    UpdateMultiplayerMods();
+                // if (updateMultiplayerMods)
+                //     UpdateMultiplayerMods();
 
                 ModsChanged?.Invoke(typeof(ModManager), new ModsChangedEventArgs(ModChangeType.Removal, Mods, modIdentifier));
 
@@ -230,7 +230,7 @@ namespace Quaver.Shared.Modifiers
         {
             CurrentModifiersList.Clear();
             CheckModInconsistencies();
-            UpdateMultiplayerMods();
+            // UpdateMultiplayerMods();
 
             ModsChanged?.Invoke(typeof(ModManager), new ModsChangedEventArgs(ModChangeType.RemoveAll, Mods, ModIdentifier.None));
 
@@ -256,7 +256,7 @@ namespace Quaver.Shared.Modifiers
                 return;
 
             AddMod(speedMod);
-            UpdateMultiplayerMods();
+            // UpdateMultiplayerMods();
         }
 
         /// <summary>
@@ -273,8 +273,8 @@ namespace Quaver.Shared.Modifiers
 
                 CheckModInconsistencies();
 
-                if (updateMultiplayerMods)
-                    UpdateMultiplayerMods();
+                // if (updateMultiplayerMods)
+                //     UpdateMultiplayerMods();
 
                 ModsChanged?.Invoke(typeof(ModManager), new ModsChangedEventArgs(ModChangeType.RemoveSpeed, Mods,
                     ModIdentifier.None));
@@ -373,105 +373,105 @@ namespace Quaver.Shared.Modifiers
         ///     Updates the activated mods for multiplayer if activated
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        private static void UpdateMultiplayerMods()
-        {
-            var game = OnlineManager.CurrentGame;
+        // private static void UpdateMultiplayerMods()
+        // {
+        //     var game = OnlineManager.CurrentGame;
 
-            if (game == null)
-                return;
+        //     if (game == null)
+        //         return;
 
-            // Tournament viewer, ignore updating mods
-            if (OnlineManager.IsSpectatingSomeone)
-                return;
+        //     // Tournament viewer, ignore updating mods
+        //     if (OnlineManager.IsSpectatingSomeone)
+        //         return;
 
-            var isHost = game.HostId == OnlineManager.Self.OnlineUser.Id;
+        //     var isHost = game.HostId == OnlineManager.Self.OnlineUser.Id;
 
-            // Check if the user is allowed to update mods based on the current match settings
-            if (!isHost && game.FreeModType == MultiplayerFreeModType.None)
-                return;
+        //     // Check if the user is allowed to update mods based on the current match settings
+        //     if (!isHost && game.FreeModType == MultiplayerFreeModType.None)
+        //         return;
 
-            var rate = ModHelper.GetModsFromRate(ModHelper.GetRateFromMods(Mods));
-            var hostChangeableMods = CurrentModifiersList.FindAll(x => x.OnlyMultiplayerHostCanCanChange);
-            var ourMods = game.PlayerMods.Find(x => x.UserId == OnlineManager.Self.OnlineUser.Id);
-            var otherMods = CurrentModifiersList.FindAll(x => !x.OnlyMultiplayerHostCanCanChange
-                                                              && x.Type != ModType.Speed
-                                                              && !hostChangeableMods.Contains(x));
+        //     var rate = ModHelper.GetModsFromRate(ModHelper.GetRateFromMods(Mods));
+        //     var hostChangeableMods = CurrentModifiersList.FindAll(x => x.OnlyMultiplayerHostCanCanChange);
+        //     var ourMods = game.PlayerMods.Find(x => x.UserId == OnlineManager.Self.OnlineUser.Id);
+        //     var otherMods = CurrentModifiersList.FindAll(x => !x.OnlyMultiplayerHostCanCanChange
+        //                                                       && x.Type != ModType.Speed
+        //                                                       && !hostChangeableMods.Contains(x));
 
-            // Free Mod isn't enabled, so if the user is host, then activate those mods globally.
-            if (game.FreeModType == MultiplayerFreeModType.None)
-            {
-                if (!isHost)
-                    return;
+        //     // Free Mod isn't enabled, so if the user is host, then activate those mods globally.
+        //     if (game.FreeModType == MultiplayerFreeModType.None)
+        //     {
+        //         if (!isHost)
+        //             return;
 
-                var difficulty = MapManager.Selected.Value?.DifficultyFromMods(Mods) ?? 0;
-                OnlineManager.Client?.MultiplayerChangeGameModifiers((long) Mods, difficulty);
-            }
-            // Only free mod is enabled, so if the user is host, they have to enable the rate and host changeable
-            // modifiers globally.
-            else if (game.FreeModType == MultiplayerFreeModType.Regular)
-            {
-                var customMods = otherMods.Sum(x => (long) x.ModIdentifier);
+        //         var difficulty = MapManager.Selected.Value?.DifficultyFromMods(Mods) ?? 0;
+        //         OnlineManager.Client?.MultiplayerChangeGameModifiers((long) Mods, difficulty);
+        //     }
+        //     // Only free mod is enabled, so if the user is host, they have to enable the rate and host changeable
+        //     // modifiers globally.
+        //     else if (game.FreeModType == MultiplayerFreeModType.Regular)
+        //     {
+        //         var customMods = otherMods.Sum(x => (long) x.ModIdentifier);
 
-                if (long.Parse(ourMods.Modifiers) != customMods)
-                    OnlineManager.Client?.MultiplayerChangePlayerModifiers(customMods);
+        //         if (long.Parse(ourMods.Modifiers) != customMods)
+        //             OnlineManager.Client?.MultiplayerChangePlayerModifiers(customMods);
 
-                if (isHost)
-                {
-                    ModIdentifier globalMods = 0;
+        //         if (isHost)
+        //         {
+        //             ModIdentifier globalMods = 0;
 
-                    if (rate != ModIdentifier.None)
-                        globalMods |= rate;
+        //             if (rate != ModIdentifier.None)
+        //                 globalMods |= rate;
 
-                    globalMods |= (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
+        //             globalMods |= (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
 
-                    var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
-                    OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
-                }
-            }
-            // Only free rate is enabled. If the user is host, enable host-only and custom modifiers globally,
-            // while the rate is activated as a player-specific modifier.
-            else if (game.FreeModType == MultiplayerFreeModType.Rate)
-            {
-                if (long.Parse(ourMods.Modifiers) != (long) rate)
-                    OnlineManager.Client?.MultiplayerChangePlayerModifiers((long) rate);
+        //             var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
+        //             OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
+        //         }
+        //     }
+        //     // Only free rate is enabled. If the user is host, enable host-only and custom modifiers globally,
+        //     // while the rate is activated as a player-specific modifier.
+        //     else if (game.FreeModType == MultiplayerFreeModType.Rate)
+        //     {
+        //         if (long.Parse(ourMods.Modifiers) != (long) rate)
+        //             OnlineManager.Client?.MultiplayerChangePlayerModifiers((long) rate);
 
-                if (isHost)
-                {
-                    ModIdentifier globalMods = 0;
+        //         if (isHost)
+        //         {
+        //             ModIdentifier globalMods = 0;
 
-                    globalMods |= (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
-                    globalMods |= (ModIdentifier) otherMods.Sum(x => (long) x.ModIdentifier);
+        //             globalMods |= (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
+        //             globalMods |= (ModIdentifier) otherMods.Sum(x => (long) x.ModIdentifier);
 
-                    var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
-                    OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
-                }
-            }
-            // Both free mod and free rate are activated. If host, activate host mods globally.
-            // otherwise activate all other mods customly.
-            else if (game.FreeModType.HasFlag(MultiplayerFreeModType.Regular) &&
-                     game.FreeModType.HasFlag(MultiplayerFreeModType.Rate))
-            {
-                ModIdentifier customMods = 0;
+        //             var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
+        //             OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
+        //         }
+        //     }
+        //     // Both free mod and free rate are activated. If host, activate host mods globally.
+        //     // otherwise activate all other mods customly.
+        //     else if (game.FreeModType.HasFlag(MultiplayerFreeModType.Regular) &&
+        //              game.FreeModType.HasFlag(MultiplayerFreeModType.Rate))
+        //     {
+        //         ModIdentifier customMods = 0;
 
-                if (rate > 0)
-                    customMods |= rate;
+        //         if (rate > 0)
+        //             customMods |= rate;
 
-                customMods |= (ModIdentifier) otherMods.Sum(x => (long) x.ModIdentifier);
+        //         customMods |= (ModIdentifier) otherMods.Sum(x => (long) x.ModIdentifier);
 
-                if (long.Parse(ourMods.Modifiers) != (long) customMods)
-                    OnlineManager.Client?.MultiplayerChangePlayerModifiers((long) customMods);
+        //         if (long.Parse(ourMods.Modifiers) != (long) customMods)
+        //             OnlineManager.Client?.MultiplayerChangePlayerModifiers((long) customMods);
 
-                if (isHost)
-                {
-                    var globalMods = (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
+        //         if (isHost)
+        //         {
+        //             var globalMods = (ModIdentifier) hostChangeableMods.Sum(x => (long) x.ModIdentifier);
 
-                    var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
-                    OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
-                }
-            }
+        //             var difficulty = MapManager.Selected.Value?.DifficultyFromMods(globalMods) ?? 0;
+        //             OnlineManager.Client?.MultiplayerChangeGameModifiers((long) globalMods, difficulty);
+        //         }
+        //     }
 
-            Logger.Important($"Updating multiplayer mods: {Mods}", LogType.Runtime);
-        }
+        //     Logger.Important($"Updating multiplayer mods: {Mods}", LogType.Runtime);
+        // }
 
         /// <summary>
         ///     Invokes <see cref="ModsChanged"/>

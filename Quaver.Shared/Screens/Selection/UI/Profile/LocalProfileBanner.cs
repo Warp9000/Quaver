@@ -8,9 +8,9 @@ using Quaver.Shared.Database.Profiles;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Menu.UI.Jukebox;
-using Steamworks;
+// using Steamworks;
 using Wobble.Assets;
 using Wobble.Bindables;
 using Wobble.Graphics;
@@ -113,13 +113,13 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
                 Alpha = 0
             };
 
-            if (SteamManager.UserAvatars != null)
-            {
-                var id = SteamUser.GetSteamID().m_SteamID;
+            // if (SteamManager.UserAvatars != null)
+            // {
+            //     var id = SteamUser.GetSteamID().m_SteamID;
 
-                if (SteamManager.UserAvatars.ContainsKey(id))
-                    Avatar.Image = SteamManager.UserAvatars[id];
-            }
+            //     if (SteamManager.UserAvatars.ContainsKey(id))
+            //         Avatar.Image = SteamManager.UserAvatars[id];
+            // }
 
             Avatar.AddBorder(Color.Transparent, 2);
         }
@@ -139,13 +139,13 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
                 Visible = false
             };
 
-            if (OnlineManager.Connected)
-            {
-                var flag = Flags.Get(OnlineManager.Self?.OnlineUser?.CountryFlag);
+            // if (OnlineManager.Connected)
+            // {
+            //     var flag = Flags.Get(OnlineManager.Self?.OnlineUser?.CountryFlag);
 
-                if (flag != null)
-                    Flag.Image = flag;
-            }
+            //     if (flag != null)
+            //         Flag.Image = flag;
+            // }
         }
 
         /// <summary>
@@ -268,8 +268,8 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
                     return;
                 }
 
-                BrowserHelper.OpenURL($"https://quavergame.com/profile/{OnlineManager.Self.OnlineUser.Id}" +
-                                      $"?mode={(int) ConfigManager.SelectedGameMode.Value}");
+                // BrowserHelper.OpenURL($"https://quavergame.com/profile/{OnlineManager.Self.OnlineUser.Id}" +
+                //                       $"?mode={(int) ConfigManager.SelectedGameMode.Value}");
             };
         }
 

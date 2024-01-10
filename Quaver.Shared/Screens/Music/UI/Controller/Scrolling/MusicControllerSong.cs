@@ -10,7 +10,7 @@ using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Containers;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using TimeAgo;
 using Wobble;
@@ -227,12 +227,12 @@ namespace Quaver.Shared.Screens.Music.UI.Controller.Scrolling
                     if (MapManager.Selected.Value?.Mapset == Item.Maps.First().Mapset)
                         return;
 
-                    if (!OnlineManager.IsListeningPartyHost)
-                    {
-                        NotificationManager.Show(NotificationLevel.Error, "You are not the host of listening party!");
-                        return;
-                    }
-                    
+                    // if (!OnlineManager.IsListeningPartyHost)
+                    // {
+                    //     NotificationManager.Show(NotificationLevel.Error, "You are not the host of listening party!");
+                    //     return;
+                    // }
+
                     MapManager.Selected.Value = Item.Maps.First();
                 })
             {

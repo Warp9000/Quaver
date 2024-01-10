@@ -11,7 +11,7 @@ using Quaver.Shared.Database.Scores;
 using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Containers;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Scheduling;
 using Quaver.Shared.Screens.Menu.UI.Jukebox;
 using Quaver.Shared.Skinning;
@@ -57,7 +57,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         /// <summary>
         ///     The button to update the map to the latest version
         /// </summary>
-        private IconButton UpdateButton { get; set; }
+        // private IconButton UpdateButton { get; set; }
 
         /// <summary>
         /// </summary>
@@ -81,7 +81,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             CreateScrollbar();
             CreateLoadingWheel();
             CreateStatusText();
-            CreateUpdateButton();
+            // CreateUpdateButton();
 
             Container.FetchScoreTask.OnCompleted += OnScoresRetrieved;
         }
@@ -114,9 +114,9 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             }
 
             // Only make the update perform hover if absolutely necessary
-            UpdateButton.IsPerformingFadeAnimations = MapManager.Selected.Value != null
-                                                      && MapManager.Selected.Value.NeedsOnlineUpdate &&
-                                                      LoadingWheel.Alpha < 0.1f;
+            // UpdateButton.IsPerformingFadeAnimations = MapManager.Selected.Value != null
+            //                                           && MapManager.Selected.Value.NeedsOnlineUpdate &&
+            //                                           LoadingWheel.Alpha < 0.1f;
 
             base.Update(gameTime);
         }
@@ -198,9 +198,9 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
                 ScrollbarBackground.Visible = false;
                 FinishedLoading = false;
 
-                UpdateButton.ClearAnimations();
-                UpdateButton.IsClickable = false;
-                UpdateButton.FadeTo(0, Easing.Linear, 250);
+                // UpdateButton.ClearAnimations();
+                // UpdateButton.IsClickable = false;
+                // UpdateButton.FadeTo(0, Easing.Linear, 250);
             });
         }
 
@@ -222,81 +222,81 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         /// <param name="store"></param>
         public void HandleFetchedScores(Map map, FetchedScoreStore store)
         {
-            if (map == null)
-            {
-                StatusText.Text = "There is currently no map selected!".ToUpper();
-                FadeStatusTextIn();
-                return;
-            }
+            // if (map == null)
+            // {
+            //     StatusText.Text = "There is currently no map selected!".ToUpper();
+            //     FadeStatusTextIn();
+            //     return;
+            // }
 
-            var isConnected = OnlineManager.Connected;
-            var isDonator = OnlineManager.IsDonator;
+            // var isConnected = OnlineManager.Connected;
+            // var isDonator = OnlineManager.IsDonator;
 
             //var isConnected = true;
             //var isDonator = true;
 
             // User isn't online
-            if (RequiresOnline() && !isConnected)
-            {
-                StatusText.Text = "You must be online to access this leaderboard!".ToUpper();
-                FadeStatusTextIn();
-                return;
-            }
+            // if (RequiresOnline() && !isConnected)
+            // {
+            //     StatusText.Text = "You must be online to access this leaderboard!".ToUpper();
+            //     FadeStatusTextIn();
+            //     return;
+            // }
 
-            // User isn't a donator
-            if (RequiresOnline() && RequiresDonator() && !isDonator)
-            {
-                StatusText.Text = "You must be a donator to access this leaderboard!".ToUpper();
-                FadeStatusTextIn();
-                return;
-            }
+            // // User isn't a donator
+            // if (RequiresOnline() && RequiresDonator() && !isDonator)
+            // {
+            //     StatusText.Text = "You must be a donator to access this leaderboard!".ToUpper();
+            //     FadeStatusTextIn();
+            //     return;
+            // }
 
             // No scores are available
-            if (store.Scores.Count == 0)
-            {
-                // The user's map is not up-to-date, so prompt them of this.
-                if (map.NeedsOnlineUpdate)
-                {
-                    StatusText.Text = "Your map is outdated. Please update it!".ToUpper();
-                    UpdateButton.ClearAnimations();
-                    UpdateButton.IsClickable = true;
-                    UpdateButton.FadeTo(1, Easing.Linear, 250);
-                }
-                else
-                {
-                    UpdateButton.ClearAnimations();
-                    UpdateButton.IsClickable = false;
-                    UpdateButton.FadeTo(0, Easing.Linear, 250);
+            // if (store.Scores.Count == 0)
+            // {
+            //     // The user's map is not up-to-date, so prompt them of this.
+            //     if (map.NeedsOnlineUpdate)
+            //     {
+            //         StatusText.Text = "Your map is outdated. Please update it!".ToUpper();
+            //         UpdateButton.ClearAnimations();
+            //         UpdateButton.IsClickable = true;
+            //         UpdateButton.FadeTo(1, Easing.Linear, 250);
+            //     }
+            //     else
+            //     {
+            //         UpdateButton.ClearAnimations();
+            //         UpdateButton.IsClickable = false;
+            //         UpdateButton.FadeTo(0, Easing.Linear, 250);
 
-                    // The map isn't ranked, but the user is a donator, so they can access leaderboards on all maps
-                    if (map.RankedStatus != RankedStatus.Ranked && isDonator && ConfigManager.LeaderboardSection.Value != LeaderboardType.Local)
-                        StatusText.Text = "Scores on this map will be unranked!".ToUpper();
-                    else if (ConfigManager.LeaderboardSection.Value != LeaderboardType.Local)
-                    {
-                        switch (map.RankedStatus)
-                        {
-                            case RankedStatus.NotSubmitted:
-                                StatusText.Text = "This map is not submitted online!".ToUpper();
-                                break;
-                            case RankedStatus.Unranked:
-                                StatusText.Text = "This map is not ranked!".ToUpper();
-                                break;
-                            case RankedStatus.Ranked:
-                                StatusText.Text = "No scores available. Be the first!".ToUpper();
-                                break;
-                            case RankedStatus.DanCourse:
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-                    }
-                    else
-                        StatusText.Text = "No scores available. Be the first!".ToUpper();
-                }
+            //         // The map isn't ranked, but the user is a donator, so they can access leaderboards on all maps
+            //         if (map.RankedStatus != RankedStatus.Ranked && isDonator && ConfigManager.LeaderboardSection.Value != LeaderboardType.Local)
+            //             StatusText.Text = "Scores on this map will be unranked!".ToUpper();
+            //         else if (ConfigManager.LeaderboardSection.Value != LeaderboardType.Local)
+            //         {
+            //             switch (map.RankedStatus)
+            //             {
+            //                 case RankedStatus.NotSubmitted:
+            //                     StatusText.Text = "This map is not submitted online!".ToUpper();
+            //                     break;
+            //                 case RankedStatus.Unranked:
+            //                     StatusText.Text = "This map is not ranked!".ToUpper();
+            //                     break;
+            //                 case RankedStatus.Ranked:
+            //                     StatusText.Text = "No scores available. Be the first!".ToUpper();
+            //                     break;
+            //                 case RankedStatus.DanCourse:
+            //                     break;
+            //                 default:
+            //                     throw new ArgumentOutOfRangeException();
+            //             }
+            //         }
+            //         else
+            //             StatusText.Text = "No scores available. Be the first!".ToUpper();
+            //     }
 
-                FadeStatusTextIn();
-                return;
-            }
+            //     FadeStatusTextIn();
+            //     return;
+            // }
         }
 
         public override void RecalculateContainerHeight(bool usePoolCount = false)
@@ -332,10 +332,10 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         ///     If the leaderboard requires donator privileges
         /// </summary>
         /// <returns></returns>
-        private bool RequiresDonator() => RequiresOnline()
-                                          && (ConfigManager.LeaderboardSection.Value == LeaderboardType.Country
-                                          || ConfigManager.LeaderboardSection.Value == LeaderboardType.Friends
-                                          || ConfigManager.LeaderboardSection.Value == LeaderboardType.All);
+        // private bool RequiresDonator() => RequiresOnline()
+        //                                   && (ConfigManager.LeaderboardSection.Value == LeaderboardType.Country
+        //                                   || ConfigManager.LeaderboardSection.Value == LeaderboardType.Friends
+        //                                   || ConfigManager.LeaderboardSection.Value == LeaderboardType.All);
 
         /// <summary>
         ///     Creates <see cref="StatusText"/>
@@ -353,24 +353,24 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         /// <summary>
         ///     Creates <see cref="UpdateButton"/>
         /// </summary>
-        private void CreateUpdateButton()
-        {
-            UpdateButton = new IconButton(UserInterface.BlankBox, (o, e) =>
-                {
-                    ThreadScheduler.Run(() => MapManager.UpdateMapToLatestVersion(MapManager.Selected.Value));
-                    StartLoading();
-                })
-            {
-                Parent = this,
-                Alignment = Alignment.MidCenter,
-                Size = new ScalableVector2(220, 40),
-                Y = StatusText.Y + StatusText.Height + 28,
-                Alpha = 0,
-                IsPerformingFadeAnimations = false,
-                IsClickable = false,
-                Image = UserInterface.UpdateButton
-            };
-        }
+        // private void CreateUpdateButton()
+        // {
+        //     UpdateButton = new IconButton(UserInterface.BlankBox, (o, e) =>
+        //         {
+        //             ThreadScheduler.Run(() => MapManager.UpdateMapToLatestVersion(MapManager.Selected.Value));
+        //             StartLoading();
+        //         })
+        //     {
+        //         Parent = this,
+        //         Alignment = Alignment.MidCenter,
+        //         Size = new ScalableVector2(220, 40),
+        //         Y = StatusText.Y + StatusText.Height + 28,
+        //         Alpha = 0,
+        //         IsPerformingFadeAnimations = false,
+        //         IsClickable = false,
+        //         Image = UserInterface.UpdateButton
+        //     };
+        // }
 
         private void FadeStatusTextIn()
         {

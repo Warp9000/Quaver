@@ -21,11 +21,11 @@ using Quaver.Shared.Converters.Osu;
 using Quaver.Shared.Converters.StepMania;
 using Quaver.Shared.Graphics.Backgrounds;
 using Quaver.Shared.Graphics.Notifications;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens;
 using Quaver.Shared.Screens.Edit;
 using Quaver.Shared.Screens.Importing;
-using Quaver.Shared.Screens.Multi;
+// using Quaver.Shared.Screens.Multi;
 using Quaver.Shared.Screens.Results;
 using Quaver.Shared.Screens.Selection;
 using Quaver.Shared.Skinning;
@@ -98,12 +98,12 @@ namespace Quaver.Shared.Database.Maps
 
                 if (screen.Type == QuaverScreenType.Select)
                 {
-                    if (OnlineManager.CurrentGame != null)
-                    {
-                        var select = game.CurrentScreen as SelectionScreen;
-                        screen.Exit(() => new ImportingScreen(null, true));
-                        return;
-                    }
+                    // if (OnlineManager.CurrentGame != null)
+                    // {
+                    //     var select = game.CurrentScreen as SelectionScreen;
+                    //     screen.Exit(() => new ImportingScreen(null, true));
+                    //     return;
+                    // }
 
                     screen.Exit(() => new ImportingScreen());
                     return;
@@ -115,14 +115,14 @@ namespace Quaver.Shared.Database.Maps
                     return;
                 }
 
-                if (screen.Type == QuaverScreenType.Multiplayer)
-                {
-                    var multi = (MultiplayerGameScreen)screen;
-                    multi.DontLeaveGameUponScreenSwitch = true;
+                // if (screen.Type == QuaverScreenType.Multiplayer)
+                // {
+                //     var multi = (MultiplayerGameScreen)screen;
+                //     multi.DontLeaveGameUponScreenSwitch = true;
 
-                    screen.Exit(() => new ImportingScreen());
-                    return;
-                }
+                //     screen.Exit(() => new ImportingScreen());
+                //     return;
+                // }
         }
 
         /// <summary>
@@ -438,14 +438,14 @@ namespace Quaver.Shared.Database.Maps
                     var map = Map.FromQua(Qua.Parse(quaFile), quaFile);
                     map.DifficultyProcessorVersion = DifficultyProcessorKeys.Version;
 
-                    var info = OnlineManager.Client?.RetrieveMapInfo(map.MapId);
+                    // var info = OnlineManager.Client?.RetrieveMapInfo(map.MapId);
 
-                    if (info != null)
-                    {
-                        map.RankedStatus = info.Map.RankedStatus;
-                        map.DateLastUpdated = info.Map.DateLastUpdated;
-                        map.OnlineOffset = info.Map.OnlineOffset;
-                    }
+                    // if (info != null)
+                    // {
+                    //     map.RankedStatus = info.Map.RankedStatus;
+                    //     map.DateLastUpdated = info.Map.DateLastUpdated;
+                    //     map.OnlineOffset = info.Map.OnlineOffset;
+                    // }
 
                     map.CalculateDifficulties();
                     MapDatabaseCache.InsertMap(map);

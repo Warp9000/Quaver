@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Quaver.Server.Client;
-using Quaver.Server.Client.Handlers;
-using Quaver.Server.Common.Enums;
-using Quaver.Server.Common.Objects;
-using Quaver.Server.Common.Objects.Listening;
+// using Quaver.Server.Client;
+// using Quaver.Server.Client.Handlers;
+// using Quaver.Server.Common.Enums;
+// using Quaver.Server.Common.Objects;
+// using Quaver.Server.Common.Objects.Listening;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Settings;
 using Quaver.Shared.Discord;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Importing;
 using Quaver.Shared.Screens.Main;
 using Quaver.Shared.Screens.Menu;
-using Quaver.Shared.Screens.Multiplayer;
+// using Quaver.Shared.Screens.Multiplayer;
 using Quaver.Shared.Screens.Selection.UI.FilterPanel;
 using Quaver.Shared.Screens.Selection.UI.FilterPanel.Search;
 using Wobble.Bindables;
@@ -43,8 +43,8 @@ namespace Quaver.Shared.Screens.Music
         /// </summary>
         public MusicPlayerScreen()
         {
-            if (OnlineManager.IsSpectatingSomeone)
-                OnlineManager.Client?.StopSpectating();
+            // if (OnlineManager.IsSpectatingSomeone)
+            //     OnlineManager.Client?.StopSpectating();
 
             // Import any maps in the queue
             if (MapsetImporter.Queue.Count > 0 || QuaverSettingsDatabaseCache.OutdatedMaps.Count != 0
@@ -143,14 +143,14 @@ namespace Quaver.Shared.Screens.Music
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        public override UserClientStatus GetClientStatus()
-        {
-            if (MapManager.Selected.Value == null)
-                return new UserClientStatus(ClientStatus.Listening, -1, "-1", 1, "", 0);
+        // public override UserClientStatus GetClientStatus()
+        // {
+        //     if (MapManager.Selected.Value == null)
+        //         return new UserClientStatus(ClientStatus.Listening, -1, "-1", 1, "", 0);
 
-            return new UserClientStatus(ClientStatus.Listening, MapManager.Selected.Value.MapId, MapManager.Selected.Value.Md5Checksum,
-                (byte) MapManager.Selected.Value.Mode, $"{MapManager.Selected.Value.Artist} - {MapManager.Selected.Value.Title}", 0);
-        }
+        //     return new UserClientStatus(ClientStatus.Listening, MapManager.Selected.Value.MapId, MapManager.Selected.Value.Md5Checksum,
+        //         (byte) MapManager.Selected.Value.Mode, $"{MapManager.Selected.Value.Artist} - {MapManager.Selected.Value.Title}", 0);
+        // }
 
         /// <summary>
         /// </summary>
@@ -158,7 +158,7 @@ namespace Quaver.Shared.Screens.Music
         /// <param name="e"></param>
         private void OnMapChanged(object sender, BindableValueChangedEventArgs<Map> e)
         {
-            OnlineManager.Client?.UpdateClientStatus(GetClientStatus());
+            // OnlineManager.Client?.UpdateClientStatus(GetClientStatus());
         }
 
         /// <summary>

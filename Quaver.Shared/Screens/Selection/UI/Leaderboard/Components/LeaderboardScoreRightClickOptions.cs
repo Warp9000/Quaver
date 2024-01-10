@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Quaver.API.Replays;
-using Quaver.Server.Client.Structures;
-using Quaver.Server.Common.Objects;
+// using Quaver.Server.Client.Structures;
+// using Quaver.Server.Common.Objects;
 using Quaver.Shared.Config;
 using Quaver.Shared.Database.Maps;
 using Quaver.Shared.Database.Scores;
@@ -11,7 +11,7 @@ using Quaver.Shared.Graphics;
 using Quaver.Shared.Graphics.Form.Dropdowns.RightClick;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Helpers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Loading;
 using Quaver.Shared.Screens.Results;
 using Quaver.Shared.Screens.Selection.UI.Leaderboard.Dialogs;
@@ -140,12 +140,12 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
                     case SteamProfile:
                         BrowserHelper.OpenURL($"https://steamcommunity.com/profiles/{Score.SteamId}");
                         break;
-                    case AddFriend:
-                        OnlineManager.AddFriend(GetUserFromScore(Score));
-                        break;
-                    case RemoveFriend:
-                        OnlineManager.RemoveFriend(GetUserFromScore(Score));
-                        break;
+                    // case AddFriend:
+                    //     OnlineManager.AddFriend(GetUserFromScore(Score));
+                    //     break;
+                    // case RemoveFriend:
+                    //     OnlineManager.RemoveFriend(GetUserFromScore(Score));
+                    //     break;
                 }
             };
         }
@@ -158,25 +158,25 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
         {
             var options = new Dictionary<string, Color>();
 
-            if (OnlineManager.CurrentGame == null)
-            {
+            // if (OnlineManager.CurrentGame == null)
+            // {
                 options.Add(ViewResults, Color.White);
                 options.Add(WatchReplay, ColorHelper.HexToColor("#9B51E0"));
-            }
+            // }
 
-            if (score.IsOnline)
-            {
-                options.Add(DownloadReplay, ColorHelper.HexToColor("#0FBAE5"));
-                options.Add(PlayerProfile, ColorHelper.HexToColor("#27B06E"));
-                options.Add(SteamProfile, ColorHelper.HexToColor("#0787E3"));
+            // if (score.IsOnline)
+            // {
+            //     options.Add(DownloadReplay, ColorHelper.HexToColor("#0FBAE5"));
+            //     options.Add(PlayerProfile, ColorHelper.HexToColor("#27B06E"));
+            //     options.Add(SteamProfile, ColorHelper.HexToColor("#0787E3"));
 
-                if (OnlineManager.FriendsList != null && OnlineManager.FriendsList.Contains(score.PlayerId))
-                    options.Add(RemoveFriend, ColorHelper.HexToColor($"#FF6868"));
-                else
-                    options.Add(AddFriend, ColorHelper.HexToColor("#27B06E"));
+            //     if (OnlineManager.FriendsList != null && OnlineManager.FriendsList.Contains(score.PlayerId))
+            //         options.Add(RemoveFriend, ColorHelper.HexToColor($"#FF6868"));
+            //     else
+            //         options.Add(AddFriend, ColorHelper.HexToColor("#27B06E"));
 
-                return options;
-            }
+            //     return options;
+            // }
 
             options.Add(ExportReplay, ColorHelper.HexToColor("#0787E3"));
             options.Add(Delete, ColorHelper.HexToColor($"#FF6868"));
@@ -184,11 +184,11 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard.Components
             return options;
         }
 
-        private static User GetUserFromScore(Score score) => new User(new OnlineUser()
-        {
-            Id = score.PlayerId,
-            SteamId = score.SteamId,
-            Username = score.Name
-        });
+        // private static User GetUserFromScore(Score score) => new User(new OnlineUser()
+        // {
+        //     Id = score.PlayerId,
+        //     SteamId = score.SteamId,
+        //     Username = score.Name
+        // });
     }
 }

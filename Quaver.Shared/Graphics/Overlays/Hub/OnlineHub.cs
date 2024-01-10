@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Quaver.Server.Client.Handlers;
-using Quaver.Server.Client.Structures;
+// using Quaver.Server.Client.Handlers;
+// using Quaver.Server.Client.Structures;
 using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics.Menu.Border;
-using Quaver.Shared.Graphics.Overlays.Hub.Downloads;
+// using Quaver.Shared.Graphics.Overlays.Hub.Downloads;
 using Quaver.Shared.Graphics.Overlays.Hub.Notifications;
-using Quaver.Shared.Graphics.Overlays.Hub.OnlineUsers;
-using Quaver.Shared.Graphics.Overlays.Hub.SongRequests;
+// using Quaver.Shared.Graphics.Overlays.Hub.OnlineUsers;
+// using Quaver.Shared.Graphics.Overlays.Hub.SongRequests;
 using Quaver.Shared.Helpers;
 using TagLib.Id3v2;
 using Wobble;
@@ -183,9 +183,9 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
             Sections = new Dictionary<OnlineHubSectionType, OnlineHubSection>()
             {
                 {OnlineHubSectionType.Notifications, new OnlineHubSectionNotifications(this)},
-                {OnlineHubSectionType.ActiveDownloads, new OnlineHubSectionDownloads(this)},
-                {OnlineHubSectionType.OnlineUsers, new OnlineHubSectionOnlineUsers(this)},
-                {OnlineHubSectionType.SongRequests, new OnlineHubSectionSongRequests(this)}
+                // {OnlineHubSectionType.ActiveDownloads, new OnlineHubSectionDownloads(this)},
+                // {OnlineHubSectionType.OnlineUsers, new OnlineHubSectionOnlineUsers(this)},
+                // {OnlineHubSectionType.SongRequests, new OnlineHubSectionSongRequests(this)}
             };
 
             for (var i = 0; i < Sections.Count; i++)
@@ -205,7 +205,8 @@ namespace Quaver.Shared.Graphics.Overlays.Hub
                 section.Icon.X = width * (i + 1) - 56;
             }
 
-            SelectSection(Sections[OnlineHubSectionType.OnlineUsers]);
+            // SelectSection(Sections[OnlineHubSectionType.OnlineUsers]);
+            SelectSection(Sections[OnlineHubSectionType.Notifications]);
         }
 
         /// <summary>

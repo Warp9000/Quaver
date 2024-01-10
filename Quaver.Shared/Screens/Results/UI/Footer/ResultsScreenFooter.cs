@@ -3,7 +3,7 @@ using Quaver.API.Enums;
 using Quaver.Shared.Graphics.Menu.Border;
 using Quaver.Shared.Graphics.Menu.Border.Components.Buttons;
 using Quaver.Shared.Modifiers;
-using Quaver.Shared.Online;
+// using Quaver.Shared.Online;
 using Quaver.Shared.Screens.Results;
 using Wobble.Graphics;
 
@@ -20,7 +20,7 @@ namespace Quaver.Shared.Screens.Results.UI.Footer
             if (screen.Processor.Value.Mods.HasFlag(ModIdentifier.Coop))
                 return;
 
-            if (OnlineManager.CurrentGame == null)
+            // if (OnlineManager.CurrentGame == null)
             {
                 if (screen.ScreenType == ResultsScreenType.Gameplay && screen.Gameplay.LoadedReplay == null)
                     RightAlignedItems.Add(new ResultsFooterRetryButton(screen));

@@ -10,11 +10,11 @@ namespace Quaver.Shared.Screens.Selection.UI.Leaderboard
     public enum LeaderboardType
     {
         Local,
-        Global,
-        Mods,
-        Country,
-        Rate,
-        Friends,
-        All
+        // Global,
+        // Mods,
+        // Country,
+        // Rate,
+        // Friends,
+        // All
     }
 }

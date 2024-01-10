@@ -2,7 +2,7 @@ using Quaver.Shared.Assets;
 using Quaver.Shared.Graphics.Menu.Border.Components;
 using Quaver.Shared.Graphics.Notifications;
 using Quaver.Shared.Screens.Main;
-using Quaver.Shared.Screens.Tournament;
+// using Quaver.Shared.Screens.Tournament;
 using Wobble.Managers;
 
 namespace Quaver.Shared.Screens.Theater.UI.Footer
@@ -18,7 +18,7 @@ namespace Quaver.Shared.Screens.Theater.UI.Footer
                     return;
                 }
 
-                screen.Exit(() => new TournamentScreen(screen.Replays));
+                // screen.Exit(() => new TournamentScreen(screen.Replays));
             })
         {
         }
