@@ -354,7 +354,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
             Receptors = new List<Sprite>();
             ColumnLightingObjects = new List<ColumnLighting>();
 
-            var scratchLaneLeft = Screen.Map.Mode == GameMode.Keys4 ? ConfigManager.ScratchLaneLeft4K.Value : ConfigManager.ScratchLaneLeft7K.Value;
+            var scratchLaneLeft = (int)Screen.Map.Mode % 2 == 0 ? ConfigManager.ScratchLaneLeft4K.Value : ConfigManager.ScratchLaneLeft7K.Value;
 
             // Go through and create the receptors and column lighting objects.
             for (var i = 0; i < Screen.Map.GetKeyCount(Screen.Map.HasScratchKey); i++)
@@ -544,7 +544,7 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.Playfield
         private void CreateJudgementHitBurst()
         {
             var skin = SkinManager.Skin.Keys[Screen.Map.Mode];
-            JudgementHitBursts = new List<JudgementHitBurst>(); 
+            JudgementHitBursts = new List<JudgementHitBurst>();
 
             // Default the frames to miss.
             var frames = SkinManager.Skin.Judgements[Judgement.Miss];

@@ -113,12 +113,12 @@ namespace Quaver.Shared.Database.Maps
 
                 foreach (var map in maps)
                 {
-                    var target = map.Mode switch
-                    {
-                        GameMode.Keys4 => target4K,
-                        GameMode.Keys7 => target7K,
-                        _ => throw new InvalidOperationException("Map is an invalid game mode")
-                    };
+                    double target;
+
+                    if ((int)map.Mode % 2 == 0)
+                        target = target4K;
+                    else
+                        target = target7K;
 
                     double delta = Math.Abs(map.DifficultyFromMods(mods) - target);
 

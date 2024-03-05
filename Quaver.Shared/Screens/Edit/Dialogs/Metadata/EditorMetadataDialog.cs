@@ -222,16 +222,9 @@ namespace Quaver.Shared.Screens.Edit.Dialogs.Metadata
 
             WorkingMap.Mode = GameMode.SelectedMode;
 
-            // Remove all objects that are above lane 4
-            if (WorkingMap.Mode == API.Enums.GameMode.Keys4)
-                WorkingMap.HitObjects.RemoveAll(x => x.Lane > 4);
-
-            // 7K+1
             WorkingMap.HasScratchKey = GameMode.Dropdown.SelectedIndex == EditorMetadataModeDropdown.Keys7Plus1Index;
 
-            // Remove any objects that are in the scratch lane (8) if going from scratch to no-scratch
-            if (!WorkingMap.HasScratchKey)
-                WorkingMap.HitObjects.RemoveAll(x => x.Lane > 7);
+            WorkingMap.HitObjects.RemoveAll(x => x.Lane > WorkingMap.GetKeyCount() + (WorkingMap.HasScratchKey ? 1 : 0));
 
             Screen.Exit(() =>
             {

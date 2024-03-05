@@ -281,6 +281,14 @@ namespace Quaver.Shared.Screens.Options
                 {
                     new OptionsSubcategory("Gameplay", new List<OptionsItem>()
                     {
+                        new OptionsItemKeybindMultiple(containerRect, "Other Gameplay Layout", ConfigManager.OtherManiaKeys)
+                        {
+                            Tags = new List<string> {"keybind", "keyboard", "keys"}
+                        },
+                        new OptionsItemKeybindMultiple(containerRect, "Other Gameplay Layout Player 2", ConfigManager.OtherManiaKeys2P)
+                        {
+                            Tags = new List<string> {"keybind", "keyboard", "keys"}
+                        },
                         new OptionsItemKeybindMultiple(containerRect, "4K Gameplay Layout", new List<Bindable<GenericKey>>()
                         {
                             ConfigManager.KeyMania4K1,

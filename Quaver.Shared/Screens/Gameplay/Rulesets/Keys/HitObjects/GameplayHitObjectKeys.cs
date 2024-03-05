@@ -582,6 +582,26 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Keys.HitObjects
                     }
 
                     break;
+                    default:
+                        switch (lane % 7)
+                        {
+                            case 0:
+                                return 90;
+                            case 1:
+                                return 135;
+                            case 2:
+                                return 180;
+                            case 3:
+                                // Already downwards
+                                break;
+                            case 4:
+                                return 180;
+                            case 5:
+                                return 225;
+                            case 6:
+                                return 270;
+                        }
+                        break;
             }
 
             return 0;

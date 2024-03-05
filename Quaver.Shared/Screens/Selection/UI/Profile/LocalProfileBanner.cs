@@ -202,19 +202,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
 
             ModeButton.Clicked += (sender, args) =>
             {
-                GameMode mode;
-
-                switch (ActiveMode)
-                {
-                    case GameMode.Keys4:
-                        mode = GameMode.Keys7;
-                        break;
-                    case GameMode.Keys7:
-                        mode = GameMode.Keys4;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                var mode = ActiveMode;
 
                 if (ConfigManager.SelectedGameMode != null)
                     ConfigManager.SelectedGameMode.Value = mode;
@@ -286,7 +274,7 @@ namespace Quaver.Shared.Screens.Selection.UI.Profile
                 case GameMode.Keys7:
                     return UserInterface.Mode7KOn;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return UserInterface.Mode4KOn;
             }
         }
     }

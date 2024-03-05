@@ -452,8 +452,10 @@ namespace Quaver.Shared.Screens.Selection.UI.Mapsets
                 return SkinManager.Skin?.SongSelect?.GameMode4K ?? UserInterface.Keys4Panel;
             if (has7K && !has4k)
                 return SkinManager.Skin?.SongSelect?.GameMode7K ?? UserInterface.Keys7Panel;
+            if (has4k && has7K)
+                return SkinManager.Skin?.SongSelect?.GameMode4K7K ?? UserInterface.BothModesPanel;
 
-            return SkinManager.Skin?.SongSelect?.GameMode4K7K ?? UserInterface.BothModesPanel;
+            return UserInterface.KeysNonePanel;
         }
 
         /// <summary>

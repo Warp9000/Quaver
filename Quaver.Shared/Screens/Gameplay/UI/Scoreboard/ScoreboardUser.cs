@@ -180,6 +180,7 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
             {
                 case GameMode.Keys4:
                 case GameMode.Keys7:
+                default:
                     if (screen.IsMultiplayerGame && Type == ScoreboardUserType.Other)
                     {
                         var mp = new ScoreProcessorMultiplayer((MultiplayerHealthType) OnlineManager.CurrentGame.HealthType, OnlineManager.CurrentGame.Lives);
@@ -188,8 +189,6 @@ namespace Quaver.Shared.Screens.Gameplay.UI.Scoreboard
                     else
                         Processor = Type == ScoreboardUserType.Other ? new ScoreProcessorKeys(Screen.Map, mods): Screen.Ruleset.ScoreProcessor;
                     break;
-                default:
-                    throw new InvalidEnumArgumentException();
             }
 
             // Create avatar

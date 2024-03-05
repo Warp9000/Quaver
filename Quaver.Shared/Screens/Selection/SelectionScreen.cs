@@ -562,10 +562,9 @@ namespace Quaver.Shared.Screens.Selection
                     scrollSpeed = ConfigManager.ScrollSpeed4K;
                     break;
                 case GameMode.Keys7:
+                default:
                     scrollSpeed = ConfigManager.ScrollSpeed7K;
                     break;
-                default:
-                    return;
             }
 
             var changed = false;

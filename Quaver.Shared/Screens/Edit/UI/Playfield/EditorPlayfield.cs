@@ -128,21 +128,7 @@ namespace Quaver.Shared.Screens.Edit.UI.Playfield
         ///     The size of each column in the playfield
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public int ColumnSize
-        {
-            get
-            {
-                switch (Map.Mode)
-                {
-                    case GameMode.Keys4:
-                        return 74;
-                    case GameMode.Keys7:
-                        return 70;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+        public int ColumnSize => 78 - (int)Map.Mode;
 
         /// <summary>
         /// </summary>

@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Quaver.API.Enums;
 using Quaver.API.Maps.Processors.Scoring;
 using Quaver.API.Maps.Processors.Scoring.Data;
@@ -366,17 +367,10 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
             var speedIncrease = KeyboardManager.IsCtrlDown() ? 1 : 10;
             BindableInt scrollSpeed;
 
-            switch (Ruleset.Screen.Map.Mode)
-            {
-                case GameMode.Keys4:
-                    scrollSpeed = ConfigManager.ScrollSpeed4K;
-                    break;
-                case GameMode.Keys7:
-                    scrollSpeed = ConfigManager.ScrollSpeed7K;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            if ((int)Ruleset.Screen.Map.Mode % 2 == 0)
+                scrollSpeed = ConfigManager.ScrollSpeed4K;
+            else
+                scrollSpeed = ConfigManager.ScrollSpeed7K;
 
             if (KeyboardManager.IsUniqueKeyPress(ConfigManager.KeyIncreaseScrollSpeed.Value))
                 scrollSpeed.Value += speedIncrease;
@@ -463,7 +457,14 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
                     }
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+                    BindingStore = ConfigManager.OtherManiaKeys.Aggregate(new List<InputBindingKeys>(), (current, key) =>
+                    {
+                        if (current.Count == (int)Ruleset.Mode)
+                            return current;
+                        current.Add(new InputBindingKeys(key));
+                        return current;
+                    });
+                    break;
             }
         }
 
@@ -497,7 +498,14 @@ namespace Quaver.Shared.Screens.Gameplay.Rulesets.Input
                     };
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+                    BindingStore = ConfigManager.OtherManiaKeys2P.Aggregate(new List<InputBindingKeys>(), (current, key) =>
+                    {
+                        if (current.Count == (int)Ruleset.Mode)
+                            return current;
+                        current.Add(new InputBindingKeys(key));
+                        return current;
+                    });
+                    break;
             }
         }
     }

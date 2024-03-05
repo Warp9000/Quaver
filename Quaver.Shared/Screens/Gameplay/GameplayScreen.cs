@@ -644,15 +644,7 @@ namespace Quaver.Shared.Screens.Gameplay
         /// </summary>
         private void SetRuleset()
         {
-            switch (Map.Mode)
-            {
-                case GameMode.Keys4:
-                case GameMode.Keys7:
-                    Ruleset = new GameplayRulesetKeys(this, Map);
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException();
-            }
+            Ruleset = new GameplayRulesetKeys(this, Map);
         }
 
         /// <summary>

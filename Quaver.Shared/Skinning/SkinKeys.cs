@@ -84,17 +84,7 @@ namespace Quaver.Shared.Skinning
             {Judgement.Miss, new Color(255, 0, 0)}
         };
 
-        internal List<Color> ColumnColors { get; private set; } = new List<Color>()
-        {
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-            Color.Transparent,
-        };
+        internal List<Color> ColumnColors { get; private set; } = Enumerable.Repeat(Color.Transparent, GameModeConsts.MaxKeys).ToList();
 
         internal float BgMaskAlpha { get; private set;  }
 
@@ -679,9 +669,9 @@ namespace Quaver.Shared.Skinning
         /// </summary>
         private void LoadLaneSpecificElements()
         {
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < GameModeConsts.MaxKeys; i++)
             {
-                if (i == 5 && Mode == GameMode.Keys4)
+                if (i == (int)Mode + 1)
                     break;
 
                 // Column Colors

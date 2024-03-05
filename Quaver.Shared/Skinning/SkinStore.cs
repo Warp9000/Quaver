@@ -279,11 +279,9 @@ namespace Quaver.Shared.Skinning
             LoadConfig();
 
             // Load up Keys game mode skins.
-            Keys = new Dictionary<GameMode, SkinKeys>
-            {
-                {GameMode.Keys4, new SkinKeys(this, GameMode.Keys4)},
-                {GameMode.Keys7, new SkinKeys(this, GameMode.Keys7)}
-            };
+            Keys = new Dictionary<GameMode, SkinKeys>();
+            for (var i = 1; i <= GameModeConsts.MaxKeys; i++)
+                Keys[(GameMode)i] = new SkinKeys(this, (GameMode)i);
 
 
             try

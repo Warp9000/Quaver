@@ -6,6 +6,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -704,6 +705,9 @@ namespace Quaver.Shared.Config
         internal static Bindable<GenericKey> KeyLayout7KScratch8 { get; private set; }
         internal static Bindable<GenericKey> KeyLayout7KScratch9 { get; private set; }
 
+        internal static List<Bindable<GenericKey>> OtherManiaKeys { get; private set; }
+        internal static List<Bindable<GenericKey>> OtherManiaKeys2P { get; private set; }
+
         /// <summary>
         ///     The key pressed to pause and menu-back.
         /// </summary>
@@ -978,6 +982,18 @@ namespace Quaver.Shared.Config
             KeyLayout7KScratch7 = ReadGenericKey(@"KeyLayout7KScratch7", new GenericKey { KeyboardKey = Keys.L }, data);
             KeyLayout7KScratch8 = ReadGenericKey(@"KeyLayout7KScratch8", new GenericKey { KeyboardKey = Keys.CapsLock }, data);
             KeyLayout7KScratch9 = ReadGenericKey(@"KeyLayout7KScratch9", new GenericKey { KeyboardKey = Keys.OemColon }, data);
+
+            OtherManiaKeys = new List<Bindable<GenericKey>>();
+            for (var i = 0; i < GameModeConsts.MaxKeys; i++)
+            {
+                OtherManiaKeys.Add(ReadGenericKey($"OtherKeyMania{i}", new GenericKey { KeyboardKey = Keys.None }, data));
+            }
+
+            OtherManiaKeys2P = new List<Bindable<GenericKey>>();
+            for (var i = 0; i < GameModeConsts.MaxKeys; i++)
+            {
+                OtherManiaKeys2P.Add(ReadGenericKey($"OtherKeyMania2P{i}", new GenericKey { KeyboardKey = Keys.None }, data));
+            }
 
             KeySkipIntro = ReadGenericKey(@"KeySkipIntro", new GenericKey { KeyboardKey = Keys.Space }, data);
             KeyPause = ReadGenericKey(@"KeyPause", new GenericKey { KeyboardKey = Keys.Escape }, data);

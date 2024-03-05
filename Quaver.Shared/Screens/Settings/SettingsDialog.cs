@@ -394,6 +394,8 @@ namespace Quaver.Shared.Screens.Settings
                 // Input
                 new SettingsSection(this, FontAwesome.Get(FontAwesomeIcon.fa_keyboard), "Input", new List<Drawable>
                 {
+                    new SettingsKeybindMultiple(this, "Gameplay Layout Other", ConfigManager.OtherManiaKeys),
+                    new SettingsKeybindMultiple(this, "Gameplay Layout Other Player 2", ConfigManager.OtherManiaKeys2P),
                     new SettingsKeybindMultiple(this, "Gameplay Layout (4 Keys)", new List<Bindable<GenericKey>>
                     {
                         ConfigManager.KeyMania4K1,
